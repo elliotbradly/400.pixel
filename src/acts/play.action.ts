@@ -1,0 +1,12 @@
+export const INIT_PLAY = "[Play action] Init Play";
+export const UPDATE_PLAY = "[Play action] Update Play";
+export const OPEN_PLAY = "[Open action] Open Play";
+export const RUN_PLAY = "[Run action] Run Play";
+export const EDIT_PLAY = "[Edit action] Edit Play";
+export const PATCH_PLAY = "[Patch action] Patch Play"
+export const START_PLAY = "[Start action] Start Play";
+export const READ_PLAY = "[Read action] Read Play";
+export const WRITE_PLAY = "[Write action] Write Play";
+export const REMOVE_PLAY = "[Remove action] Remove Play";
+export const CREATE_PLAY = "[Create action] Create Play";
+export const DELETE_PLAY = "[Delete action] Delete Play";
