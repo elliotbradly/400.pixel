@@ -21,5 +21,12 @@ export const OPEN_PIXEL = "[Open action] Open Pixel";
  constructor(public bale: PixelBit) {}
  }
  
+export const PROCESS_PIXEL = "[Process action] Process Pixel";
+ export class ProcessPixel implements Action {
+ readonly type = PROCESS_PIXEL;
+ constructor(public bale: PixelBit) {}
+ }
+ 
 export type Actions = | InitPixel | UpdatePixel 
 | OpenPixel
+| ProcessPixel

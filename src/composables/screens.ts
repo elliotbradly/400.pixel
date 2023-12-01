@@ -8,19 +8,21 @@ import * as ActSpr from '../110.shade/06.sprite.unit/sprite.action'
 import * as ActHex from '../110.shade/07.hexagon.unit/hexagon.action'
 import * as ActFcg from '../110.shade/08.focigon.unit/focigon.action'
 
+import * as ActPxl from '../../400.pixel/00.pixel.unit/pixel.action'
+
 export type HelloWorld = string | number
 
 export const render = async (value: HelloWorld) => {
 
-  var bit = await window['electronAPI'].listFocus('avas')
-  var toot = JSON.parse(bit)
-  var list = toot.focBit.lst
+  //var bit = await window['electronAPI'].listFocus('avas')
+  //var toot = JSON.parse(bit)
+  //var list = toot.focBit.lst
 
-  list.forEach(async (a, b) => {
-    var focus = a;
-    console.log("po " + a.idx)
-    bit = await SHADE['hunt'](ActFcg.WRITE_FOCIGON, { idx: focus.idx, dat: { src: 'gph01', clr: 0x0FF000, sze: 111, fce: focus.face, bit: focus } })
-  })
+ // list.forEach(async (a, b) => {
+ //   var focus = a;
+  //  console.log("po " + a.idx)
+  //  bit = await SHADE['hunt'](ActFcg.WRITE_FOCIGON, { idx: focus.idx, dat: { src: 'gph01', clr: 0x0FF000, sze: 111, fce: focus.face, bit: focus } })
+ // })
 
 }
 
@@ -31,7 +33,7 @@ export const mount = async (value: HelloWorld) => {
   const instance = getCurrentInstance();
   const SHADE = inject('SHADE')
 
-  var bit = await SHADE['hunt'](ActVsg.MOUNT_VISAGE, { idx: "vsg00", src: "indexCanvas", dat: {} });
+  var bit = await SHADE['hunt'](ActVsg.MOUNT_VISAGE, { idx: "vsg00", src: "indexCanvas", dat: {width:960, height:960} });
   instance?.proxy?.$forceUpdate();
 
   return value
@@ -43,9 +45,10 @@ export const update = async (value: HelloWorld) => {
 
   const instance = getCurrentInstance();
   const SHADE = inject('SHADE')
+  const PIXEL = inject('PIXEL')
 
   var bit = await SHADE['hunt'](ActVsg.REMOVE_VISAGE, { idx: "vsg00" })
-  bit = await SHADE['hunt'](ActVsg.MOUNT_VISAGE, { idx: "vsg00", src: "indexCanvas", dat: {} })
+  bit = await SHADE['hunt'](ActVsg.MOUNT_VISAGE, { idx: "vsg00", src: "indexCanvas", dat: {width:960, height:960} })
 
   bit = await SHADE['hunt'](ActVsg.READ_VISAGE, { idx: "vsg00" })
 
@@ -70,6 +73,10 @@ export const update = async (value: HelloWorld) => {
 
   bit = await SHADE['hunt']( ActSpr.WRITE_SPRITE, { idx:'spr00', dat: { src:'./img/000.png',  x:0, y:0 }  })
   bit = await SHADE['hunt']( ActCan.ADD_CONTAINER, { idx: "can00",  dat:{bit:bit.sprBit.dat.bit }})
+
+
+  bit = await PIXEL['hunt']( ActPxl.PROCESS_PIXEL, { src:'indexCanvas'})
+
 
   //bit = await SHADE['hunt'](ActGph.WRITE_GRAPHIC, { idx: 'gph00', dat: { h: 100, w: 40, x: 40, y: 40 } })
   //bit = await SHADE['hunt'](ActCan.ADD_CONTAINER, { idx: "can00", dat: { bit: bit.gphBit.dat.bit } })

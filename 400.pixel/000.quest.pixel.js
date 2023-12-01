@@ -1,5 +1,5 @@
-global.CONTROL = require("../dist/111.control/hunt");
-global.CONTROL.ActCtl = require("../dist/111.control/00.control.unit/control.action");
+global.PIXEL = require("../dist/400.pixel/hunt");
+global.PIXEL.ActPxl = require("../dist/400.pixel/00.pixel.unit/pixel.action");
 
 
 

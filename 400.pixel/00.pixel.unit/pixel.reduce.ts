@@ -16,6 +16,9 @@ export function reducer(model: PixelModel = new PixelModel(), act: Act.Actions, 
 case Act.OPEN_PIXEL:
  return Buzz.openPixel(clone(model), act.bale, state);
  
+case Act.PROCESS_PIXEL:
+ return Buzz.processPixel(clone(model), act.bale, state);
+ 
  default:
  return model;
  }

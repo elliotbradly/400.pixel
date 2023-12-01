@@ -18,6 +18,8 @@ export default boot(async (dat) => {
 
   var win: any = window;
   dat.app.provide("SHADE", win.SHADE);
+  dat.app.provide("PIXEL", win.PIXEL);
+
   dat.app.provide("MQTT", win.MQTT);
 
   dat.app.config.globalProperties.$bus = bus
@@ -32,6 +34,11 @@ export default boot(async (dat) => {
   const localBit = { idx: "local", src: local };
 
   var bit = await win.SHADE.hunt(win.SHADE.ActShd.INIT_SHADE, {
+    val: 0,
+    src: local,
+  });
+
+  var bit = await win.PIXEL.hunt(win.PIXEL.ActPxl.INIT_PIXEL, {
     val: 0,
     src: local,
   });
