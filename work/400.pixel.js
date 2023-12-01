@@ -70,11 +70,10 @@ var update = function () {
     return data;
 };
 const processPixel = (cpy, bal, ste) => {
-    debugger;
     var convert = require('color-convert');
-    var cv = document.getElementById(bal.src);
-    var ctx = cv['getContext']('2d');
-    const data = ctx.createImageData(960, 960);
+    //var cv = document.getElementById(bal.src);
+    //var ctx = cv['getContext']('2d');
+    const data = bal.dat;
     var source = data;
     var width = source.width;
     var height = source.height;
@@ -84,7 +83,6 @@ const processPixel = (cpy, bal, ste) => {
     var count = 0;
     var pix = 0;
     var filter = 13;
-    debugger;
     //name = SLUG(fileSRC)
     //trace("do you have a name " + name)
     //var fileFix = SLUG(name) + '.txt';
@@ -93,33 +91,24 @@ const processPixel = (cpy, bal, ste) => {
     //trace("STARTING MAP " + fileSRC)
     //total = height
     var allTogetherNow = width * height;
-    debugger;
     var pixelGo = Math.floor(allTogetherNow * .01);
     var pixelNo = Math.floor(allTogetherNow * .9);
     var dat;
-    debugger;
     for (var y = 0; y < height; y++) {
-        debugger;
-        if (y % pix != 0)
-            continue;
+        // if (y % pix != 0) continue
         count = y;
-        debugger;
         for (var x = 0; x < width; x++) {
             //if (x % pix != 0) continue
             update();
-            debugger;
             var now = colorRead(source, x, y);
-            if (now[3] <= 4)
-                continue; //high alpha
+            //    if (now[3] <= 4) continue //high alpha
             pixels += 1;
-            var lightLimit = 3;
+            //  var lightLimit = 3;
             //if ( pixels < pixelGo ) continue;
             //if ( pixels > pixelNo ) continue;
             //hides white
-            if ((now[0] >= 255 - lightLimit) && (now[1] >= 255 - lightLimit) && (now[2] >= 255 - lightLimit))
-                continue;
+            //if ((now[0] >= 255 - lightLimit) && (now[1] >= 255 - lightLimit) && (now[2] >= 255 - lightLimit)) continue
             var id = convert.rgb.hex(now[0], now[1], now[2]);
-            debugger;
             //trace("before " + id )
             //     var id = convert.rgb.hex(now[0], now[1], now[2]);
             if (colors[id] != null) {
@@ -148,6 +137,7 @@ const processPixel = (cpy, bal, ste) => {
     colorList.sort(function (a, b) { return a[2] - b[2]; });
     colorList.sort(function (a, b) { return (a[0] + a[1] + a[2]) - (b[0] + b[1] + b[2]); });
     var scolorList = colorList.reverse();
+    debugger;
     var temp = [];
     colorList.forEach((i, x) => {
         if (x % filter == 1)

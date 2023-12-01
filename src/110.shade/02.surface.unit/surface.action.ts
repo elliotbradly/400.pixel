@@ -51,6 +51,12 @@ export const DELETE_SURFACE = "[Delete action] Delete Surface";
  constructor(public bale: SurfaceBit) {}
  }
  
+export const EXTRACT_SURFACE = "[Extract action] Extract Surface";
+ export class ExtractSurface implements Action {
+ readonly type = EXTRACT_SURFACE;
+ constructor(public bale: SurfaceBit) {}
+ }
+ 
 export type Actions = | InitSurface | UpdateSurface 
 | ReadSurface
 | WriteSurface
@@ -58,3 +64,4 @@ export type Actions = | InitSurface | UpdateSurface
 | DimensionSurface
 | DeleteSurface
 | RemoveSurface
+| ExtractSurface

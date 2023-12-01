@@ -81,15 +81,15 @@ var update = function () {
 
 
 
-export const processPixel = (cpy: PixelModel, bal:PixelBit, ste: State) => {
-
-  debugger
+export const processPixel = (cpy: PixelModel, bal: PixelBit, ste: State) => {
 
   var convert = require('color-convert');
 
-  var cv = document.getElementById(bal.src);
-  var ctx = cv['getContext']('2d');
-  const data = ctx.createImageData(960, 960);
+  //var cv = document.getElementById(bal.src);
+  //var ctx = cv['getContext']('2d');
+
+  const data = bal.dat;
+
   var source = data;
   var width = source.width;
   var height = source.height;
@@ -102,7 +102,7 @@ export const processPixel = (cpy: PixelModel, bal:PixelBit, ste: State) => {
 
   var filter = 13;
 
-  debugger
+
 
   //name = SLUG(fileSRC)
 
@@ -118,45 +118,38 @@ export const processPixel = (cpy: PixelModel, bal:PixelBit, ste: State) => {
 
   var allTogetherNow = width * height;
 
-  debugger
-
-  var pixelGo = Math.floor( allTogetherNow * .01)
-  var pixelNo = Math.floor( allTogetherNow * .9)
+  var pixelGo = Math.floor(allTogetherNow * .01)
+  var pixelNo = Math.floor(allTogetherNow * .9)
 
   var dat;
 
-  debugger
   for (var y = 0; y < height; y++) {
 
-    debugger
-
-    if (y % pix != 0) continue
+    // if (y % pix != 0) continue
 
     count = y;
-
-    debugger
 
     for (var x = 0; x < width; x++) {
 
       //if (x % pix != 0) continue
 
       update()
-      debugger
 
       var now = colorRead(source, x, y);
-      if (now[3] <= 4) continue //high alpha
+
+      //    if (now[3] <= 4) continue //high alpha
 
       pixels += 1;
 
-      var lightLimit = 3;
+      //  var lightLimit = 3;
 
       //if ( pixels < pixelGo ) continue;
       //if ( pixels > pixelNo ) continue;
       //hides white
-      if ((now[0] >= 255 - lightLimit) && (now[1] >= 255 - lightLimit) && (now[2] >= 255 - lightLimit)) continue
+      //if ((now[0] >= 255 - lightLimit) && (now[1] >= 255 - lightLimit) && (now[2] >= 255 - lightLimit)) continue
 
       var id = convert.rgb.hex(now[0], now[1], now[2]);
-      debugger
+
       //trace("before " + id )
 
       //     var id = convert.rgb.hex(now[0], now[1], now[2]);
@@ -195,12 +188,13 @@ export const processPixel = (cpy: PixelModel, bal:PixelBit, ste: State) => {
   colorList.sort(function (a, b) { return (a[0] + a[1] + a[2]) - (b[0] + b[1] + b[2]) });
 
   var scolorList = colorList.reverse();
+  debugger
 
   var temp = [];
-  colorList.forEach( ( i, x ) =>{
-    if (x % filter == 1 ) return
-    temp.push( i )
-  } )
+  colorList.forEach((i, x) => {
+    if (x % filter == 1) return
+    temp.push(i)
+  })
 
   //here you go
   //var arm0 = fate.style[fate.pass].range[0]
@@ -229,29 +223,29 @@ export const processPixel = (cpy: PixelModel, bal:PixelBit, ste: State) => {
     pixelList.push(JSON.stringify(data))
   })
 
-//  var neoPixelList = []
-//   var neoColorList = []
+  //  var neoPixelList = []
+  //   var neoColorList = []
 
-//  the world has you so wrapped up in your skin color
-//  you can not think of anything else
+  //  the world has you so wrapped up in your skin color
+  //  you can not think of anything else
 
-//    var go = MATH.floor( neoPixelList * .33  )
-//    var no = MATH.floor( neoPixelList * .55 )
+  //    var go = MATH.floor( neoPixelList * .33  )
+  //    var no = MATH.floor( neoPixelList * .55 )
 
-//    colorList.forEach( ( a , b ) =>{
+  //    colorList.forEach( ( a , b ) =>{
 
-//     if ( b < go ) return
-//     if ( b > no ) return
+  //     if ( b < go ) return
+  //     if ( b > no ) return
 
-//     neoColorList.push( a )
-//     neoPixelList.push( pixelList[ b ] )
+  //     neoColorList.push( a )
+  //     neoPixelList.push( pixelList[ b ] )
 
   //})
 
   //trace("DO YU HAVE AY HINK " + )
 
-// pixelList = neoPixelList;
-//  colorList = neoColorList;
+  // pixelList = neoPixelList;
+  //  colorList = neoColorList;
 
   var pxlFile = '';
   var clrFile = '';
@@ -276,60 +270,60 @@ export const processPixel = (cpy: PixelModel, bal:PixelBit, ste: State) => {
 
   colorList.forEach((i, dex) => {
 
-//    if ( palette == null ) return colorList[dex] = JSON.stringify('[' + i[0] + ',' + i[1] + ',' + i[2] + ']')
+    //    if ( palette == null ) return colorList[dex] = JSON.stringify('[' + i[0] + ',' + i[1] + ',' + i[2] + ']')
 
- //   var hex = convert.rgb.hex( i[0], i[1], i[2] );
+    //   var hex = convert.rgb.hex( i[0], i[1], i[2] );
 
- //   var reduce = [];
- //   for (var i = 0; i < 111; i++) {
- //     reduce.push( palette[ FATE.integer({ min: 0, max: palette.length }) ])
- //   }
+    //   var reduce = [];
+    //   for (var i = 0; i < 111; i++) {
+    //     reduce.push( palette[ FATE.integer({ min: 0, max: palette.length }) ])
+    //   }
 
- //   var colorNEO = findNearest2( hex, reduce );
+    //   var colorNEO = findNearest2( hex, reduce );
 
- //   var end = convert.hex.rgb( colorNEO );
- //   return  colorList[dex] = JSON.stringify('[' + end[0] + ',' + end[1] + ',' + end[2] + ']')
+    //   var end = convert.hex.rgb( colorNEO );
+    //   return  colorList[dex] = JSON.stringify('[' + end[0] + ',' + end[1] + ',' + end[2] + ']')
 
- //   if ( ( lighten == null ) && ( darken == null ) && ( saturate == null ) && ( desaturate == null ) && ( rotate == null ) ) return  colorList[dex] = JSON.stringify('[' + end[0] + ',' + end[1] + ',' + end[2] + ']')
+    //   if ( ( lighten == null ) && ( darken == null ) && ( saturate == null ) && ( desaturate == null ) && ( rotate == null ) ) return  colorList[dex] = JSON.stringify('[' + end[0] + ',' + end[1] + ',' + end[2] + ']')
 
- //   var color = Color( {r: end[0], g: end[1], b: end[2] } )
+    //   var color = Color( {r: end[0], g: end[1], b: end[2] } )
 
- //   if ( lighten != null ) color.lighten( lighten )
- //   if ( darken != null ) color.darken( darken )
- //   if ( saturate != null ) color.saturate( saturate )
- //   if ( desaturate != null ) color.desaturate( desaturate )
- //   if ( rotate != null ) color.rotate( rotate )
+    //   if ( lighten != null ) color.lighten( lighten )
+    //   if ( darken != null ) color.darken( darken )
+    //   if ( saturate != null ) color.saturate( saturate )
+    //   if ( desaturate != null ) color.desaturate( desaturate )
+    //   if ( rotate != null ) color.rotate( rotate )
 
- //   end = color.rgb()
+    //   end = color.rgb()
 
-  //  colorList[dex] = JSON.stringify('[' + end.r + ',' + end.g + ',' + end.b + ']')
+    //  colorList[dex] = JSON.stringify('[' + end.r + ',' + end.g + ',' + end.b + ']')
 
     //trace("paletting " + dex +' / ' + colorList.length )
 
   })
 
 
- // var packet = {};
- // packet.dat = head;
- // packet.pxl = pixelList;
- // packet.clr = colorList;
+  // var packet = {};
+  // packet.dat = head;
+  // packet.pxl = pixelList;
+  // packet.clr = colorList;
 
- // head.save = pathMap;
- // pixelList.unshift(JSON.stringify(head))
+  // head.save = pathMap;
+  // pixelList.unshift(JSON.stringify(head))
 
- // head.save = pathClr;
- // colorList.unshift(JSON.stringify(head))
+  // head.save = pathClr;
+  // colorList.unshift(JSON.stringify(head))
 
- // FS.writeFileSync(pathMap, pixelList.join('\n'))
- // FS.writeFileSync(pathClr, colorList.join('\n'))
+  // FS.writeFileSync(pathMap, pixelList.join('\n'))
+  // FS.writeFileSync(pathClr, colorList.join('\n'))
 
- // trace("path map " + pathMap)
- // trace("path clr " + pathClr)
+  // trace("path map " + pathMap)
+  // trace("path clr " + pathClr)
 
- // SIGH.emit(E.MAP_IMAGE_COMPLETE, head)
+  // SIGH.emit(E.MAP_IMAGE_COMPLETE, head)
 
   return cpy;
-  };
+};
 
 
 

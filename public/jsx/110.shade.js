@@ -57,15 +57,16 @@ const initShade = async (cpy, bal, ste) => {
 exports.initShade = initShade;
 const openShade = async (cpy, bal, ste) => {
     //we need to move a whole directory over
-    bit = await ste.bus(ActDsk.COPY_DISK, { src: './vue', idx: '../gillisse/src' });
-    bit = await ste.hunt(ActShd.RUN_SHADE, {});
-    const open = require('open');
-    var loc = './vrt.opn.bat';
-    bit = await open(loc);
-    setTimeout(() => {
+    //bit = await ste.bus(ActDsk.COPY_DISK, { src: './vue', idx: '../gillisse/src' })
+    //bit = await ste.hunt(ActShd.RUN_SHADE, {})
+    //const open = require('open')
+    //var loc = './vrt.opn.bat'
+    //bit = await open(loc)
+    const { exec } = require('child_process');
+    exec('npx quasar dev -m electron', async (err, stdout, stderr) => {
         if (bal.slv != null)
-            bal.slv({ shdBit: { idx: "open-shade" } });
-    }, 33);
+            bal.slv({ shdBit: { idx: "open-shade", dat: {} } });
+    });
     return cpy;
 };
 exports.openShade = openShade;
@@ -944,7 +945,7 @@ exports.default = VisageUnit;
 },{"../99.core/state":101,"typescript-ioc":717}],14:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.dimensionSurface = exports.deleteSurface = exports.createSurface = exports.removeSurface = exports.writeSurface = exports.readSurface = exports.updateSurface = exports.initSurface = void 0;
+exports.extractSurface = exports.dimensionSurface = exports.deleteSurface = exports.createSurface = exports.removeSurface = exports.writeSurface = exports.readSurface = exports.updateSurface = exports.initSurface = void 0;
 const ActCol = require("../../97.collect.unit/collect.action");
 const ActFce = require("../../02.surface.unit/surface.action");
 var bit, val, idx, dex, lst, dat;
@@ -1079,12 +1080,25 @@ const dimensionSurface = async (cpy, bal, ste) => {
     return cpy;
 };
 exports.dimensionSurface = dimensionSurface;
+const extractSurface = async (cpy, bal, ste) => {
+    var idx = bal.idx;
+    bit = await ste.hunt(ActFce.READ_SURFACE, { idx });
+    dat = bit.fceBit.dat;
+    var app = dat.bit;
+    var canvas = app.renderer.plugins.extract.canvas();
+    const context = canvas.getContext('2d');
+    const imgData = context.getImageData(0, 0, canvas.width, canvas.height);
+    if (bal.slv != null)
+        return bal.slv({ fceBit: { idx: "extract-surface", dat: imgData } });
+    return cpy;
+};
+exports.extractSurface = extractSurface;
 const PIXI = require("pixi.js-legacy");
 
 },{"../../02.surface.unit/surface.action":15,"../../97.collect.unit/collect.action":81,"pixi.js-legacy":681}],15:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DeleteSurface = exports.DELETE_SURFACE = exports.DimensionSurface = exports.DIMENSION_SURFACE = exports.CreateSurface = exports.CREATE_SURFACE = exports.RemoveSurface = exports.REMOVE_SURFACE = exports.WriteSurface = exports.WRITE_SURFACE = exports.ReadSurface = exports.READ_SURFACE = exports.UpdateSurface = exports.UPDATE_SURFACE = exports.InitSurface = exports.INIT_SURFACE = void 0;
+exports.ExtractSurface = exports.EXTRACT_SURFACE = exports.DeleteSurface = exports.DELETE_SURFACE = exports.DimensionSurface = exports.DIMENSION_SURFACE = exports.CreateSurface = exports.CREATE_SURFACE = exports.RemoveSurface = exports.REMOVE_SURFACE = exports.WriteSurface = exports.WRITE_SURFACE = exports.ReadSurface = exports.READ_SURFACE = exports.UpdateSurface = exports.UPDATE_SURFACE = exports.InitSurface = exports.INIT_SURFACE = void 0;
 // Surface actions
 exports.INIT_SURFACE = "[Surface action] Init Surface";
 class InitSurface {
@@ -1150,11 +1164,19 @@ class DeleteSurface {
     }
 }
 exports.DeleteSurface = DeleteSurface;
+exports.EXTRACT_SURFACE = "[Extract action] Extract Surface";
+class ExtractSurface {
+    constructor(bale) {
+        this.bale = bale;
+        this.type = exports.EXTRACT_SURFACE;
+    }
+}
+exports.ExtractSurface = ExtractSurface;
 
 },{}],16:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.removeSurface = exports.deleteSurface = exports.dimensionSurface = exports.createSurface = exports.writeSurface = exports.readSurface = exports.updateSurface = exports.initSurface = void 0;
+exports.extractSurface = exports.removeSurface = exports.deleteSurface = exports.dimensionSurface = exports.createSurface = exports.writeSurface = exports.readSurface = exports.updateSurface = exports.initSurface = void 0;
 var surface_buzz_1 = require("./buz/surface.buzz");
 Object.defineProperty(exports, "initSurface", { enumerable: true, get: function () { return surface_buzz_1.initSurface; } });
 var surface_buzz_2 = require("./buz/surface.buzz");
@@ -1171,6 +1193,8 @@ var surface_buzz_7 = require("./buz/surface.buzz");
 Object.defineProperty(exports, "deleteSurface", { enumerable: true, get: function () { return surface_buzz_7.deleteSurface; } });
 var surface_buzz_8 = require("./buz/surface.buzz");
 Object.defineProperty(exports, "removeSurface", { enumerable: true, get: function () { return surface_buzz_8.removeSurface; } });
+var surface_buzz_9 = require("./buz/surface.buzz");
+Object.defineProperty(exports, "extractSurface", { enumerable: true, get: function () { return surface_buzz_9.extractSurface; } });
 
 },{"./buz/surface.buzz":14}],17:[function(require,module,exports){
 "use strict";
@@ -1212,6 +1236,8 @@ function reducer(model = new surface_model_1.SurfaceModel(), act, state) {
             return Buzz.deleteSurface(clone(model), act.bale, state);
         case Act.REMOVE_SURFACE:
             return Buzz.removeSurface(clone(model), act.bale, state);
+        case Act.EXTRACT_SURFACE:
+            return Buzz.extractSurface(clone(model), act.bale, state);
         default:
             return model;
     }
@@ -3983,7 +4009,7 @@ const updateMenu = async (cpy, bal, ste) => {
     bit = await ste.bus(ActTrm.WRITE_TERMINAL, { src: "-----------", bit: 'local' });
     bit = await ste.bus(ActTrm.WRITE_TERMINAL, { src: "SHADE PIVOT V1.1", bit: 'local' });
     bit = await ste.bus(ActTrm.WRITE_TERMINAL, { src: "-----------", bit: "local" });
-    var lst = [ActShd.UPDATE_SHADE, ActShd.TEST_SHADE, ActShd.OPEN_SHADE,
+    var lst = [ActShd.OPEN_SHADE, ActShd.UPDATE_SHADE, ActShd.TEST_SHADE,
         ActShd.RUN_SHADE, ActShd.EDIT_SHADE, ActMnu.CONTAINER_MENU,
         ActMnu.TEXT_MENU, ActMnu.VISAGE_MENU];
     bit = await ste.bus(ActTrm.UPDATE_TERMINAL, { lst });
