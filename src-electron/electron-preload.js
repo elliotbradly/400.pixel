@@ -4,6 +4,7 @@ const { contextBridge, ipcRenderer } = require('electron');
 contextBridge.exposeInMainWorld('electronAPI', {
   openFile: () => ipcRenderer.invoke('dialog:openFile'),
   readColor: (idx)=> ipcRenderer.invoke('light:readColor', idx),
+  saveImage: (dat)=> ipcRenderer.invoke('pixel:saveImage', dat),
 
   openGame: ()=> ipcRenderer.invoke('game:openGame'),
   shapeHexmap: ()=> ipcRenderer.invoke('space:shapeHexmap'),

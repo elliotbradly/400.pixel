@@ -89,14 +89,35 @@ export const update = async (value: HelloWorld) => {
     dat = bit.pixBit.dat;
     lst = bit.pixBit.lst
 
+    var family = {}
+    var wealth = []
+
+
     for (var key in dat) {
       key
 
+      var item = dat[key]
+
       var bit = await window['electronAPI'].readColor('#' + key)
       var puff = JSON.parse(bit)
-      debugger
-    }
+      var name = puff.clrBit.src
+      if (family[name] == null){
 
+        family[name] = []
+        wealth.push(name)
+        console.log('color name: ' + name)
+      }
+
+      family[name] = family[name].concat(item);
+
+      family[name]
+
+      }
+
+      //now send it back down to create an image
+
+      console.log("complete process " + wealth.length)
+      var bit = await window['electronAPI'].saveImage( family)
 
   }, 333)
 

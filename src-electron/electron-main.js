@@ -61,11 +61,17 @@ async function createWindow() {
   ipcMain.handle('game:openGame', openGame)
   ipcMain.handle('space:shapeHexmap', shapeHexmap)
 
-  ipcMain.handle('light:readColor', async (event, idx) => {
+  ipcMain.handle('pixel:saveImage', async (event, dat) => {
 
     debugger
 
-    bit = await LIGHT.hunt(ActClr.READ_COLOR, { idx })
+    //bit = await LIGHT.hunt(ActClr.READ_COLOR, { idx , val:1})
+    //return JSON.stringify(bit)
+  })
+
+
+  ipcMain.handle('light:readColor', async (event, idx) => {
+    bit = await LIGHT.hunt(ActClr.READ_COLOR, { idx , val:1})
     return JSON.stringify(bit)
   })
 

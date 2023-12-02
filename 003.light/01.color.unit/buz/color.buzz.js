@@ -31,7 +31,7 @@ exports.openColor = openColor;
 const readColor = (cpy, bal, ste) => {
 
 
-  debugger
+
 
     if (bal.val == null)
         bal.val = 0;
@@ -40,6 +40,8 @@ const readColor = (cpy, bal, ste) => {
         // we give the read spectrum a hex and it returns a name
         case 1:
             let itm = near(bal.idx);
+
+
             hex = itm.name;
             break;
         case 0:
