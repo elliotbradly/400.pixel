@@ -37,13 +37,19 @@ async function handleFileOpen() {
 
 async function openGame() {
 
+
+
   bit = await PIVOT.hunt(ActDsk.READ_DISK, { src: './data/color-list/000.color.name.json' })
   var dat = bit.dskBit.dat;
   dat = JSON.parse(dat)
 
+
+
   bit = await LIGHT.hunt(ActClr.OPEN_COLOR, { dat })
 
   bit = await LIGHT.hunt(ActClr.READ_COLOR, { idx: '#FF0000' })
+
+
 
   //var bit = await PLAY.hunt(ActPly.OPEN_PLAY, { val: 0 })
   return { intBit: { idx: 'game-opened' } }
@@ -80,7 +86,18 @@ async function createWindow() {
 
           list.forEach( (a)=>{
 
-            debugger
+            var x = a[0]
+            var y = a[1]
+            var t = a[2]
+
+            var idx = (this.width * y + x) << 2;
+
+            this.data[idx] = 255;
+            this.data[idx + 1] = 255;
+            this.data[idx + 2] = 255;
+
+            // and reduce opacity
+            this.data[idx + 3] = 255 >> 1;
 
           })
 
@@ -88,10 +105,19 @@ async function createWindow() {
           console.log('color key ' + key + ' :::: ' + list.length)
 
 
+
+
         }
+
+        this.pack().pipe(fs.createWriteStream("./data/out.png"));
+        return JSON.stringify({idx:"save-image"})
+
 
       }
       )
+
+
+
   })
 
 
