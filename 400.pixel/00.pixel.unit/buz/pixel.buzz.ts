@@ -161,6 +161,7 @@ export const processPixel = (cpy: PixelModel, bal: PixelBit, ste: State) => {
 
       colors[id] = [];
 
+
       //var wiggleX = FATE.integer( {min:-13, max:13});
       //var wiggleY = FATE.integer( {min:-13, max:13});
       //colors[id].push([x + wiggleX, y + wiggleY, now[3] ])
@@ -188,7 +189,7 @@ export const processPixel = (cpy: PixelModel, bal: PixelBit, ste: State) => {
   colorList.sort(function (a, b) { return (a[0] + a[1] + a[2]) - (b[0] + b[1] + b[2]) });
 
   var scolorList = colorList.reverse();
-  debugger
+  colors//what you need
 
   var temp = [];
   colorList.forEach((i, x) => {
@@ -321,6 +322,8 @@ export const processPixel = (cpy: PixelModel, bal: PixelBit, ste: State) => {
   // trace("path clr " + pathClr)
 
   // SIGH.emit(E.MAP_IMAGE_COMPLETE, head)
+
+  if (bal.slv != null) bal.slv({ pixBit: { idx: "process-pixel", lst:scolorList, dat: colors } });
 
   return cpy;
 };

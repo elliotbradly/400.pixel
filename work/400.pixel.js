@@ -137,7 +137,7 @@ const processPixel = (cpy, bal, ste) => {
     colorList.sort(function (a, b) { return a[2] - b[2]; });
     colorList.sort(function (a, b) { return (a[0] + a[1] + a[2]) - (b[0] + b[1] + b[2]); });
     var scolorList = colorList.reverse();
-    debugger;
+    colors; //what you need
     var temp = [];
     colorList.forEach((i, x) => {
         if (x % filter == 1)
@@ -228,6 +228,8 @@ const processPixel = (cpy, bal, ste) => {
     // trace("path map " + pathMap)
     // trace("path clr " + pathClr)
     // SIGH.emit(E.MAP_IMAGE_COMPLETE, head)
+    if (bal.slv != null)
+        bal.slv({ pixBit: { idx: "process-pixel", lst: scolorList, dat: colors } });
     return cpy;
 };
 exports.processPixel = processPixel;

@@ -49,6 +49,8 @@ export const update = async (value: HelloWorld) => {
   const SHADE = inject('SHADE')
   const PIXEL = inject('PIXEL')
 
+  var lst = []
+
   var bit = await SHADE['hunt'](ActVsg.REMOVE_VISAGE, { idx: "vsg00" })
   bit = await SHADE['hunt'](ActVsg.MOUNT_VISAGE, { idx: "vsg00", src: "indexCanvas", dat: { width: 960, height: 960 } })
 
@@ -83,6 +85,15 @@ export const update = async (value: HelloWorld) => {
     var dat = bit.fceBit.dat;
 
     bit = await PIXEL['hunt'](ActPxl.PROCESS_PIXEL, { dat })
+
+    dat = bit.pixBit.dat;
+    lst = bit.pixBit.lst
+
+    for ( var key in dat ){
+      key
+      debugger
+    }
+
 
   }, 333)
 
