@@ -41,9 +41,9 @@ async function openGame() {
   var dat = bit.dskBit.dat;
   dat = JSON.parse(dat)
 
-  bit = await LIGHT.hunt( ActClr.OPEN_COLOR, {dat})
+  bit = await LIGHT.hunt(ActClr.OPEN_COLOR, { dat })
 
-  bit = await LIGHT.hunt(ActClr.READ_COLOR, { idx:'#FF0000' })
+  bit = await LIGHT.hunt(ActClr.READ_COLOR, { idx: '#FF0000' })
 
   //var bit = await PLAY.hunt(ActPly.OPEN_PLAY, { val: 0 })
   return { intBit: { idx: 'game-opened' } }
@@ -63,15 +63,41 @@ async function createWindow() {
 
   ipcMain.handle('pixel:saveImage', async (event, dat) => {
 
-    debugger
+    var fs = require("fs");
+    var PNG = require("pngjs").PNG;
 
-    //bit = await LIGHT.hunt(ActClr.READ_COLOR, { idx , val:1})
-    //return JSON.stringify(bit)
+    fs.createReadStream("./data/in.png")
+      .pipe(
+        new PNG({
+          filterType: 4,
+        })
+      )
+      .on("parsed", function () {
+
+        for (var key in dat) {
+
+          var list = dat[key]
+
+          list.forEach( (a)=>{
+
+            debugger
+
+          })
+
+
+          console.log('color key ' + key + ' :::: ' + list.length)
+
+
+        }
+
+      }
+      )
   })
 
 
+
   ipcMain.handle('light:readColor', async (event, idx) => {
-    bit = await LIGHT.hunt(ActClr.READ_COLOR, { idx , val:1})
+    bit = await LIGHT.hunt(ActClr.READ_COLOR, { idx, val: 1 })
     return JSON.stringify(bit)
   })
 
