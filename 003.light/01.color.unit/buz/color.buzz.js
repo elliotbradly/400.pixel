@@ -29,6 +29,10 @@ const openColor = async (cpy, bal, ste) => {
 };
 exports.openColor = openColor;
 const readColor = (cpy, bal, ste) => {
+
+
+  debugger
+
     if (bal.val == null)
         bal.val = 0;
     let hex;

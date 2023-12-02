@@ -10,12 +10,12 @@ let mainWindow
 const MQTT = require('async-mqtt');
 const PORT = 1001;
 
-const GAME =  require('./game')
+const GAME = require('./game')
 //const PLAY = require('../000.play/index.js')
-//const ActPly = require('../000.play/00.play.unit/play.action')
 
-//const STORE = require('../001.store/index.js')
-//const ActStr = require('../001.store/00.store.unit/store.action')
+const LIGHT = require('../003.light/index.js')
+const ActLgt = require('../003.light/00.light.unit/light.action')
+const ActClr = require('../003.light/01.color.unit/color.action')
 
 
 const local = 'mqtt://localhost:' + PORT;
@@ -34,14 +34,11 @@ async function handleFileOpen() {
 
 async function openGame() {
 
-
-
-
-  //bit = await SPACE.hunt(ActFoc.WRITE_FOCUS, { foc: 'foc00' })
-  //bit = await SPACE.hunt(ActFoc.WRITE_FOCUS, { foc: 'foc00' })
+  debugger
+  //bit = await LIGHT.hunt(ActClr.READ_COLOR, { idx })
 
   //var bit = await PLAY.hunt(ActPly.OPEN_PLAY, { val: 0 })
-  return {intBit:{idx:'game-opened'}}
+  return { intBit: { idx: 'game-opened' } }
 }
 
 async function shapeHexmap() {
@@ -56,37 +53,42 @@ async function createWindow() {
   ipcMain.handle('game:openGame', openGame)
   ipcMain.handle('space:shapeHexmap', shapeHexmap)
 
+  ipcMain.handle('light:readColor', async (event, idx) => {
 
-  ipcMain.handle('space:listFocus', async ( event, src) => {
-    return JSON.stringify(bit)
-  })
+    debugger
 
-  ipcMain.handle('space:readFocus', async ( event, idx) => {
-    return JSON.stringify(bit)
-  })
-
-  ipcMain.handle('space:readHexmap', async ( event, idx ) => {
-    return JSON.stringify(bit)
-  })
-
-  ipcMain.handle('space:spinRightFocus', async ( event, idx) => {
-    return JSON.stringify(bit)
-  })
-
-  ipcMain.handle('space:spinLeftFocus', async ( event, idx ) => {
-    return JSON.stringify(bit)
-  })
-
-  ipcMain.handle('space:forwardFocus', async ( event, idx ) => {
-    return JSON.stringify(bit)
-  })
-
-  ipcMain.handle('space:backwardFocus', async ( event, idx ) => {
+    bit = await LIGHT.hunt(ActClr.READ_COLOR, { idx })
     return JSON.stringify(bit)
   })
 
 
-  ipcMain.handle('space:hexmapFocus', async ( idx) => {
+  ipcMain.handle('space:listFocus', async (event, src) => {
+    return JSON.stringify(bit)
+  })
+
+
+  ipcMain.handle('space:readHexmap', async (event, idx) => {
+    return JSON.stringify(bit)
+  })
+
+  ipcMain.handle('space:spinRightFocus', async (event, idx) => {
+    return JSON.stringify(bit)
+  })
+
+  ipcMain.handle('space:spinLeftFocus', async (event, idx) => {
+    return JSON.stringify(bit)
+  })
+
+  ipcMain.handle('space:forwardFocus', async (event, idx) => {
+    return JSON.stringify(bit)
+  })
+
+  ipcMain.handle('space:backwardFocus', async (event, idx) => {
+    return JSON.stringify(bit)
+  })
+
+
+  ipcMain.handle('space:hexmapFocus', async (idx) => {
     return bit
   })
 

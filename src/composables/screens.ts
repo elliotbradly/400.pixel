@@ -89,8 +89,11 @@ export const update = async (value: HelloWorld) => {
     dat = bit.pixBit.dat;
     lst = bit.pixBit.lst
 
-    for ( var key in dat ){
+    for (var key in dat) {
       key
+
+      var bit = await window['electronAPI'].readColor('#' + key)
+      var puff = JSON.parse(bit)
       debugger
     }
 
