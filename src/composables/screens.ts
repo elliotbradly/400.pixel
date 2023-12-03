@@ -75,7 +75,7 @@ export const update = async (value: HelloWorld) => {
   //bit = await SHADE['hunt']( ActTxt.WRITE_TEXT, { idx:'txt03', dat: {  txt: "text 03", y:45 }  })
   //bit = await SHADE['hunt']( ActCan.ADD_CONTAINER, { idx: "can00",  dat:{bit:bit.txtBit.dat.bit }})
 
-  bit = await SHADE['hunt'](ActSpr.WRITE_SPRITE, { idx: 'spr00', dat: { src: './img/000.png', x: 0, y: 0 } })
+  bit = await SHADE['hunt'](ActSpr.WRITE_SPRITE, { idx: 'spr00', dat: { src: './img/001.png', x: 0, y: 0 } })
   bit = await SHADE['hunt'](ActCan.ADD_CONTAINER, { idx: "can00", dat: { bit: bit.sprBit.dat.bit } })
 
 
@@ -85,39 +85,52 @@ export const update = async (value: HelloWorld) => {
     var dat = bit.fceBit.dat;
 
     bit = await PIXEL['hunt'](ActPxl.PROCESS_PIXEL, { dat })
-
-    dat = bit.pixBit.dat;
     lst = bit.pixBit.lst
 
-    var family = {}
-    var wealth = []
+    bit = await PIXEL['hunt'](ActPxl.COLOR_PIXEL, { lst })
+    lst = bit.pixBit.lst
 
 
-    for (var key in dat) {
-      key
 
-      var item = dat[key]
 
-      var bit = await window['electronAPI'].readColor('#' + key)
-      var puff = JSON.parse(bit)
-      var name = puff.clrBit.src
-      if (family[name] == null){
 
-        family[name] = []
-        wealth.push(name)
-        console.log('color name: ' + name)
-      }
 
-      family[name] = family[name].concat(item);
+    bit = await window['electronAPI'].saveImage( lst )
 
-      family[name]
+    console.log("show me the bit " + JSON.stringify(bit))
 
-      }
+    //see if you can recreate the image from just pixels
 
-      //now send it back down to create an image
+    //dat = bit.pixBit.dat;
+    //lst = bit.pixBit.lst;
 
-      console.log("complete process " + wealth.length)
-      var bit = await window['electronAPI'].saveImage( family)
+
+    //for (var key in dat) {
+    //  key
+
+    //  var item = dat[key]
+
+    //  debugger
+
+
+    //  var bit = await window['electronAPI'].readColor('#' + key)
+    //  var puff = JSON.parse(bit)
+    //  var name = puff.clrBit.src
+
+    //  var options = []
+
+    //  if (family[name] == null){
+
+    //    family[name] = []
+    //    family[name] = family[name].concat(item);
+    //    wealth.push(name)
+    //    console.log('color name: ' + name)
+    //  }else{
+    //    family[name] = family[name].concat(item);
+    //  }
+    //  }
+
+
 
   }, 333)
 

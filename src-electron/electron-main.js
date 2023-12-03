@@ -67,10 +67,13 @@ async function createWindow() {
   ipcMain.handle('game:openGame', openGame)
   ipcMain.handle('space:shapeHexmap', shapeHexmap)
 
-  ipcMain.handle('pixel:saveImage', async (event, dat) => {
+  ipcMain.handle('pixel:saveImage', async (event, lst) => {
+
+
 
     var fs = require("fs");
     var PNG = require("pngjs").PNG;
+    var convert = require('color-convert');
 
     fs.createReadStream("./data/in.png")
       .pipe(
@@ -80,37 +83,29 @@ async function createWindow() {
       )
       .on("parsed", function () {
 
-        for (var key in dat) {
 
-          var list = dat[key]
+        lst.forEach((a) => {
 
-          list.forEach( (a)=>{
+          var hex = a.hex
+          var r = a.r
+          var g = a.g
+          var b = a.b
+          var x = a.x;
+          var y = a.y;
 
-            var x = a[0]
-            var y = a[1]
-            var t = a[2]
+          var idx = (this.width * y + x) << 2;
 
-            var idx = (this.width * y + x) << 2;
+          this.data[idx] = r;
+          this.data[idx + 1] = g;
+          this.data[idx + 2] = b;
 
-            this.data[idx] = 255;
-            this.data[idx + 1] = 255;
-            this.data[idx + 2] = 255;
+          // and reduce opacity
+          this.data[idx + 3] = 255;
 
-            // and reduce opacity
-            this.data[idx + 3] = 255 >> 1;
+        })
 
-          })
-
-
-          console.log('color key ' + key + ' :::: ' + list.length)
-
-
-
-
-        }
 
         this.pack().pipe(fs.createWriteStream("./data/out.png"));
-        return JSON.stringify({idx:"save-image"})
 
 
       }
@@ -118,6 +113,7 @@ async function createWindow() {
 
 
 
+      return JSON.stringify({ idx: "save-image" })
   })
 
 

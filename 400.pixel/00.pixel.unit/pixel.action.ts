@@ -27,6 +27,13 @@ export const PROCESS_PIXEL = "[Process action] Process Pixel";
  constructor(public bale: PixelBit) {}
  }
  
+export const COLOR_PIXEL = "[Color action] Color Pixel";
+ export class ColorPixel implements Action {
+ readonly type = COLOR_PIXEL;
+ constructor(public bale: PixelBit) {}
+ }
+ 
 export type Actions = | InitPixel | UpdatePixel 
 | OpenPixel
 | ProcessPixel
+| ColorPixel

@@ -29,31 +29,37 @@ const openColor = async (cpy, bal, ste) => {
 };
 exports.openColor = openColor;
 const readColor = (cpy, bal, ste) => {
-
-
-
-
     if (bal.val == null)
         bal.val = 0;
-    let hex;
+    let src;
+    let r, g, b, hex;
     switch (bal.val) {
         // we give the read spectrum a hex and it returns a name
         case 1:
             let itm = near(bal.idx);
-
-
-            hex = itm.name;
+            r = itm.rgb.r;
+            g = itm.rgb.g;
+            b = itm.rgb.b;
+            hex = S(itm.value).slugify().s;
+            src = itm.name;
+            src = S(src).slugify().s;
+            src += '.' + S(itm.value).slugify().s;
+            src += '.' + String(itm.rgb.r).padStart(3, '0');
+            src += '.' + String(itm.rgb.g).padStart(3, '0');
+            src += '.' + String(itm.rgb.b).padStart(3, '0');
+            src;
             break;
         case 0:
-            hex = cpy.colorData[bal.idx];
-            if (hex == null)
+            src = cpy.colorData[bal.idx];
+            if (src == null)
                 console.log("can not read spectrum for " + bal.idx);
             break;
     }
-    hex;
+    src;
     if (bal.slv != null)
-        bal.slv({ clrBit: { idx: "read-color", src: hex } });
+        bal.slv({ clrBit: { idx: "read-color", src, dat: { r, g, b, hex } } });
     return cpy;
 };
 exports.readColor = readColor;
+const S = require("string");
 //# sourceMappingURL=color.buzz.js.map

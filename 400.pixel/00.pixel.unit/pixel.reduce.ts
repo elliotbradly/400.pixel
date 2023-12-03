@@ -19,6 +19,9 @@ case Act.OPEN_PIXEL:
 case Act.PROCESS_PIXEL:
  return Buzz.processPixel(clone(model), act.bale, state);
  
+case Act.COLOR_PIXEL:
+ return Buzz.colorPixel(clone(model), act.bale, state);
+ 
  default:
  return model;
  }

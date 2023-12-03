@@ -12,7 +12,7 @@ global.PIXEL.ActPxl = require("../dist/400.pixel/00.pixel.unit/pixel.action");
 },{"../dist/400.pixel/00.pixel.unit/pixel.action":3,"../dist/400.pixel/hunt":35}],2:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.processPixel = exports.openPixel = exports.updatePixel = exports.initPixel = void 0;
+exports.colorPixel = exports.processPixel = exports.openPixel = exports.updatePixel = exports.initPixel = void 0;
 const ActMnu = require("../../98.menu.unit/menu.action");
 const ActPxl = require("../../00.pixel.unit/pixel.action");
 const ActBus = require("../../99.bus.unit/bus.action");
@@ -71,174 +71,75 @@ var update = function () {
 };
 const processPixel = (cpy, bal, ste) => {
     var convert = require('color-convert');
-    //var cv = document.getElementById(bal.src);
-    //var ctx = cv['getContext']('2d');
     const data = bal.dat;
     var source = data;
     var width = source.width;
     var height = source.height;
-    var pixels = 2;
+    var pixels = 0;
     var colors = {};
     var colorList = [];
-    var count = 0;
-    var pix = 0;
-    var filter = 13;
-    //name = SLUG(fileSRC)
-    //trace("do you have a name " + name)
-    //var fileFix = SLUG(name) + '.txt';
-    //pathMap = mapDAT + label + '/' + fileFix;
-    //pathClr = colorDAT + label + '/' + fileFix;
-    //trace("STARTING MAP " + fileSRC)
-    //total = height
-    var allTogetherNow = width * height;
-    var pixelGo = Math.floor(allTogetherNow * .01);
-    var pixelNo = Math.floor(allTogetherNow * .9);
-    var dat;
+    var pixelList = [];
+    var count;
     for (var y = 0; y < height; y++) {
-        // if (y % pix != 0) continue
         count = y;
         for (var x = 0; x < width; x++) {
-            //if (x % pix != 0) continue
-            update();
             var now = colorRead(source, x, y);
-            //    if (now[3] <= 4) continue //high alpha
             pixels += 1;
-            //  var lightLimit = 3;
-            //if ( pixels < pixelGo ) continue;
-            //if ( pixels > pixelNo ) continue;
-            //hides white
-            //if ((now[0] >= 255 - lightLimit) && (now[1] >= 255 - lightLimit) && (now[2] >= 255 - lightLimit)) continue
             var id = convert.rgb.hex(now[0], now[1], now[2]);
-            //trace("before " + id )
-            //     var id = convert.rgb.hex(now[0], now[1], now[2]);
+            var marling = { x, y, hex: id, r: now[0], g: now[1], b: now[2] };
+            pixelList.push(marling);
             if (colors[id] != null) {
                 colors[id].push([x, y, now[3]]);
-                continue;
             }
             colors[id] = [];
-            //var wiggleX = FATE.integer( {min:-13, max:13});
-            //var wiggleY = FATE.integer( {min:-13, max:13});
-            //colors[id].push([x + wiggleX, y + wiggleY, now[3] ])
             colorList.push(now);
         }
     }
-    //backstrap belt
-    //colorList.forEach((i, dex) => {
-    //item = convert.hex.rgb(i);
-    //item = JSON.stringify( '[' + i + ']' );
-    //trace("Show me " + item )
-    //colorList[dex] = item;
-    //})
-    colorList.sort(function (a, b) { return (a[0] + a[1] + a[2]) - (b[0] + b[1] + b[2]); });
-    colorList.sort(function (a, b) { return a[0] - b[0]; });
-    colorList.sort(function (a, b) { return (a[0] + a[1] + a[2]) - (b[0] + b[1] + b[2]); });
-    colorList.sort(function (a, b) { return a[1] - b[1]; });
-    colorList.sort(function (a, b) { return (a[0] + a[1] + a[2]) - (b[0] + b[1] + b[2]); });
-    colorList.sort(function (a, b) { return a[2] - b[2]; });
-    colorList.sort(function (a, b) { return (a[0] + a[1] + a[2]) - (b[0] + b[1] + b[2]); });
-    var scolorList = colorList.reverse();
-    colors; //what you need
-    var temp = [];
-    colorList.forEach((i, x) => {
-        if (x % filter == 1)
-            return;
-        temp.push(i);
-    });
-    //here you go
-    //var arm0 = fate.style[fate.pass].range[0]
-    //var arm1 = fate.style[fate.pass].range[1]
-    //var go =  Math.floor( temp.length * arm0 )
-    //var no =  Math.floor( temp.length * arm1 )
-    //colorList = temp.splice( go, no )
-    temp = null;
-    //colorList.forEach((i, dex) => colorList[dex] = convert.rgb.hex(i))
-    var neoColorList = [];
-    var size = colorList.length;
-    var pixelList = [];
-    colorList.forEach((i, dex) => {
-        var id = convert.rgb.hex(i[0], i[1], i[2]);
-        //var id = convert.rgb.hex( i );
-        // trace("show me the id " + i )
-        var data = colors[id];
-        pixelList.push(JSON.stringify(data));
-    });
-    //  var neoPixelList = []
-    //   var neoColorList = []
-    //  the world has you so wrapped up in your skin color
-    //  you can not think of anything else
-    //    var go = MATH.floor( neoPixelList * .33  )
-    //    var no = MATH.floor( neoPixelList * .55 )
-    //    colorList.forEach( ( a , b ) =>{
-    //     if ( b < go ) return
-    //     if ( b > no ) return
-    //     neoColorList.push( a )
-    //     neoPixelList.push( pixelList[ b ] )
-    //})
-    //trace("DO YU HAVE AY HINK " + )
-    // pixelList = neoPixelList;
-    //  colorList = neoColorList;
-    var pxlFile = '';
-    var clrFile = '';
-    //var head = {};
-    //head.name = name;
-    //head.src = fileSRC;
-    //head.index = index;
-    //head.width = width;
-    //head.height = height;
-    //head.size = size;
-    //head.pixel = pixels;
-    //head.buffer = pix;
-    //head.save = pathMap;
-    //head = JSON.stringify(head)
-    //pxlFile = head + '\n';
-    //pixelList.forEach( (i, x)=> pxlFile += JSON.stringify(i) + '\n')
-    //clrFile = head + '\n';
-    //colorList.forEach( (i, x)=> clrFile += i + '\n')
-    colorList.forEach((i, dex) => {
-        //    if ( palette == null ) return colorList[dex] = JSON.stringify('[' + i[0] + ',' + i[1] + ',' + i[2] + ']')
-        //   var hex = convert.rgb.hex( i[0], i[1], i[2] );
-        //   var reduce = [];
-        //   for (var i = 0; i < 111; i++) {
-        //     reduce.push( palette[ FATE.integer({ min: 0, max: palette.length }) ])
-        //   }
-        //   var colorNEO = findNearest2( hex, reduce );
-        //   var end = convert.hex.rgb( colorNEO );
-        //   return  colorList[dex] = JSON.stringify('[' + end[0] + ',' + end[1] + ',' + end[2] + ']')
-        //   if ( ( lighten == null ) && ( darken == null ) && ( saturate == null ) && ( desaturate == null ) && ( rotate == null ) ) return  colorList[dex] = JSON.stringify('[' + end[0] + ',' + end[1] + ',' + end[2] + ']')
-        //   var color = Color( {r: end[0], g: end[1], b: end[2] } )
-        //   if ( lighten != null ) color.lighten( lighten )
-        //   if ( darken != null ) color.darken( darken )
-        //   if ( saturate != null ) color.saturate( saturate )
-        //   if ( desaturate != null ) color.desaturate( desaturate )
-        //   if ( rotate != null ) color.rotate( rotate )
-        //   end = color.rgb()
-        //  colorList[dex] = JSON.stringify('[' + end.r + ',' + end.g + ',' + end.b + ']')
-        //trace("paletting " + dex +' / ' + colorList.length )
-    });
-    // var packet = {};
-    // packet.dat = head;
-    // packet.pxl = pixelList;
-    // packet.clr = colorList;
-    // head.save = pathMap;
-    // pixelList.unshift(JSON.stringify(head))
-    // head.save = pathClr;
-    // colorList.unshift(JSON.stringify(head))
-    // FS.writeFileSync(pathMap, pixelList.join('\n'))
-    // FS.writeFileSync(pathClr, colorList.join('\n'))
-    // trace("path map " + pathMap)
-    // trace("path clr " + pathClr)
-    // SIGH.emit(E.MAP_IMAGE_COMPLETE, head)
+    pixelList;
     if (bal.slv != null)
-        bal.slv({ pixBit: { idx: "process-pixel", lst: scolorList, dat: colors } });
+        bal.slv({ pixBit: { idx: "process-pixel", lst: pixelList, dat: colors } });
     return cpy;
 };
 exports.processPixel = processPixel;
+const colorPixel = async (cpy, bal, ste) => {
+    var lst = bal.lst;
+    var dex = bal.lst.length - 1;
+    var fin = [];
+    console.log('color pixel');
+    var next = async () => {
+        if (dex <= 0) {
+            console.log('color complete');
+            fin;
+            debugger;
+            bal.slv({ pixBit: { idx: "color-pixel", lst: fin } });
+            return;
+        }
+        var itm = lst[dex];
+        if (dex % 10000 == 3)
+            console.log('processing itm ' + JSON.stringify(itm));
+        dex -= 1;
+        if (dex % 10000 == 3)
+            console.log('processing now ' + dex);
+        var bit = await window['electronAPI'].readColor('#' + itm.hex);
+        var nowBit = JSON.parse(bit);
+        var nowDat = nowBit.clrBit.dat;
+        var marling = { x: itm.x, y: itm.y, hex: nowDat.hex, r: nowDat.r, g: nowDat.g, b: nowDat.b };
+        //console.log( marling )
+        if (dex % 10000 == 3)
+            console.log('processing marling ' + JSON.stringify(marling));
+        fin.push(marling);
+        next();
+    };
+    next();
+    return cpy;
+};
+exports.colorPixel = colorPixel;
 var patch = (ste, type, bale) => ste.dispatch({ type, bale });
 
 },{"../../00.pixel.unit/pixel.action":3,"../../98.menu.unit/menu.action":15,"../../99.bus.unit/bus.action":20,"../../act/disk.action":31,"../../act/pivot.action":33,"child_process":undefined,"color-convert":42}],3:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProcessPixel = exports.PROCESS_PIXEL = exports.OpenPixel = exports.OPEN_PIXEL = exports.UpdatePixel = exports.UPDATE_PIXEL = exports.InitPixel = exports.INIT_PIXEL = void 0;
+exports.ColorPixel = exports.COLOR_PIXEL = exports.ProcessPixel = exports.PROCESS_PIXEL = exports.OpenPixel = exports.OPEN_PIXEL = exports.UpdatePixel = exports.UPDATE_PIXEL = exports.InitPixel = exports.INIT_PIXEL = void 0;
 // Pixel actions
 exports.INIT_PIXEL = "[Pixel action] Init Pixel";
 class InitPixel {
@@ -272,11 +173,19 @@ class ProcessPixel {
     }
 }
 exports.ProcessPixel = ProcessPixel;
+exports.COLOR_PIXEL = "[Color action] Color Pixel";
+class ColorPixel {
+    constructor(bale) {
+        this.bale = bale;
+        this.type = exports.COLOR_PIXEL;
+    }
+}
+exports.ColorPixel = ColorPixel;
 
 },{}],4:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.processPixel = exports.openPixel = exports.updatePixel = exports.initPixel = void 0;
+exports.colorPixel = exports.processPixel = exports.openPixel = exports.updatePixel = exports.initPixel = void 0;
 var pixel_buzz_1 = require("./buz/pixel.buzz");
 Object.defineProperty(exports, "initPixel", { enumerable: true, get: function () { return pixel_buzz_1.initPixel; } });
 var pixel_buzz_2 = require("./buz/pixel.buzz");
@@ -285,6 +194,8 @@ var pixel_buzz_3 = require("./buz/pixel.buzz");
 Object.defineProperty(exports, "openPixel", { enumerable: true, get: function () { return pixel_buzz_3.openPixel; } });
 var pixel_buzz_4 = require("./buz/pixel.buzz");
 Object.defineProperty(exports, "processPixel", { enumerable: true, get: function () { return pixel_buzz_4.processPixel; } });
+var pixel_buzz_5 = require("./buz/pixel.buzz");
+Object.defineProperty(exports, "colorPixel", { enumerable: true, get: function () { return pixel_buzz_5.colorPixel; } });
 
 },{"./buz/pixel.buzz":2}],5:[function(require,module,exports){
 "use strict";
@@ -318,6 +229,8 @@ function reducer(model = new pixel_model_1.PixelModel(), act, state) {
             return Buzz.openPixel(clone(model), act.bale, state);
         case Act.PROCESS_PIXEL:
             return Buzz.processPixel(clone(model), act.bale, state);
+        case Act.COLOR_PIXEL:
+            return Buzz.colorPixel(clone(model), act.bale, state);
         default:
             return model;
     }

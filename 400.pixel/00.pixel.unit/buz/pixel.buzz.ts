@@ -79,254 +79,110 @@ var update = function () {
 }
 
 
-
-
 export const processPixel = (cpy: PixelModel, bal: PixelBit, ste: State) => {
 
   var convert = require('color-convert');
-
-  //var cv = document.getElementById(bal.src);
-  //var ctx = cv['getContext']('2d');
 
   const data = bal.dat;
 
   var source = data;
   var width = source.width;
   var height = source.height;
-  var pixels = 2;
+  var pixels = 0;
   var colors = {};
   var colorList = [];
+  var pixelList = []
 
-  var count = 0;
-  var pix = 0
-
-  var filter = 13;
-
-
-
-  //name = SLUG(fileSRC)
-
-  //trace("do you have a name " + name)
-
-  //var fileFix = SLUG(name) + '.txt';
-  //pathMap = mapDAT + label + '/' + fileFix;
-  //pathClr = colorDAT + label + '/' + fileFix;
-
-  //trace("STARTING MAP " + fileSRC)
-
-  //total = height
-
-  var allTogetherNow = width * height;
-
-  var pixelGo = Math.floor(allTogetherNow * .01)
-  var pixelNo = Math.floor(allTogetherNow * .9)
-
-  var dat;
+  var count;
 
   for (var y = 0; y < height; y++) {
-
-    // if (y % pix != 0) continue
 
     count = y;
 
     for (var x = 0; x < width; x++) {
 
-      //if (x % pix != 0) continue
-
-      update()
-
       var now = colorRead(source, x, y);
-
-      //    if (now[3] <= 4) continue //high alpha
-
       pixels += 1;
-
-      //  var lightLimit = 3;
-
-      //if ( pixels < pixelGo ) continue;
-      //if ( pixels > pixelNo ) continue;
-      //hides white
-      //if ((now[0] >= 255 - lightLimit) && (now[1] >= 255 - lightLimit) && (now[2] >= 255 - lightLimit)) continue
-
       var id = convert.rgb.hex(now[0], now[1], now[2]);
 
-      //trace("before " + id )
+      var marling = { x, y, hex: id, r: now[0], g: now[1], b: now[2] }
 
-      //     var id = convert.rgb.hex(now[0], now[1], now[2]);
+      pixelList.push(marling)
 
       if (colors[id] != null) {
         colors[id].push([x, y, now[3]]);
-        continue
       }
 
       colors[id] = [];
-
-
-      //var wiggleX = FATE.integer( {min:-13, max:13});
-      //var wiggleY = FATE.integer( {min:-13, max:13});
-      //colors[id].push([x + wiggleX, y + wiggleY, now[3] ])
-
       colorList.push(now);
     }
   }
 
-
-  //backstrap belt
-
-  //colorList.forEach((i, dex) => {
-  //item = convert.hex.rgb(i);
-  //item = JSON.stringify( '[' + i + ']' );
-  //trace("Show me " + item )
-  //colorList[dex] = item;
-  //})
-
-  colorList.sort(function (a, b) { return (a[0] + a[1] + a[2]) - (b[0] + b[1] + b[2]) });
-  colorList.sort(function (a, b) { return a[0] - b[0] });
-  colorList.sort(function (a, b) { return (a[0] + a[1] + a[2]) - (b[0] + b[1] + b[2]) });
-  colorList.sort(function (a, b) { return a[1] - b[1] });
-  colorList.sort(function (a, b) { return (a[0] + a[1] + a[2]) - (b[0] + b[1] + b[2]) });
-  colorList.sort(function (a, b) { return a[2] - b[2] });
-  colorList.sort(function (a, b) { return (a[0] + a[1] + a[2]) - (b[0] + b[1] + b[2]) });
-
-  var scolorList = colorList.reverse();
-  colors//what you need
-
-  var temp = [];
-  colorList.forEach((i, x) => {
-    if (x % filter == 1) return
-    temp.push(i)
-  })
-
-  //here you go
-  //var arm0 = fate.style[fate.pass].range[0]
-  //var arm1 = fate.style[fate.pass].range[1]
-
-  //var go =  Math.floor( temp.length * arm0 )
-  //var no =  Math.floor( temp.length * arm1 )
-
-  //colorList = temp.splice( go, no )
-  temp = null;
-
-  //colorList.forEach((i, dex) => colorList[dex] = convert.rgb.hex(i))
-
-  var neoColorList = [];
+  pixelList
 
 
-  var size = colorList.length;
-
-  var pixelList = [];
-  colorList.forEach((i, dex) => {
-
-    var id = convert.rgb.hex(i[0], i[1], i[2]);
-    //var id = convert.rgb.hex( i );
-    // trace("show me the id " + i )
-    var data = colors[id];
-    pixelList.push(JSON.stringify(data))
-  })
-
-  //  var neoPixelList = []
-  //   var neoColorList = []
-
-  //  the world has you so wrapped up in your skin color
-  //  you can not think of anything else
-
-  //    var go = MATH.floor( neoPixelList * .33  )
-  //    var no = MATH.floor( neoPixelList * .55 )
-
-  //    colorList.forEach( ( a , b ) =>{
-
-  //     if ( b < go ) return
-  //     if ( b > no ) return
-
-  //     neoColorList.push( a )
-  //     neoPixelList.push( pixelList[ b ] )
-
-  //})
-
-  //trace("DO YU HAVE AY HINK " + )
-
-  // pixelList = neoPixelList;
-  //  colorList = neoColorList;
-
-  var pxlFile = '';
-  var clrFile = '';
-
-  //var head = {};
-  //head.name = name;
-  //head.src = fileSRC;
-  //head.index = index;
-  //head.width = width;
-  //head.height = height;
-  //head.size = size;
-  //head.pixel = pixels;
-  //head.buffer = pix;
-  //head.save = pathMap;
-
-  //head = JSON.stringify(head)
-  //pxlFile = head + '\n';
-  //pixelList.forEach( (i, x)=> pxlFile += JSON.stringify(i) + '\n')
-
-  //clrFile = head + '\n';
-  //colorList.forEach( (i, x)=> clrFile += i + '\n')
-
-  colorList.forEach((i, dex) => {
-
-    //    if ( palette == null ) return colorList[dex] = JSON.stringify('[' + i[0] + ',' + i[1] + ',' + i[2] + ']')
-
-    //   var hex = convert.rgb.hex( i[0], i[1], i[2] );
-
-    //   var reduce = [];
-    //   for (var i = 0; i < 111; i++) {
-    //     reduce.push( palette[ FATE.integer({ min: 0, max: palette.length }) ])
-    //   }
-
-    //   var colorNEO = findNearest2( hex, reduce );
-
-    //   var end = convert.hex.rgb( colorNEO );
-    //   return  colorList[dex] = JSON.stringify('[' + end[0] + ',' + end[1] + ',' + end[2] + ']')
-
-    //   if ( ( lighten == null ) && ( darken == null ) && ( saturate == null ) && ( desaturate == null ) && ( rotate == null ) ) return  colorList[dex] = JSON.stringify('[' + end[0] + ',' + end[1] + ',' + end[2] + ']')
-
-    //   var color = Color( {r: end[0], g: end[1], b: end[2] } )
-
-    //   if ( lighten != null ) color.lighten( lighten )
-    //   if ( darken != null ) color.darken( darken )
-    //   if ( saturate != null ) color.saturate( saturate )
-    //   if ( desaturate != null ) color.desaturate( desaturate )
-    //   if ( rotate != null ) color.rotate( rotate )
-
-    //   end = color.rgb()
-
-    //  colorList[dex] = JSON.stringify('[' + end.r + ',' + end.g + ',' + end.b + ']')
-
-    //trace("paletting " + dex +' / ' + colorList.length )
-
-  })
-
-
-  // var packet = {};
-  // packet.dat = head;
-  // packet.pxl = pixelList;
-  // packet.clr = colorList;
-
-  // head.save = pathMap;
-  // pixelList.unshift(JSON.stringify(head))
-
-  // head.save = pathClr;
-  // colorList.unshift(JSON.stringify(head))
-
-  // FS.writeFileSync(pathMap, pixelList.join('\n'))
-  // FS.writeFileSync(pathClr, colorList.join('\n'))
-
-  // trace("path map " + pathMap)
-  // trace("path clr " + pathClr)
-
-  // SIGH.emit(E.MAP_IMAGE_COMPLETE, head)
-
-  if (bal.slv != null) bal.slv({ pixBit: { idx: "process-pixel", lst:scolorList, dat: colors } });
+  if (bal.slv != null) bal.slv({ pixBit: { idx: "process-pixel", lst: pixelList, dat: colors } });
 
   return cpy;
 };
+
+
+export const colorPixel = async (cpy: PixelModel, bal: PixelBit, ste: State) => {
+
+  var lst = bal.lst;
+  var dex = bal.lst.length - 1;
+
+  var fin = [];
+
+  console.log('color pixel')
+
+  var next = async () => {
+
+    if (dex <= 0) {
+
+
+      console.log('color complete')
+
+      fin
+      debugger
+
+
+      bal.slv({ pixBit: { idx: "color-pixel", lst: fin } });
+      return
+    }
+
+    var itm = lst[dex]
+
+    if ( dex % 10000 == 3) console.log('processing itm ' + JSON.stringify(itm) )
+
+    dex -= 1;
+
+    if ( dex % 10000 == 3) console.log('processing now ' + dex )
+
+
+    var bit = await window['electronAPI'].readColor('#' + itm.hex)
+
+
+    var nowBit = JSON.parse(bit)
+
+    var nowDat = nowBit.clrBit.dat;
+
+    var marling = { x:itm.x, y:itm.y, hex: nowDat.hex, r: nowDat.r, g: nowDat.g, b: nowDat.b }
+    //console.log( marling )
+
+
+    if ( dex % 10000 == 3) console.log('processing marling ' + JSON.stringify(marling) )
+
+    fin.push( marling)
+    next()
+
+  }
+
+  next()
+
+  return cpy;
+};
+
 
 
 
