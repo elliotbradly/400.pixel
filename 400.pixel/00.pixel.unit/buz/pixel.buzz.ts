@@ -199,21 +199,16 @@ export const buildPixel = async (cpy: PixelModel, bal: PixelBit, ste: State) => 
   dat = bit.clrBit;
 
   bit = await ste.bus( ActLgt.READ_LIGHT, {val:0})
-  dat = bit.lgtBit;
-  debugger
+  var wall0 = bit.lgtBit;
+
+  bit = await ste.bus( ActLgt.READ_LIGHT, {val:1})
+  var wall1 = bit.lgtBit;
 
 
 
   debugger
 
 
-
-
-
-
-  //
-  //var bit = await window['electronAPI'].readLight(0)
-  debugger
 
 
 
