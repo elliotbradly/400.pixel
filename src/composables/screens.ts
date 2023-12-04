@@ -75,7 +75,7 @@ export const update = async (value: HelloWorld) => {
   //bit = await SHADE['hunt']( ActTxt.WRITE_TEXT, { idx:'txt03', dat: {  txt: "text 03", y:45 }  })
   //bit = await SHADE['hunt']( ActCan.ADD_CONTAINER, { idx: "can00",  dat:{bit:bit.txtBit.dat.bit }})
 
-  bit = await SHADE['hunt'](ActSpr.WRITE_SPRITE, { idx: 'spr00', dat: { src: './img/001.png', x: 0, y: 0 } })
+  bit = await SHADE['hunt'](ActSpr.WRITE_SPRITE, { idx: 'spr00', dat: { src: './img/000.png', x: 0, y: 0 } })
   bit = await SHADE['hunt'](ActCan.ADD_CONTAINER, { idx: "can00", dat: { bit: bit.sprBit.dat.bit } })
 
 
