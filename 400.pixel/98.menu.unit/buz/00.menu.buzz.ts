@@ -4,7 +4,7 @@ import * as ActPxl from "../../00.pixel.unit/pixel.action";
 //import * as ActFoc from "../../01.focus.unit/focus.action";
 //import * as ActPvt from "../../96.pivot.unit/pivot.action";
 
-//import * as ActMap from "../../03.hexmap.unit/hexmap.action"
+import * as ActDsk from "../../act/disk.action"
 
 import * as ActTrm from "../../act/terminal.action";
 import * as ActChc from "../../act/choice.action"; 111
@@ -45,6 +45,11 @@ export const updateMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
 
   switch (src) {
     case ActPxl.BUILD_PIXEL:
+
+      bit = await ste.bus( ActPxl.BUILD_PIXEL, { src:'./data/color-list/000.color.name.json' })
+
+      debugger
+
       bit = await ste.hunt( ActPxl.BUILD_PIXEL, {})
       bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: 'updating pixel....' })
       break;

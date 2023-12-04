@@ -9,6 +9,9 @@ import * as ActVrt from "../../act/vurt.action"
 import * as ActDsk from "../../act/disk.action"
 import * as ActPvt from "../../act/pivot.action";
 
+import * as ActClr from "../../act/color.action"
+import * as ActLgt from "../../act/light.action"
+
 var bit, val, idx, dex, lst, dat, src;
 
 export const initPixel = async (cpy: PixelModel, bal: PixelBit, ste: State) => {
@@ -185,6 +188,28 @@ export const colorPixel = async (cpy: PixelModel, bal: PixelBit, ste: State) => 
 
 
 export const buildPixel = async (cpy: PixelModel, bal: PixelBit, ste: State) => {
+
+  var root = '../color/';
+
+  bit = await ste.bus( ActDsk.READ_DISK, {src: bal.src})
+  dat = bit.dskBit.dat;
+  dat = JSON.parse(dat)
+
+  bit = await ste.bus( ActClr.OPEN_COLOR, {dat})
+  dat = bit.clrBit;
+
+  bit = await ste.bus( ActLgt.READ_LIGHT, {val:0})
+  dat = bit.lgtBit;
+  debugger
+
+
+
+  debugger
+
+
+
+
+
 
   //
   //var bit = await window['electronAPI'].readLight(0)
