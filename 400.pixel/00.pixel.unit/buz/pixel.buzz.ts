@@ -196,7 +196,7 @@ export const buildPixel = async (cpy: PixelModel, bal: PixelBit, ste: State) => 
   dat = JSON.parse(dat)
 
   bit = await ste.bus( ActClr.OPEN_COLOR, {dat})
-  dat = bit.clrBit;
+  var colorDat = bit.clrBit.dat;
 
   bit = await ste.bus( ActLgt.READ_LIGHT, {val:0})
   var wall0 = bit.lgtBit;
@@ -204,15 +204,38 @@ export const buildPixel = async (cpy: PixelModel, bal: PixelBit, ste: State) => 
   bit = await ste.bus( ActLgt.READ_LIGHT, {val:1})
   var wall1 = bit.lgtBit;
 
+  var colorList = []
+
+  for ( var key in colorDat ){
+    var itm =  colorDat[key].substring(1);
+    colorList.push(itm)
+  }
+
+  var dex = colorList.length - 1
+
+  var output = []
+
+  var next = async()=>{
+
+    if ( dex <= 0 ){
+
+      output
+      debugger
+
+    }
+
+    var idx = colorList[dex]
+    dex -=1;
 
 
-  debugger
+    bit = await ste.bus( ActClr.READ_COLOR, {idx, val:1})
+    var colorDat = bit.clrBit.dat;
+    output.push(  colorDat )
 
+    next()
+  }
 
-
-
-
-
+  next()
 
   return cpy;
 };

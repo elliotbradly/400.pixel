@@ -57,7 +57,7 @@ const readColor = (cpy, bal, ste) => {
     }
     src;
     if (bal.slv != null)
-        bal.slv({ clrBit: { idx: "read-color", src, dat: { r, g, b, hex } } });
+        bal.slv({ clrBit: { idx: "read-color", src, dat: { r, g, b, hex, src } } });
     return cpy;
 };
 exports.readColor = readColor;
