@@ -10,13 +10,13 @@ const ActCvs = require("../../act/canvas.action");
 const ActCns = require("../../act/console.action");
 const ActDsk = require("../../act/disk.action");
 const ActPut = require("../../act/input.action");
-var bit, lst, dex, idx, dat, src;
+var bit, lst, dex, idx, dat, src, val;
 const initMenu = async (cpy, bal, ste) => {
     if (bal == null)
         bal = { idx: null };
     bit = await ste.bus(ActGrd.UPDATE_GRID, { x: 3, y: 0, xSpan: 6, ySpan: 12 });
     bit = await ste.bus(ActCvs.WRITE_CANVAS, { idx: 'cvs1', dat: { clr: Color.CYAN, net: bit.grdBit.dat }, });
-    bit = await ste.bus(ActGrd.UPDATE_GRID, { x: 8, y: 0, xSpan: 2, ySpan: 12 });
+    bit = await ste.bus(ActGrd.UPDATE_GRID, { x: 3, y: 0, xSpan: 9, ySpan: 12 });
     bit = await ste.bus(ActCns.WRITE_CONSOLE, { idx: 'cns00', src: "", dat: { net: bit.grdBit.dat, src: "alligaor0" } });
     bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: "-----------" });
     bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: "LIGHT PIVOT V0" });
@@ -27,11 +27,24 @@ const initMenu = async (cpy, bal, ste) => {
 exports.initMenu = initMenu;
 const updateMenu = async (cpy, bal, ste) => {
     //lst = [ActPvt.CLOUD_PIVOT, ActPvt.UPDATE_PIVOT, ActPvt.OPEN_PIVOT, ActPvt.EDIT_PIVOT, ActSpc.MERGE_SPACE, ActMnu.FOCUS_MENU, ActMnu.HEXMAP_MENU, , ActMnu.RENDER_MENU]
-    lst = [ActLgt.UPDATE_LIGHT, ActClr.READ_COLOR, ActClr.OPEN_COLOR];
+    lst = [ActLgt.UPDATE_LIGHT, ActClr.READ_COLOR, ActClr.OPEN_COLOR, ActLgt.READ_LIGHT];
     bit = await ste.bus(ActGrd.UPDATE_GRID, { x: 0, y: 4, xSpan: 3, ySpan: 12 });
     bit = await ste.bus(ActChc.OPEN_CHOICE, { dat: { clr0: Color.BLACK, clr1: Color.YELLOW }, src: Align.VERTICAL, lst, net: bit.grdBit.dat });
     src = bit.chcBit.src;
     switch (src) {
+        case ActLgt.READ_LIGHT:
+            lst = ['000', '001'];
+            bit = await ste.bus(ActGrd.UPDATE_GRID, { x: 0, y: 4, xSpan: 3, ySpan: 12 });
+            bit = await ste.bus(ActChc.OPEN_CHOICE, { dat: { clr0: Color.BLACK, clr1: Color.YELLOW }, src: Align.VERTICAL, lst, net: bit.grdBit.dat });
+            src = bit.chcBit.src;
+            val = Number(src);
+            bit = await ste.hunt(ActLgt.READ_LIGHT, { val });
+            src = JSON.stringify(bit.lgtBit.dat);
+            lst = src.split(',');
+            lst.forEach(async (a) => {
+                bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: a });
+            });
+            break;
         case ActLgt.UPDATE_LIGHT:
             bit = await ste.hunt(ActLgt.UPDATE_LIGHT, {});
             break;

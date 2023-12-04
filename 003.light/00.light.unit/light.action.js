@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateLight = exports.UPDATE_LIGHT = exports.InitLight = exports.INIT_LIGHT = void 0;
+exports.ReadLight = exports.READ_LIGHT = exports.UpdateLight = exports.UPDATE_LIGHT = exports.InitLight = exports.INIT_LIGHT = void 0;
 // Light actions
 exports.INIT_LIGHT = "[Light action] Init Light";
 class InitLight {
@@ -18,4 +18,12 @@ class UpdateLight {
     }
 }
 exports.UpdateLight = UpdateLight;
+exports.READ_LIGHT = "[Read action] Read Light";
+class ReadLight {
+    constructor(bale) {
+        this.bale = bale;
+        this.type = exports.READ_LIGHT;
+    }
+}
+exports.ReadLight = ReadLight;
 //# sourceMappingURL=light.action.js.map
