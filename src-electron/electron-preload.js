@@ -5,6 +5,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   openFile: () => ipcRenderer.invoke('dialog:openFile'),
   readColor: (idx)=> ipcRenderer.invoke('light:readColor', idx),
   saveImage: (dat)=> ipcRenderer.invoke('pixel:saveImage', dat),
+  readLight: (val)=> ipcRenderer.invoke('light:readLight', val),
 
   openGame: ()=> ipcRenderer.invoke('game:openGame'),
   shapeHexmap: ()=> ipcRenderer.invoke('space:shapeHexmap'),

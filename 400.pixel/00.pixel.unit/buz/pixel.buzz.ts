@@ -153,11 +153,11 @@ export const colorPixel = async (cpy: PixelModel, bal: PixelBit, ste: State) => 
 
     var itm = lst[dex]
 
-    if ( dex % 10000 == 3) console.log('processing itm ' + JSON.stringify(itm) )
+    if (dex % 10000 == 3) console.log('processing itm ' + JSON.stringify(itm))
 
     dex -= 1;
 
-    if ( dex % 10000 == 3) console.log('processing now ' + dex )
+    if (dex % 10000 == 3) console.log('processing now ' + dex)
 
 
     var bit = await window['electronAPI'].readColor('#' + itm.hex)
@@ -167,13 +167,13 @@ export const colorPixel = async (cpy: PixelModel, bal: PixelBit, ste: State) => 
 
     var nowDat = nowBit.clrBit.dat;
 
-    var marling = { x:itm.x, y:itm.y, hex: nowDat.hex, r: nowDat.r, g: nowDat.g, b: nowDat.b }
+    var marling = { x: itm.x, y: itm.y, hex: nowDat.hex, r: nowDat.r, g: nowDat.g, b: nowDat.b }
     //console.log( marling )
 
 
-    if ( dex % 10000 == 3) console.log('processing marling ' + JSON.stringify(marling) )
+    if (dex % 10000 == 3) console.log('processing marling ' + JSON.stringify(marling))
 
-    fin.push( marling)
+    fin.push(marling)
     next()
 
   }
@@ -184,8 +184,18 @@ export const colorPixel = async (cpy: PixelModel, bal: PixelBit, ste: State) => 
 };
 
 
+export const buildPixel = async (cpy: PixelModel, bal: PixelBit, ste: State) => {
+
+  //
+  //var bit = await window['electronAPI'].readLight(0)
+  debugger
 
 
+
+
+
+  return cpy;
+};
 var patch = (ste, type, bale) => ste.dispatch({ type, bale });
 
 

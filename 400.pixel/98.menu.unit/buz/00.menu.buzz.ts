@@ -26,7 +26,7 @@ export const initMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
   bit = await ste.bus(ActCns.WRITE_CONSOLE, { idx: 'cns00', src: "", dat: { net: bit.grdBit.dat, src: "alligaor0" } })
 
   bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: "-----------" })
-  bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: "Control PIVOT V0" })
+  bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: "PIXEL MENU V0" })
   bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: "-----------" })
 
   updateMenu(cpy, bal, ste);
@@ -36,7 +36,7 @@ export const initMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
 
 export const updateMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
 
-  lst = [ActPxl.OPEN_PIXEL, ActPxl.UPDATE_PIXEL]
+  lst = [ActPxl.OPEN_PIXEL, ActPxl.UPDATE_PIXEL, ActPxl.BUILD_PIXEL ]
 
   bit = await ste.bus(ActGrd.UPDATE_GRID, { x: 0, y: 4, xSpan: 3, ySpan: 12 })
   bit = await ste.bus(ActChc.OPEN_CHOICE, { dat: { clr0: Color.BLACK, clr1: Color.YELLOW }, src: Align.VERTICAL, lst, net: bit.grdBit.dat })
@@ -44,6 +44,10 @@ export const updateMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
   src = bit.chcBit.src;
 
   switch (src) {
+    case ActPxl.BUILD_PIXEL:
+      bit = await ste.hunt( ActPxl.BUILD_PIXEL, {})
+      bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: 'updating pixel....' })
+      break;
 
     case ActPxl.UPDATE_PIXEL:
       bit = await ste.hunt(ActPxl.UPDATE_PIXEL, {})

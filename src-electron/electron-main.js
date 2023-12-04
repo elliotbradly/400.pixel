@@ -59,17 +59,18 @@ async function shapeHexmap() {
   return bit
 }
 
-
-
 async function createWindow() {
 
   ipcMain.handle('dialog:openFile', handleFileOpen)
   ipcMain.handle('game:openGame', openGame)
   ipcMain.handle('space:shapeHexmap', shapeHexmap)
 
+  ipcMain.handle('light:readLight', async (event, val) => {
+    bit = await LIGHT.hunt(ActLgt.READ_LIGHT, { idx, val })
+    return JSON.stringify(bit)
+  })
+
   ipcMain.handle('pixel:saveImage', async (event, lst) => {
-
-
 
     var fs = require("fs");
     var PNG = require("pngjs").PNG;
@@ -113,7 +114,7 @@ async function createWindow() {
 
 
 
-      return JSON.stringify({ idx: "save-image" })
+    return JSON.stringify({ idx: "save-image" })
   })
 
 

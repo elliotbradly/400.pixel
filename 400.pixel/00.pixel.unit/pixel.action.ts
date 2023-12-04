@@ -33,7 +33,14 @@ export const COLOR_PIXEL = "[Color action] Color Pixel";
  constructor(public bale: PixelBit) {}
  }
  
+export const BUILD_PIXEL = "[Build action] Build Pixel";
+ export class BuildPixel implements Action {
+ readonly type = BUILD_PIXEL;
+ constructor(public bale: PixelBit) {}
+ }
+ 
 export type Actions = | InitPixel | UpdatePixel 
 | OpenPixel
 | ProcessPixel
 | ColorPixel
+| BuildPixel
