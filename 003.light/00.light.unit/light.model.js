@@ -63,7 +63,7 @@ class LightModel {
             glop05: "#c6b836",
             glop06: "#8A9A5B",
             glop07: "#7393B3",
-            glop08: "#D3D3D3",
+            glop08: "#FF00FF",
             glop09: "#838383",
             glop10: "#e1ad01",
             glop11: "#A9A9A9",
