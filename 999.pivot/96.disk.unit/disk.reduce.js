@@ -33,6 +33,8 @@ function reducer(model = new disk_model_1.DiskModel(), act, state) {
             return Buzz.deleteDisk(clone(model), act.bale, state);
         case Act.EXIST_DISK:
             return Buzz.existDisk(clone(model), act.bale, state);
+        case Act.SWATCH_DISK:
+            return Buzz.swatchDisk(clone(model), act.bale, state);
         default:
             return model;
     }

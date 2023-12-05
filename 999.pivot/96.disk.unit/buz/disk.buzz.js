@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.existDisk = exports.deleteDisk = exports.ensureDisk = exports.trashDisk = exports.batchDisk = exports.frameDisk = exports.copyDisk = exports.load_listDisk = exports.indexDisk = exports.readDisk = exports.writeDisk = exports.updateDisk = exports.initDisk = void 0;
+exports.swatchDisk = exports.existDisk = exports.deleteDisk = exports.ensureDisk = exports.trashDisk = exports.batchDisk = exports.frameDisk = exports.copyDisk = exports.load_listDisk = exports.indexDisk = exports.readDisk = exports.writeDisk = exports.updateDisk = exports.initDisk = void 0;
 const ActDsk = require("../../96.disk.unit/disk.action");
 var bit, lst, idx, val, dat;
 const initDisk = (cpy, bal, ste) => {
@@ -77,7 +77,6 @@ const readDisk = async (cpy, bal, ste) => {
 };
 exports.readDisk = readDisk;
 const indexDisk = async (cpy, bal, ste) => {
-    debugger;
     if ((bal.src == null) && (bal.slv != null))
         bal.slv({ dskBit: { idx: "list-disk-error", src: 'no src present' } });
     if (bal.val == null)
@@ -122,7 +121,11 @@ const copyDisk = async (cpy, bal, ste) => {
     }
     FS.ensureDirSync(bal.src);
     FS.ensureDirSync(bal.idx);
-    bit = await FS.remove(bal.idx);
+    if (bal.val == null)
+        bal.val = 0;
+    if (bal.val == 0) {
+        bit = await FS.remove(bal.idx);
+    }
     if (bal.dat == 'debug') {
         console.log("............");
         console.log("copying..." + bal.src);
@@ -211,6 +214,34 @@ const existDisk = (cpy, bal, ste) => {
     return cpy;
 };
 exports.existDisk = existDisk;
+const swatchDisk = (cpy, bal, ste) => {
+    var PNG = require("pngjs").PNG;
+    var convert = require('color-convert');
+    var rgb = convert.hex.rgb(bal.idx);
+    FS.createReadStream("./data/in-swatch.png")
+        .pipe(new PNG({
+        filterType: 4,
+    }))
+        .on("parsed", function () {
+        for (var y = 0; y < this.height; y++) {
+            for (var x = 0; x < this.width; x++) {
+                var idx = (this.width * y + x) << 2;
+                // invert color
+                this.data[idx] = rgb[0];
+                this.data[idx + 1] = rgb[1];
+                this.data[idx + 2] = rgb[2];
+                // and reduce opacity
+                this.data[idx + 3] = this.data[idx + 3] >> 1;
+            }
+        }
+        this.pack().pipe(FS.createWriteStream(bal.src));
+        if (bal.slv != null)
+            bal.slv({ dskBit: { idx: "swatch-disk", src: bal.src } });
+    });
+    return JSON.stringify({ idx: "save-image" });
+    return cpy;
+};
+exports.swatchDisk = swatchDisk;
 const FS = require("fs-extra");
 /*
 

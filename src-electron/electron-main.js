@@ -74,7 +74,7 @@ async function createWindow() {
 
     var fs = require("fs");
     var PNG = require("pngjs").PNG;
-    var convert = require('color-convert');
+
 
     fs.createReadStream("./data/in.png")
       .pipe(

@@ -48,9 +48,6 @@ export const updateMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
 
       bit = await ste.bus( ActPxl.BUILD_PIXEL, { src:'./data/color-list/000.color.name.json' })
 
-      debugger
-
-      bit = await ste.hunt( ActPxl.BUILD_PIXEL, {})
       bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: 'updating pixel....' })
       break;
 

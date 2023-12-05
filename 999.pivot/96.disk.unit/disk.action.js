@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ExistDisk = exports.EXIST_DISK = exports.DeleteDisk = exports.DELETE_DISK = exports.EnsureDisk = exports.ENSURE_DISK = exports.TrashDisk = exports.TRASH_DISK = exports.BatchDisk = exports.BATCH_DISK = exports.FrameDisk = exports.FRAME_DISK = exports.CopyDisk = exports.COPY_DISK = exports.Load_listDisk = exports.LOAD_LIST_DISK = exports.IndexDisk = exports.INDEX_DISK = exports.WriteDisk = exports.WRITE_DISK = exports.ReadDisk = exports.READ_DISK = exports.UpdateDisk = exports.UPDATE_DISK = exports.InitDisk = exports.INIT_DISK = void 0;
+exports.SwatchDisk = exports.SWATCH_DISK = exports.ExistDisk = exports.EXIST_DISK = exports.DeleteDisk = exports.DELETE_DISK = exports.EnsureDisk = exports.ENSURE_DISK = exports.TrashDisk = exports.TRASH_DISK = exports.BatchDisk = exports.BATCH_DISK = exports.FrameDisk = exports.FRAME_DISK = exports.CopyDisk = exports.COPY_DISK = exports.Load_listDisk = exports.LOAD_LIST_DISK = exports.IndexDisk = exports.INDEX_DISK = exports.WriteDisk = exports.WRITE_DISK = exports.ReadDisk = exports.READ_DISK = exports.UpdateDisk = exports.UPDATE_DISK = exports.InitDisk = exports.INIT_DISK = void 0;
 exports.INIT_DISK = '[Disk action] Init Disk';
 class InitDisk {
     constructor(bale) {
@@ -105,4 +105,12 @@ class ExistDisk {
     }
 }
 exports.ExistDisk = ExistDisk;
+exports.SWATCH_DISK = "[Swatch action] Swatch Disk";
+class SwatchDisk {
+    constructor(bale) {
+        this.bale = bale;
+        this.type = exports.SWATCH_DISK;
+    }
+}
+exports.SwatchDisk = SwatchDisk;
 //# sourceMappingURL=disk.action.js.map
