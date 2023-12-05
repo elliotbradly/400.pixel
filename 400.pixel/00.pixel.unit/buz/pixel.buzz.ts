@@ -191,23 +191,23 @@ export const buildPixel = async (cpy: PixelModel, bal: PixelBit, ste: State) => 
 
   var root = '../color/';
 
-  bit = await ste.bus( ActDsk.READ_DISK, {src: bal.src})
+  bit = await ste.bus(ActDsk.READ_DISK, { src: bal.src })
   dat = bit.dskBit.dat;
   dat = JSON.parse(dat)
 
-  bit = await ste.bus( ActClr.OPEN_COLOR, {dat})
+  bit = await ste.bus(ActClr.OPEN_COLOR, { dat })
   var colorDat = bit.clrBit.dat;
 
-  bit = await ste.bus( ActLgt.READ_LIGHT, {val:0})
+  bit = await ste.bus(ActLgt.READ_LIGHT, { val: 0 })
   var wall0 = bit.lgtBit;
 
-  bit = await ste.bus( ActLgt.READ_LIGHT, {val:1})
+  bit = await ste.bus(ActLgt.READ_LIGHT, { val: 1 })
   var wall1 = bit.lgtBit;
 
   var colorList = []
 
-  for ( var key in colorDat ){
-    var itm =  colorDat[key].substring(1);
+  for (var key in colorDat) {
+    var itm = colorDat[key].substring(1);
     colorList.push(itm)
   }
 
@@ -215,22 +215,34 @@ export const buildPixel = async (cpy: PixelModel, bal: PixelBit, ste: State) => 
 
   var output = []
 
-  var next = async()=>{
+  var next = async () => {
 
-    if ( dex <= 0 ){
+    if (dex < 0) {
 
       output
-      debugger
 
+      output.forEach( (a)=>{
+
+        var dir = root + a.flv +'/' + a.src + '.png';
+        //maybe icon disk here
+
+        debugger
+
+
+
+      })
+
+
+
+      if (bal.slv != null) bal.slv({ pixBit: { idx: "build-pixel", lst: output } });
     }
 
     var idx = colorList[dex]
-    dex -=1;
+    dex -= 1;
 
-
-    bit = await ste.bus( ActClr.READ_COLOR, {idx, val:1})
+    bit = await ste.bus(ActClr.READ_COLOR, { idx, val: 1 })
     var colorDat = bit.clrBit.dat;
-    output.push(  colorDat )
+    output.push(colorDat)
 
     next()
   }

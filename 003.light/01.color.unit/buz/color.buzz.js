@@ -14,29 +14,48 @@ const updateColor = (cpy, bal, ste) => {
 exports.updateColor = updateColor;
 const openColor = async (cpy, bal, ste) => {
     var data = {};
+    var modClr = ste.value.light;
     var list = bal.dat;
     list.forEach((a) => {
         var idx = a.name.toLowerCase();
         data[idx] = a.hex;
     });
     near = require("nearest-color").from(data);
-    near0 = require("nearest-color").from(cpy.boundaryData);
+    cpy.boundaryList = require("nearest-color").from(modClr.boundaryData);
     cpy.colorData = data;
-    data;
     if (bal.slv != null)
         bal.slv({ clrBit: { idx: "open-color", dat: cpy.colorData } });
     return cpy;
 };
 exports.openColor = openColor;
 const readColor = (cpy, bal, ste) => {
+    var modClr = ste.value.light;
     if (bal.val == null)
         bal.val = 0;
     let src;
     let r, g, b, hex;
+    let flv;
     switch (bal.val) {
         // we give the read spectrum a hex and it returns a name
         case 1:
+            if (bal == null) {
+                console.log("pow!!!");
+                bal.slv({ clrBit: { idx: "read-color-error" } });
+                return;
+            }
             let itm = near(bal.idx);
+            var flavor = cpy.boundaryList(bal.idx);
+            var flavorName = flavor.name;
+            flv = modClr.boundaryTitle[flavorName];
+            if (flv == null) {
+                bal.slv({ clrBit: { idx: "read-color-error" } });
+                return;
+            }
+            flv = flv.idx;
+            if (flv == null) {
+                bal.slv({ clrBit: { idx: "read-color-error" } });
+                return;
+            }
             r = itm.rgb.r;
             g = itm.rgb.g;
             b = itm.rgb.b;
@@ -57,7 +76,7 @@ const readColor = (cpy, bal, ste) => {
     }
     src;
     if (bal.slv != null)
-        bal.slv({ clrBit: { idx: "read-color", src, dat: { r, g, b, hex, src } } });
+        bal.slv({ clrBit: { idx: "read-color", src, dat: { r, g, b, hex, src, flv } } });
     return cpy;
 };
 exports.readColor = readColor;

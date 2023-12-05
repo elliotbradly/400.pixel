@@ -5,6 +5,7 @@ const ActMnu = require("../../98.menu.unit/menu.action");
 const ActClr = require("../../01.color.unit/color.action");
 const ActLgt = require("../../00.light.unit/light.action");
 const ActBus = require("../../99.bus.unit/bus.action");
+const ActPvt = require("../../act/pivot.action");
 const clone = require("clone-deep");
 var bit, val, idx, dex, lst, dat, src;
 const initLight = async (cpy, bal, ste) => {
@@ -33,7 +34,10 @@ const readLight = (cpy, bal, ste) => {
     return cpy;
 };
 exports.readLight = readLight;
-const updateLight = (cpy, bal, ste) => {
+const updateLight = async (cpy, bal, ste) => {
+    bit = await ste.bus(ActPvt.UPDATE_PIVOT, { src: '003.light' });
+    if (bal.slv != null)
+        bal.slv({ lgtBit: { idx: "udpate-light", dat: {} } });
     return cpy;
 };
 exports.updateLight = updateLight;
