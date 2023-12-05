@@ -222,21 +222,13 @@ export const buildPixel = async (cpy: PixelModel, bal: PixelBit, ste: State) => 
       output
 
       output.forEach( async (a)=>{
-
         var dir = root + a.flv +'/' + a.src + '.png';
-        //maybe icon disk here
-
         bit = await ste.bus(ActDsk.SWATCH_DISK, { idx:a, src: dir })
-
-        debugger
-
-
 
       })
 
-
-
       if (bal.slv != null) bal.slv({ pixBit: { idx: "build-pixel", lst: output } });
+      return
     }
 
     var idx = colorList[dex]

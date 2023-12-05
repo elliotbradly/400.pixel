@@ -218,6 +218,7 @@ const swatchDisk = (cpy, bal, ste) => {
     var PNG = require("pngjs").PNG;
     var convert = require('color-convert');
     var rgb = convert.hex.rgb(bal.idx);
+    FS.ensureFileSync(bal.src);
     FS.createReadStream("./data/in-swatch.png")
         .pipe(new PNG({
         filterType: 4,
@@ -231,7 +232,7 @@ const swatchDisk = (cpy, bal, ste) => {
                 this.data[idx + 1] = rgb[1];
                 this.data[idx + 2] = rgb[2];
                 // and reduce opacity
-                this.data[idx + 3] = this.data[idx + 3] >> 1;
+                this.data[idx + 3] = 255;
             }
         }
         this.pack().pipe(FS.createWriteStream(bal.src));
