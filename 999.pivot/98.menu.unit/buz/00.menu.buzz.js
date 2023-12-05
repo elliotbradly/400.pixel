@@ -4,6 +4,7 @@ exports.visageMenu = exports.shadeMenu = exports.closeMenu = exports.testMenu = 
 const ActMnu = require("../menu.action");
 const ActPvt = require("../../00.pivot.unit/pivot.action");
 const ActTrm = require("../../01.terminal.unit/terminal.action");
+const ActDsk = require("../../96.disk.unit/disk.action");
 var bit, lst, dex, src;
 const initMenu = async (cpy, bal, ste) => {
     if (bal == null)
@@ -17,7 +18,7 @@ const updateMenu = async (cpy, bal, ste) => {
     bit = await ste.hunt(ActTrm.WRITE_TERMINAL, { src: "-----------", bit: 'local' });
     bit = await ste.hunt(ActTrm.WRITE_TERMINAL, { src: "PIVOT PIVOT V0", bit: 'local' });
     bit = await ste.hunt(ActTrm.WRITE_TERMINAL, { src: "-----------", bit: "local" });
-    var lst = [ActMnu.UNIT_MENU, ActPvt.COUNT_PIVOT, ActPvt.CREATE_PIVOT, ActPvt.UPDATE_PIVOT, ActPvt.BUNDLE_PIVOT];
+    var lst = [ActMnu.UNIT_MENU, ActPvt.COUNT_PIVOT, ActPvt.CREATE_PIVOT, ActPvt.UPDATE_PIVOT, ActPvt.BUNDLE_PIVOT, ActDsk.SWATCH_DISK];
     bit = await ste.hunt(ActTrm.UPDATE_TERMINAL, { lst });
     bit = bit.trmBit;
     var idx = lst[bit.val];
@@ -27,6 +28,12 @@ const updateMenu = async (cpy, bal, ste) => {
             bit = await ste.hunt(ActPvt.COUNT_PIVOT, {});
             bit = await ste.hunt(ActTrm.WRITE_TERMINAL, { val: 2, src: JSON.stringify(bit) });
             setTimeout(() => (0, exports.updateMenu)(cpy, bal, ste), 3333);
+            break;
+        case ActDsk.SWATCH_DISK:
+            bit = await ste.hunt(ActTrm.INPUT_TERMINAL, { lst: ["", "", "Swatch Color..."] });
+            idx = bit.trmBit.src;
+            bit = await ste.hunt(ActDsk.SWATCH_DISK, { idx });
+            console.log(JSON.stringify(bit));
             break;
         case ActPvt.OPEN_PIVOT:
             bit = await ste.hunt(ActPvt.OPEN_PIVOT, {});

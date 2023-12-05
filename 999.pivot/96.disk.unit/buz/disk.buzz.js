@@ -215,31 +215,32 @@ const existDisk = (cpy, bal, ste) => {
 };
 exports.existDisk = existDisk;
 const swatchDisk = (cpy, bal, ste) => {
+    if (bal.src == null)
+        bal.src = './data/swatch.png';
+    if (bal.idx == null)
+        bal.idx = 'FF00FF';
     var PNG = require("pngjs").PNG;
     var convert = require('color-convert');
     var rgb = convert.hex.rgb(bal.idx);
     FS.ensureFileSync(bal.src);
-    FS.createReadStream("./data/in-swatch.png")
-        .pipe(new PNG({
-        filterType: 4,
-    }))
-        .on("parsed", function () {
-        for (var y = 0; y < this.height; y++) {
-            for (var x = 0; x < this.width; x++) {
-                var idx = (this.width * y + x) << 2;
-                // invert color
-                this.data[idx] = rgb[0];
-                this.data[idx + 1] = rgb[1];
-                this.data[idx + 2] = rgb[2];
-                // and reduce opacity
-                this.data[idx + 3] = 255;
-            }
+    let newfile = new PNG({ width: 128, height: 128 });
+    for (let y = 0; y < newfile.height; y++) {
+        for (let x = 0; x < newfile.width; x++) {
+            let idx = (newfile.width * y + x) << 2;
+            newfile.data[idx] = rgb[0];
+            newfile.data[idx + 1] = rgb[1];
+            newfile.data[idx + 2] = rgb[2];
+            newfile.data[idx + 3] = 0xff;
         }
-        this.pack().pipe(FS.createWriteStream(bal.src));
+    }
+    newfile
+        .pack()
+        .pipe(FS.createWriteStream(bal.src))
+        .on("finish", function () {
+        console.log("Written! " + bal.src);
         if (bal.slv != null)
             bal.slv({ dskBit: { idx: "swatch-disk", src: bal.src } });
     });
-    return JSON.stringify({ idx: "save-image" });
     return cpy;
 };
 exports.swatchDisk = swatchDisk;

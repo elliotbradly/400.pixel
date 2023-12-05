@@ -222,8 +222,12 @@ export const buildPixel = async (cpy: PixelModel, bal: PixelBit, ste: State) => 
       output
 
       output.forEach( async (a)=>{
+
         var dir = root + a.flv +'/' + a.src + '.png';
-        bit = await ste.bus(ActDsk.SWATCH_DISK, { idx:a, src: dir })
+
+        var nowClr = a.hex;
+
+        bit = await ste.bus(ActDsk.SWATCH_DISK, { idx:nowClr, src: dir })
 
       })
 
