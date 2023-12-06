@@ -39,8 +39,15 @@ export const BUILD_PIXEL = "[Build action] Build Pixel";
  constructor(public bale: PixelBit) {}
  }
  
+export const WRITE_PIXEL = "[Write action] Write Pixel";
+ export class WritePixel implements Action {
+ readonly type = WRITE_PIXEL;
+ constructor(public bale: PixelBit) {}
+ }
+ 
 export type Actions = | InitPixel | UpdatePixel 
 | OpenPixel
 | ProcessPixel
 | ColorPixel
 | BuildPixel
+| WritePixel

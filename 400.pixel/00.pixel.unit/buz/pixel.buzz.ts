@@ -252,6 +252,10 @@ export const buildPixel = async (cpy: PixelModel, bal: PixelBit, ste: State) => 
 var patch = (ste, type, bale) => ste.dispatch({ type, bale });
 
 
+export const writePixel = (cpy: PixelModel, bal:PixelBit, ste: State) => {
+ debugger
+ return cpy;
+ };
 import { PixelModel } from "../pixel.model";
 import PixelBit from "../fce/pixel.bit";
 import State from "../../99.core/state";

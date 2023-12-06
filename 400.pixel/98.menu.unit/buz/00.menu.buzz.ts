@@ -1,6 +1,8 @@
 import * as ActMnu from "../menu.action";
 
 import * as ActPxl from "../../00.pixel.unit/pixel.action";
+import * as ActPal from "../../01.palette.unit/palette.action";
+
 //import * as ActFoc from "../../01.focus.unit/focus.action";
 //import * as ActPvt from "../../96.pivot.unit/pivot.action";
 
@@ -36,9 +38,9 @@ export const initMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
 
 export const updateMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
 
-  lst = [ActPxl.OPEN_PIXEL, ActPxl.UPDATE_PIXEL, ActPxl.BUILD_PIXEL ]
+  lst = [ActPxl.OPEN_PIXEL, ActPxl.UPDATE_PIXEL, ActPxl.BUILD_PIXEL, ActPal.WRITE_PALETTE ]
 
-  bit = await ste.bus(ActGrd.UPDATE_GRID, { x: 0, y: 4, xSpan: 3, ySpan: 12 })
+  bit = await ste.bus(ActGrd.UPDATE_GRID, { x: 0, y: 4, xSpan: 5, ySpan: 12 })
   bit = await ste.bus(ActChc.OPEN_CHOICE, { dat: { clr0: Color.BLACK, clr1: Color.YELLOW }, src: Align.VERTICAL, lst, net: bit.grdBit.dat })
 
   src = bit.chcBit.src;
@@ -55,6 +57,20 @@ export const updateMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
       bit = await ste.hunt(ActPxl.UPDATE_PIXEL, {})
       bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: 'updating pixel....' })
       break;
+
+      case ActPal.WRITE_PALETTE:
+
+        bit = await ste.hunt(ActPal.LIST_PALETTE, {})
+        lst = bit.palBit.lst;
+
+        bit = await ste.bus(ActGrd.UPDATE_GRID, { x: 0, y: 4, xSpan: 5, ySpan: 12 })
+        bit = await ste.bus(ActChc.OPEN_CHOICE, { dat: { clr0: Color.BLACK, clr1: Color.YELLOW }, src: Align.VERTICAL, lst, net: bit.grdBit.dat })
+
+        src = bit.chcBit.src;
+
+        bit = await ste.hunt(ActPal.WRITE_PALETTE, {src})
+        bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: 'updating pixel....' })
+        break;
 
     case ActPxl.OPEN_PIXEL:
       bit = await ste.hunt(ActPxl.OPEN_PIXEL, {})
