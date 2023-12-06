@@ -35,6 +35,8 @@ function reducer(model = new disk_model_1.DiskModel(), act, state) {
             return Buzz.existDisk(clone(model), act.bale, state);
         case Act.SWATCH_DISK:
             return Buzz.swatchDisk(clone(model), act.bale, state);
+        case Act.COLOR_DISK:
+            return Buzz.colorDisk(clone(model), act.bale, state);
         default:
             return model;
     }

@@ -33,6 +33,7 @@ export const updatePalette = (cpy: PaletteModel, bal: PaletteBit, ste: State) =>
     }
 
     var itm = lst[dex]
+    bit = await ste.bus(ActDsk.COLOR_DISK, { src: itm })
     debugger
 
     dex -= 1

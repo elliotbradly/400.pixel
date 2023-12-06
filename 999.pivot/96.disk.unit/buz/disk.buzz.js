@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.swatchDisk = exports.existDisk = exports.deleteDisk = exports.ensureDisk = exports.trashDisk = exports.batchDisk = exports.frameDisk = exports.copyDisk = exports.load_listDisk = exports.indexDisk = exports.readDisk = exports.writeDisk = exports.updateDisk = exports.initDisk = void 0;
+exports.colorDisk = exports.swatchDisk = exports.existDisk = exports.deleteDisk = exports.ensureDisk = exports.trashDisk = exports.batchDisk = exports.frameDisk = exports.copyDisk = exports.load_listDisk = exports.indexDisk = exports.readDisk = exports.writeDisk = exports.updateDisk = exports.initDisk = void 0;
 const ActDsk = require("../../96.disk.unit/disk.action");
 var bit, lst, idx, val, dat;
 const initDisk = (cpy, bal, ste) => {
@@ -244,6 +244,32 @@ const swatchDisk = (cpy, bal, ste) => {
     return cpy;
 };
 exports.swatchDisk = swatchDisk;
+const colorDisk = (cpy, bal, ste) => {
+    var PNG = require("pngjs").PNG;
+    var r, g, b;
+    FS.createReadStream(bal.src)
+        .pipe(new PNG({
+        filterType: 4,
+    }))
+        .on("parsed", function () {
+        for (var y = 0; y < this.height; y++) {
+            for (var x = 0; x < this.width; x++) {
+                var idx = (this.width * y + x) << 2;
+                // invert color
+                r = this.data[idx];
+                g = this.data[idx + 1];
+                b = this.data[idx + 2];
+                // and reduce opacity
+                //this.data[idx + 3] = this.data[idx + 3] >> 1;
+            }
+        }
+        if (bal.slv != null)
+            bal.slv({ dskBit: { idx: "color-disk", lst: [r, g, b] } });
+        //this.pack().pipe(fs.createWriteStream("out.png"));
+    });
+    return cpy;
+};
+exports.colorDisk = colorDisk;
 const FS = require("fs-extra");
 /*
 
