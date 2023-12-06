@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReadColor = exports.READ_COLOR = exports.OpenColor = exports.OPEN_COLOR = exports.UpdateColor = exports.UPDATE_COLOR = exports.InitColor = exports.INIT_COLOR = void 0;
+exports.CreateColor = exports.CREATE_COLOR = exports.DeleteColor = exports.DELETE_COLOR = exports.RemoveColor = exports.REMOVE_COLOR = exports.WriteColor = exports.WRITE_COLOR = exports.ReadColor = exports.READ_COLOR = exports.OpenColor = exports.OPEN_COLOR = exports.UpdateColor = exports.UPDATE_COLOR = exports.InitColor = exports.INIT_COLOR = void 0;
 // Color actions
 exports.INIT_COLOR = "[Color action] Init Color";
 class InitColor {
@@ -34,4 +34,36 @@ class ReadColor {
     }
 }
 exports.ReadColor = ReadColor;
+exports.WRITE_COLOR = "[Write action] Write Color";
+class WriteColor {
+    constructor(bale) {
+        this.bale = bale;
+        this.type = exports.WRITE_COLOR;
+    }
+}
+exports.WriteColor = WriteColor;
+exports.REMOVE_COLOR = "[Remove action] Remove Color";
+class RemoveColor {
+    constructor(bale) {
+        this.bale = bale;
+        this.type = exports.REMOVE_COLOR;
+    }
+}
+exports.RemoveColor = RemoveColor;
+exports.DELETE_COLOR = "[Delete action] Delete Color";
+class DeleteColor {
+    constructor(bale) {
+        this.bale = bale;
+        this.type = exports.DELETE_COLOR;
+    }
+}
+exports.DeleteColor = DeleteColor;
+exports.CREATE_COLOR = "[Create action] Create Color";
+class CreateColor {
+    constructor(bale) {
+        this.bale = bale;
+        this.type = exports.CREATE_COLOR;
+    }
+}
+exports.CreateColor = CreateColor;
 //# sourceMappingURL=color.action.js.map

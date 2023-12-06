@@ -4,8 +4,6 @@ exports.LightModel = void 0;
 class LightModel {
     constructor() {
         this.idx = '003.light';
-        //lightBitList: LightBit[] = [];
-        //lightBits: any = {};
         this.boundaryTitle = {
             "white": { idx: "00.AL.achromatic-snow", src: 'white' },
             "red": { idx: "01.AB.achromatic-blood", src: 'red' },
@@ -79,8 +77,8 @@ class LightModel {
             glop21: "#71797E",
             glop22: "#899499",
             glop23: "#654321",
-            glop24: "#36454F",
-            glop25: "#808080",
+            glop24: "#808080",
+            glop25: "#36454F"
         };
     }
 }

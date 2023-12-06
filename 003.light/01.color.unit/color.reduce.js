@@ -15,6 +15,14 @@ function reducer(model = new color_model_1.ColorModel(), act, state) {
             return Buzz.openColor(clone(model), act.bale, state);
         case Act.READ_COLOR:
             return Buzz.readColor(clone(model), act.bale, state);
+        case Act.WRITE_COLOR:
+            return Buzz.writeColor(clone(model), act.bale, state);
+        case Act.REMOVE_COLOR:
+            return Buzz.removeColor(clone(model), act.bale, state);
+        case Act.DELETE_COLOR:
+            return Buzz.deleteColor(clone(model), act.bale, state);
+        case Act.CREATE_COLOR:
+            return Buzz.createColor(clone(model), act.bale, state);
         default:
             return model;
     }

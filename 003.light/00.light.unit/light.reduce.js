@@ -13,6 +13,8 @@ function reducer(model = new light_model_1.LightModel(), act, state) {
             return Buzz.initLight(clone(model), act.bale, state);
         case Act.READ_LIGHT:
             return Buzz.readLight(clone(model), act.bale, state);
+        case Act.SOURCE_LIGHT:
+            return Buzz.sourceLight(clone(model), act.bale, state);
         default:
             return model;
     }

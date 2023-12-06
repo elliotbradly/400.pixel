@@ -1,14 +1,41 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.readColor = exports.openColor = exports.updateColor = exports.initColor = void 0;
-var bit;
+exports.deleteColor = exports.removeColor = exports.writeColor = exports.readColor = exports.openColor = exports.updateColor = exports.createColor = exports.initColor = void 0;
+const ActClr = require("../../01.color.unit/color.action");
+const ActCol = require("../../97.collect.unit/collect.action");
+var bit, dat;
 var near, near0;
 const initColor = (cpy, bal, ste) => {
     debugger;
     return cpy;
 };
 exports.initColor = initColor;
-const updateColor = (cpy, bal, ste) => {
+const createColor = (cpy, bal, ste) => {
+    var dat = { idx: bal.idx, src: bal.src, bit: null, dat: null };
+    for (var key in bal.dat) {
+        dat[key] = bal.dat[key];
+    }
+    var data = {};
+    var list = bal.dat.lst;
+    list.forEach((a) => {
+        var idx = a.name.toLowerCase();
+        data[idx] = a.hex;
+    });
+    dat.dat = data;
+    dat.bit = require("nearest-color").from(data);
+    if (bal.slv != null)
+        return bal.slv({ clrBit: { idx: "create-color", dat } });
+    return cpy;
+};
+exports.createColor = createColor;
+const updateColor = async (cpy, bal, ste) => {
+    bit = await ste.hunt(ActClr.READ_COLOR, { idx: bal.idx });
+    dat = bit.clrBit.dat;
+    bal.src;
+    debugger;
+    dat.bit(bal.src);
+    if (bal.slv != null)
+        return bal.slv({ canBit: { idx: "update-container", dat } });
     return cpy;
 };
 exports.updateColor = updateColor;
@@ -28,57 +55,35 @@ const openColor = async (cpy, bal, ste) => {
     return cpy;
 };
 exports.openColor = openColor;
-const readColor = (cpy, bal, ste) => {
-    var modClr = ste.value.light;
-    if (bal.val == null)
-        bal.val = 0;
-    let src;
-    let r, g, b, hex;
-    let flv;
-    switch (bal.val) {
-        // we give the read spectrum a hex and it returns a name
-        case 1:
-            if (bal == null) {
-                console.log("pow!!!");
-                bal.slv({ clrBit: { idx: "read-color-error" } });
-                return;
-            }
-            let itm = near(bal.idx);
-            var flavor = cpy.boundaryList(bal.idx);
-            var flavorName = flavor.name;
-            flv = modClr.boundaryTitle[flavorName];
-            if (flv == null) {
-                bal.slv({ clrBit: { idx: "read-color-error" } });
-                return;
-            }
-            flv = flv.idx;
-            if (flv == null) {
-                bal.slv({ clrBit: { idx: "read-color-error" } });
-                return;
-            }
-            r = itm.rgb.r;
-            g = itm.rgb.g;
-            b = itm.rgb.b;
-            hex = S(itm.value).slugify().s;
-            src = itm.name;
-            src = S(src).slugify().s;
-            src += '.' + S(itm.value).slugify().s;
-            src += '.' + String(itm.rgb.r).padStart(3, '0');
-            src += '.' + String(itm.rgb.g).padStart(3, '0');
-            src += '.' + String(itm.rgb.b).padStart(3, '0');
-            src;
-            break;
-        case 0:
-            src = cpy.colorData[bal.idx];
-            if (src == null)
-                console.log("can not read spectrum for " + bal.idx);
-            break;
-    }
-    src;
-    if (bal.slv != null)
-        bal.slv({ clrBit: { idx: "read-color", src, dat: { r, g, b, hex, src, flv } } });
+const readColor = async (cpy, bal, ste) => {
+    var slv = bal.slv;
+    if (bal.idx == null)
+        bal.idx = 'clr00';
+    var updateBit = await ste.hunt(ActClr.UPDATE_COLOR, { idx: bal.idx });
+    bit = await ste.hunt(ActCol.READ_COLLECT, { idx: bal.idx, bit: ActClr.CREATE_COLOR });
+    var item = bit.clcBit.dat;
+    debugger;
+    if (slv != null)
+        slv({ clrBit: { idx: "read-color", dat: bit.clcBit.dat } });
     return cpy;
 };
 exports.readColor = readColor;
-const S = require("string");
+const writeColor = async (cpy, bal, ste) => {
+    bit = await ste.hunt(ActCol.WRITE_COLLECT, { idx: bal.idx, src: bal.src, dat: bal.dat, bit: ActClr.CREATE_COLOR });
+    ste.hunt(ActClr.UPDATE_COLOR, { idx: bal.idx });
+    if (bal.slv != null)
+        bal.slv({ clrBit: { idx: "write-color", dat: bit.clcBit.dat } });
+    return cpy;
+};
+exports.writeColor = writeColor;
+const removeColor = (cpy, bal, ste) => {
+    debugger;
+    return cpy;
+};
+exports.removeColor = removeColor;
+const deleteColor = (cpy, bal, ste) => {
+    debugger;
+    return cpy;
+};
+exports.deleteColor = deleteColor;
 //# sourceMappingURL=color.buzz.js.map
