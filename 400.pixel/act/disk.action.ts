@@ -12,4 +12,4 @@ export const ENSURE_DISK = '[Ensure action] Ensure Disk'
 export const DELETE_DISK = '[Delete action] Delete Disk'
 export const EXIST_DISK = "[Exist action] Exist Disk";
 export const SWATCH_DISK = "[Swatch action] Swatch Disk";
-export const COLOR_DISK = "[Swatch action] Color Disk";
+export const COLOR_DISK = "[Color action] Color Disk";

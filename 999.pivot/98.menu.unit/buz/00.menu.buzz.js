@@ -18,7 +18,10 @@ const updateMenu = async (cpy, bal, ste) => {
     bit = await ste.hunt(ActTrm.WRITE_TERMINAL, { src: "-----------", bit: 'local' });
     bit = await ste.hunt(ActTrm.WRITE_TERMINAL, { src: "PIVOT PIVOT V0", bit: 'local' });
     bit = await ste.hunt(ActTrm.WRITE_TERMINAL, { src: "-----------", bit: "local" });
-    var lst = [ActMnu.UNIT_MENU, ActPvt.COUNT_PIVOT, ActPvt.CREATE_PIVOT, ActPvt.UPDATE_PIVOT, ActPvt.BUNDLE_PIVOT, ActDsk.SWATCH_DISK];
+    var lst = [ActMnu.UNIT_MENU, ActPvt.COUNT_PIVOT, ActPvt.CREATE_PIVOT, ActPvt.UPDATE_PIVOT,
+        ActPvt.BUNDLE_PIVOT, ActDsk.SWATCH_DISK,
+        ActDsk.COLOR_DISK
+    ];
     bit = await ste.hunt(ActTrm.UPDATE_TERMINAL, { lst });
     bit = bit.trmBit;
     var idx = lst[bit.val];
@@ -33,6 +36,10 @@ const updateMenu = async (cpy, bal, ste) => {
             bit = await ste.hunt(ActTrm.INPUT_TERMINAL, { lst: ["", "", "Swatch Color..."] });
             idx = bit.trmBit.src;
             bit = await ste.hunt(ActDsk.SWATCH_DISK, { idx });
+            console.log(JSON.stringify(bit));
+            break;
+        case ActDsk.COLOR_DISK:
+            bit = await ste.hunt(ActDsk.COLOR_DISK, { src: './data/swatch.png' });
             console.log(JSON.stringify(bit));
             break;
         case ActPvt.OPEN_PIVOT:

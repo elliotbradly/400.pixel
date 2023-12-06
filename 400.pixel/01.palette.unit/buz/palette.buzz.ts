@@ -25,16 +25,27 @@ export const updatePalette = (cpy: PaletteModel, bal: PaletteBit, ste: State) =>
   lst = bal.lst;
   var dex = lst.length - 1;
 
+  var output = []
+
   var next = async () => {
 
     if (dex < 0) {
+
+      output
+      debugger
 
       return
     }
 
     var itm = lst[dex]
+
     bit = await ste.bus(ActDsk.COLOR_DISK, { src: itm })
-    debugger
+    var clrDat = bit.dskBit.dat;
+    var data = { name:'', hex:'#' + clrDat.hex}
+
+    output.push( (data))
+
+
 
     dex -= 1
 
@@ -86,9 +97,12 @@ export const createPalette = async (cpy: PaletteModel, bal: PaletteBit, ste: Sta
 
   var dir = './palette/' + bal.src
 
+
+
   bit = await ste.bus(ActDsk.INDEX_DISK, { src: dir })
   dat = bit.dskBit
   lst = dat.lst
+
 
   var output = []
 

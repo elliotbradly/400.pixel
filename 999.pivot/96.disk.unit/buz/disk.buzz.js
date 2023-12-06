@@ -246,7 +246,10 @@ const swatchDisk = (cpy, bal, ste) => {
 exports.swatchDisk = swatchDisk;
 const colorDisk = (cpy, bal, ste) => {
     var PNG = require("pngjs").PNG;
+    var convert = require('color-convert');
     var r, g, b;
+    var hex;
+    bal.src;
     FS.createReadStream(bal.src)
         .pipe(new PNG({
         filterType: 4,
@@ -259,12 +262,15 @@ const colorDisk = (cpy, bal, ste) => {
                 r = this.data[idx];
                 g = this.data[idx + 1];
                 b = this.data[idx + 2];
+                hex = convert.rgb.hex([r, g, b]);
+                //maybe turn this more into a dominate color 
                 // and reduce opacity
                 //this.data[idx + 3] = this.data[idx + 3] >> 1;
             }
         }
+        dat = { r, g, b, hex };
         if (bal.slv != null)
-            bal.slv({ dskBit: { idx: "color-disk", lst: [r, g, b] } });
+            bal.slv({ dskBit: { idx: "color-disk", dat } });
         //this.pack().pipe(fs.createWriteStream("out.png"));
     });
     return cpy;
