@@ -3,6 +3,7 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
   openFile: () => ipcRenderer.invoke('dialog:openFile'),
+  writeColor: (idx, src)=> ipcRenderer.invoke('light:writeColor', idx, src),
   readColor: (idx)=> ipcRenderer.invoke('light:readColor', idx),
   saveImage: (dat)=> ipcRenderer.invoke('pixel:saveImage', dat),
   readLight: (val)=> ipcRenderer.invoke('light:readLight', val),

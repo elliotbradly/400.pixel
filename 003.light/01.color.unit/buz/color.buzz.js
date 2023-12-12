@@ -68,6 +68,8 @@ exports.readColor = readColor;
 const writeColor = async (cpy, bal, ste) => {
     bit = await ste.hunt(ActCol.WRITE_COLLECT, { idx: bal.idx, src: bal.src, dat: bal.dat, bit: ActClr.CREATE_COLOR });
     if (bal.src != null) {
+        if (Array.from(bal.src)[0] != '#')
+            bal.src = '#' + bal.src;
         bit = await ste.hunt(ActClr.UPDATE_COLOR, { idx: bal.idx, src: bal.src });
         var colorDat = bit.clrBit.dat;
         bit = colorDat;
@@ -102,7 +104,7 @@ const mixColor = async (cpy, bal, ste) => {
     var mix = clr0.mix(clr1, val);
     var mixColor = mix.color;
     var mixHex = convert.rgb.hex(mixColor);
-    bit = await ste.hunt(ActClr.WRITE_COLOR, { idx: bal.idx, src: '#' + mixHex });
+    bit = await ste.hunt(ActClr.WRITE_COLOR, { idx: bal.idx, src: mixHex });
     dat = bit.clrBit.dat;
     if (bal.slv != null)
         bal.slv({ clrBit: { idx: "mix-color", dat } });

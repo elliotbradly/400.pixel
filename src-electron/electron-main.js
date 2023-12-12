@@ -65,6 +65,11 @@ async function createWindow() {
   ipcMain.handle('game:openGame', openGame)
   ipcMain.handle('space:shapeHexmap', shapeHexmap)
 
+  ipcMain.handle('light:writeLight', async (event, idx, src) => {
+    bit = await LIGHT.hunt(ActLgt.WRITE_LIGHT, { idx, src })
+    return JSON.stringify(bit)
+  })
+
   ipcMain.handle('light:readLight', async (event, val) => {
     bit = await LIGHT.hunt(ActLgt.READ_LIGHT, { idx, val })
     return JSON.stringify(bit)
