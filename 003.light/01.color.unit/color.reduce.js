@@ -23,6 +23,10 @@ function reducer(model = new color_model_1.ColorModel(), act, state) {
             return Buzz.deleteColor(clone(model), act.bale, state);
         case Act.CREATE_COLOR:
             return Buzz.createColor(clone(model), act.bale, state);
+        case Act.MIX_COLOR:
+            return Buzz.mixColor(clone(model), act.bale, state);
+        case Act.FATE_COLOR:
+            return Buzz.fateColor(clone(model), act.bale, state);
         default:
             return model;
     }

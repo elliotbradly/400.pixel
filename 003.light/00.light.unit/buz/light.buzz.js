@@ -15,6 +15,8 @@ const initLight = async (cpy, bal, ste) => {
         patch(ste, ActMnu.INIT_MENU, bal);
     if (bal.slv != null)
         bal.slv({ intBit: { idx: "init-space" } });
+    var Chance = require('chance');
+    cpy.fate = new Chance(9211925);
     return cpy;
 };
 exports.initLight = initLight;

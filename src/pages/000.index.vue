@@ -1,8 +1,6 @@
 <template>
   <div class="full-height row wrap justify-start items-start content-start">
-
     <canvas id="indexCanvas"> </canvas>
-
   </div>
 </template>
 
@@ -20,6 +18,8 @@ import { mountControl } from "../controls/basic"
 const router = useRouter()
 const route = useRoute()
 const bus = inject('bus')
+
+debugger
 
 const instance = getCurrentInstance();
 const SHADE = inject('SHADE')
