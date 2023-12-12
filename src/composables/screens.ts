@@ -84,6 +84,10 @@ export const update = async (value: HelloWorld) => {
     bit = await SHADE['hunt'](ActFce.EXTRACT_SURFACE, { idx: "vsg00" })
     var dat = bit.fceBit.dat;
 
+
+    debugger
+
+
     bit = await PIXEL['hunt'](ActPxl.PROCESS_PIXEL, { dat })
     lst = bit.pixBit.lst
 

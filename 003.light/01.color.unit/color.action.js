@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateColor = exports.CREATE_COLOR = exports.DeleteColor = exports.DELETE_COLOR = exports.RemoveColor = exports.REMOVE_COLOR = exports.WriteColor = exports.WRITE_COLOR = exports.ReadColor = exports.READ_COLOR = exports.OpenColor = exports.OPEN_COLOR = exports.UpdateColor = exports.UPDATE_COLOR = exports.InitColor = exports.INIT_COLOR = void 0;
+exports.FateColor = exports.FATE_COLOR = exports.MixColor = exports.MIX_COLOR = exports.CreateColor = exports.CREATE_COLOR = exports.DeleteColor = exports.DELETE_COLOR = exports.RemoveColor = exports.REMOVE_COLOR = exports.WriteColor = exports.WRITE_COLOR = exports.ReadColor = exports.READ_COLOR = exports.OpenColor = exports.OPEN_COLOR = exports.UpdateColor = exports.UPDATE_COLOR = exports.InitColor = exports.INIT_COLOR = void 0;
 // Color actions
 exports.INIT_COLOR = "[Color action] Init Color";
 class InitColor {
@@ -66,4 +66,20 @@ class CreateColor {
     }
 }
 exports.CreateColor = CreateColor;
+exports.MIX_COLOR = "[Mix action] Mix Color";
+class MixColor {
+    constructor(bale) {
+        this.bale = bale;
+        this.type = exports.MIX_COLOR;
+    }
+}
+exports.MixColor = MixColor;
+exports.FATE_COLOR = "[Fate action] Fate Color";
+class FateColor {
+    constructor(bale) {
+        this.bale = bale;
+        this.type = exports.FATE_COLOR;
+    }
+}
+exports.FateColor = FateColor;
 //# sourceMappingURL=color.action.js.map

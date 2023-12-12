@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createColor = exports.deleteColor = exports.removeColor = exports.writeColor = exports.readColor = exports.openColor = exports.updateColor = exports.initColor = void 0;
+exports.fateColor = exports.mixColor = exports.createColor = exports.deleteColor = exports.removeColor = exports.writeColor = exports.readColor = exports.openColor = exports.updateColor = exports.initColor = void 0;
 var color_buzz_1 = require("./buz/color.buzz");
 Object.defineProperty(exports, "initColor", { enumerable: true, get: function () { return color_buzz_1.initColor; } });
 var color_buzz_2 = require("./buz/color.buzz");
@@ -17,4 +17,8 @@ var color_buzz_7 = require("./buz/color.buzz");
 Object.defineProperty(exports, "deleteColor", { enumerable: true, get: function () { return color_buzz_7.deleteColor; } });
 var color_buzz_8 = require("./buz/color.buzz");
 Object.defineProperty(exports, "createColor", { enumerable: true, get: function () { return color_buzz_8.createColor; } });
+var color_buzz_9 = require("./buz/color.buzz");
+Object.defineProperty(exports, "mixColor", { enumerable: true, get: function () { return color_buzz_9.mixColor; } });
+var color_buzz_10 = require("./buz/color.buzz");
+Object.defineProperty(exports, "fateColor", { enumerable: true, get: function () { return color_buzz_10.fateColor; } });
 //# sourceMappingURL=color.buzzer.js.map
