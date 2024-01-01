@@ -65,6 +65,25 @@ async function createWindow() {
   ipcMain.handle('game:openGame', openGame)
   ipcMain.handle('space:shapeHexmap', shapeHexmap)
 
+  ipcMain.handle('pixel:openPixel', async (event, idx, src) => {
+
+    bit = await PIVOT.hunt(ActDsk.READ_DISK, { src: './data/color-list/000.color.name.json' })
+    var dat = bit.dskBit.dat;
+    dat = JSON.parse(dat)
+
+    bit = await LIGHT.hunt(ActClr.OPEN_COLOR, { dat })
+
+    debugger
+    bit = await LIGHT.hunt(ActClr.READ_COLOR, { idx: '#FF0000' })
+    debugger
+
+
+    //var bit = await PLAY.hunt(ActPly.OPEN_PLAY, { val: 0 })
+    bit = { intBit: { idx: 'pixel-opened', dat:bit } }
+
+    return JSON.stringify(bit)
+  })
+
   ipcMain.handle('light:writeLight', async (event, idx, src) => {
     bit = await LIGHT.hunt(ActLgt.WRITE_LIGHT, { idx, src })
     return JSON.stringify(bit)
@@ -196,6 +215,7 @@ async function createWindow() {
 
 
   mainWindow.loadURL(process.env.APP_URL)
+  mainWindow.webContents.openDevTools()
 
   if (process.env.DEBUGGING) {
     // if on DEV or Production with debug enabled

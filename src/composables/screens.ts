@@ -35,7 +35,7 @@ export const mount = async (value: HelloWorld) => {
   const instance = getCurrentInstance();
   const SHADE = inject('SHADE')
 
-  var bit = await SHADE['hunt'](ActVsg.MOUNT_VISAGE, { idx: "vsg00", src: "indexCanvas", dat: { width: 960, height: 960 } });
+  var bit = await SHADE['hunt'](ActVsg.MOUNT_VISAGE, { idx: "vsg00", src: "indexCanvas", dat: { width: 1000, height: 1000 } });
   instance?.proxy?.$forceUpdate();
 
   return value
@@ -52,7 +52,7 @@ export const update = async (value: HelloWorld) => {
   var lst = []
 
   var bit = await SHADE['hunt'](ActVsg.REMOVE_VISAGE, { idx: "vsg00" })
-  bit = await SHADE['hunt'](ActVsg.MOUNT_VISAGE, { idx: "vsg00", src: "indexCanvas", dat: { width: 960, height: 960 } })
+  bit = await SHADE['hunt'](ActVsg.MOUNT_VISAGE, { idx: "vsg00", src: "indexCanvas", dat: { width: 1000, height: 1000 } })
 
   bit = await SHADE['hunt'](ActVsg.READ_VISAGE, { idx: "vsg00" })
 
@@ -81,25 +81,29 @@ export const update = async (value: HelloWorld) => {
 
   setTimeout(async () => {
 
-    bit = await SHADE['hunt'](ActFce.EXTRACT_SURFACE, { idx: "vsg00" })
-    var dat = bit.fceBit.dat;
 
+
+    debugger
+    var bit = await window['electronAPI'].openPixel()
+    console.log(JSON.stringify(bit))
 
     debugger
 
 
+    bit = await SHADE['hunt'](ActFce.EXTRACT_SURFACE, { idx: "vsg00" })
+    var dat = bit.fceBit.dat;
+
+
     bit = await PIXEL['hunt'](ActPxl.PROCESS_PIXEL, { dat })
     lst = bit.pixBit.lst
+    debugger
 
     bit = await PIXEL['hunt'](ActPxl.COLOR_PIXEL, { lst })
     lst = bit.pixBit.lst
-
-
-
-
-
+    debugger
 
     bit = await window['electronAPI'].saveImage( lst )
+    debugger
 
     console.log("show me the bit " + JSON.stringify(bit))
 

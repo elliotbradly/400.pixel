@@ -19,6 +19,7 @@
     "blessed-contrib": "^4.11.0",
     "browserify": "^17.0.0",
     "chance": "^1.1.11",
+    "color": "^4.2.3",
     "commander": "^11.1.0",
     "contro": "^2.2.0",
     "dot": "^1.1.3",

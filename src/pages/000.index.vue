@@ -19,8 +19,6 @@ const router = useRouter()
 const route = useRoute()
 const bus = inject('bus')
 
-debugger
-
 const instance = getCurrentInstance();
 const SHADE = inject('SHADE')
 

@@ -137,7 +137,6 @@ export const colorPixel = async (cpy: PixelModel, bal: PixelBit, ste: State) => 
 
   var fin = [];
 
-  console.log('color pixel')
 
   var next = async () => {
 
