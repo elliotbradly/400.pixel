@@ -38,17 +38,6 @@ export const mount = async (value: HelloWorld) => {
   var bit = await SHADE['hunt'](ActVsg.MOUNT_VISAGE, { idx: "vsg00", src: "indexCanvas", dat: { width: 1000, height: 1000 } });
   instance?.proxy?.$forceUpdate();
 
-  return value
-}
-
-export const update = async (value: HelloWorld) => {
-
-  console.log('sampleFunc:: ', value)
-
-  const instance = getCurrentInstance();
-  const SHADE = inject('SHADE')
-  const PIXEL = inject('PIXEL')
-
   var lst = []
 
   var bit = await SHADE['hunt'](ActVsg.REMOVE_VISAGE, { idx: "vsg00" })
@@ -78,90 +67,14 @@ export const update = async (value: HelloWorld) => {
   bit = await SHADE['hunt'](ActSpr.WRITE_SPRITE, { idx: 'spr00', dat: { src: './img/000.png', x: 0, y: 0 } })
   bit = await SHADE['hunt'](ActCan.ADD_CONTAINER, { idx: "can00", dat: { bit: bit.sprBit.dat.bit } })
 
+  return value
+}
 
-  setTimeout(async () => {
+export const update = async (value: HelloWorld) => {
 
-
-
-    debugger
-    var bit = await window['electronAPI'].openPixel()
-    console.log(JSON.stringify(bit))
-
-    debugger
-
-
-    bit = await SHADE['hunt'](ActFce.EXTRACT_SURFACE, { idx: "vsg00" })
-    var dat = bit.fceBit.dat;
-
-
-    bit = await PIXEL['hunt'](ActPxl.PROCESS_PIXEL, { dat })
-    lst = bit.pixBit.lst
-    debugger
-
-    bit = await PIXEL['hunt'](ActPxl.COLOR_PIXEL, { lst })
-    lst = bit.pixBit.lst
-    debugger
-
-    bit = await window['electronAPI'].saveImage( lst )
-    debugger
-
-    console.log("show me the bit " + JSON.stringify(bit))
-
-    //see if you can recreate the image from just pixels
-
-    //dat = bit.pixBit.dat;
-    //lst = bit.pixBit.lst;
-
-
-    //for (var key in dat) {
-    //  key
-
-    //  var item = dat[key]
-
-    //  debugger
-
-
-    //  var bit = await window['electronAPI'].readColor('#' + key)
-    //  var puff = JSON.parse(bit)
-    //  var name = puff.clrBit.src
-
-    //  var options = []
-
-    //  if (family[name] == null){
-
-    //    family[name] = []
-    //    family[name] = family[name].concat(item);
-    //    wealth.push(name)
-    //    console.log('color name: ' + name)
-    //  }else{
-    //    family[name] = family[name].concat(item);
-    //  }
-    //  }
-
-
-
-  }, 333)
-
-
-
-
-
-
-
-  //bit = await SHADE['hunt'](ActGph.WRITE_GRAPHIC, { idx: 'gph00', dat: { h: 100, w: 40, x: 40, y: 40 } })
-  //bit = await SHADE['hunt'](ActCan.ADD_CONTAINER, { idx: "can00", dat: { bit: bit.gphBit.dat.bit } })
-
-  //bit = await SHADE['hunt'](ActGph.WRITE_GRAPHIC, { idx: 'gph01', dat: { h: 100, w: 40, x: 40, y: 40 } })
-  //bit = await SHADE['hunt'](ActCan.ADD_CONTAINER, { idx: "can00", dat: { bit: bit.gphBit.dat.bit } })
-
-  //bit = await SHADE['hunt'](ActGph.WRITE_GRAPHIC, { idx: 'gph02', dat: { h: 100, w: 40, x: 40, y: 40 } })
-  //bit = await SHADE['hunt'](ActCan.ADD_CONTAINER, { idx: "can00", dat: { bit: bit.gphBit.dat.bit } })
-
-  //var bit = await window['electronAPI'].readHexmap('map00')
-  //var puff = JSON.parse(bit)
-
-  //var map = puff.mapBit.dat.grid
-  //bit = await SHADE['hunt'](ActHex.WRITE_HEXAGON, { idx: 'hex00', dat: { src: 'gph00', frm: 'hexmap', sze: 111, bit: map } })
+  const instance = getCurrentInstance();
+  const SHADE = inject('SHADE')
+  const PIXEL = inject('PIXEL')
 
   return value
 }
