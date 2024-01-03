@@ -73,10 +73,7 @@ async function createWindow() {
 
     bit = await LIGHT.hunt(ActClr.OPEN_COLOR, { dat })
 
-    debugger
     bit = await LIGHT.hunt(ActClr.READ_COLOR, { idx: '#FF0000' })
-    debugger
-
 
     //var bit = await PLAY.hunt(ActPly.OPEN_PLAY, { val: 0 })
     bit = { intBit: { idx: 'pixel-opened', dat:bit } }

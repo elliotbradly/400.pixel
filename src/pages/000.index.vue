@@ -1,7 +1,21 @@
 <template>
-  <div class="full-height row wrap justify-start items-start content-start">
-    <canvas id="indexCanvas"> </canvas>
+
+ <q-page class="q-gutter-sm window-height window-width row justify-center items-center">
+
+ <canvas id="indexCanvas"> </canvas>
+
+ <div class="q-pa-md">
+    <q-btn-group spread>
+
+      <q-btn color="purple" label="Process" icon="timeline" />
+      <q-btn color="purple" label="Color" icon="visibility" />
+
+    </q-btn-group>
   </div>
+
+ </q-page>
+
+
 </template>
 
 <script setup>
