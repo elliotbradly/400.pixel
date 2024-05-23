@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OpenTerminal = exports.OPEN_TERMINAL = exports.LayoutTerminal = exports.LAYOUT_TERMINAL = exports.InputTerminal = exports.INPUT_TERMINAL = exports.OptionTerminal = exports.OPTION_TERMINAL = exports.CloseTerminal = exports.CLOSE_TERMINAL = exports.PrintTerminal = exports.PRINT_TERMINAL = exports.EditTerminal = exports.EDIT_TERMINAL = exports.RunTerminal = exports.RUN_TERMINAL = exports.UpdateTerminal = exports.UPDATE_TERMINAL = exports.InitTerminal = exports.INIT_TERMINAL = void 0;
+exports.ClearTerminal = exports.CLEAR_TERMINAL = exports.OpenTerminal = exports.OPEN_TERMINAL = exports.LayoutTerminal = exports.LAYOUT_TERMINAL = exports.InputTerminal = exports.INPUT_TERMINAL = exports.OptionTerminal = exports.OPTION_TERMINAL = exports.CloseTerminal = exports.CLOSE_TERMINAL = exports.PrintTerminal = exports.PRINT_TERMINAL = exports.EditTerminal = exports.EDIT_TERMINAL = exports.RunTerminal = exports.RUN_TERMINAL = exports.UpdateTerminal = exports.UPDATE_TERMINAL = exports.InitTerminal = exports.INIT_TERMINAL = void 0;
 exports.INIT_TERMINAL = "[Terminal action] Init Terminal";
 class InitTerminal {
     constructor(bale) {
@@ -81,4 +81,12 @@ class OpenTerminal {
     }
 }
 exports.OpenTerminal = OpenTerminal;
+exports.CLEAR_TERMINAL = "[Layout action] Clear Terminal";
+class ClearTerminal {
+    constructor(bale) {
+        this.bale = bale;
+        this.type = exports.CLEAR_TERMINAL;
+    }
+}
+exports.ClearTerminal = ClearTerminal;
 //# sourceMappingURL=terminal.action.js.map

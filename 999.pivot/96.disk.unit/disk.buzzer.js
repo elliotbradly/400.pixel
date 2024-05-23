@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.colorDisk = exports.swatchDisk = exports.existDisk = exports.deleteDisk = exports.ensureDisk = exports.trashDisk = exports.batchDisk = exports.frameDisk = exports.copyDisk = exports.load_listDisk = exports.indexDisk = exports.readDisk = exports.writeDisk = exports.updateDisk = exports.initDisk = void 0;
+exports.typeDisk = exports.colorDisk = exports.swatchDisk = exports.existDisk = exports.deleteDisk = exports.ensureDisk = exports.trashDisk = exports.batchDisk = exports.frameDisk = exports.copyDisk = exports.load_listDisk = exports.indexDisk = exports.readDisk = exports.writeDisk = exports.updateDisk = exports.initDisk = void 0;
 var disk_buzz_1 = require("./buz/disk.buzz");
 Object.defineProperty(exports, "initDisk", { enumerable: true, get: function () { return disk_buzz_1.initDisk; } });
 var disk_buzz_2 = require("./buz/disk.buzz");
@@ -31,4 +31,6 @@ var disk_buzz_14 = require("./buz/disk.buzz");
 Object.defineProperty(exports, "swatchDisk", { enumerable: true, get: function () { return disk_buzz_14.swatchDisk; } });
 var disk_buzz_15 = require("./buz/disk.buzz");
 Object.defineProperty(exports, "colorDisk", { enumerable: true, get: function () { return disk_buzz_15.colorDisk; } });
+var disk_buzz_16 = require("./buz/disk.buzz");
+Object.defineProperty(exports, "typeDisk", { enumerable: true, get: function () { return disk_buzz_16.typeDisk; } });
 //# sourceMappingURL=disk.buzzer.js.map

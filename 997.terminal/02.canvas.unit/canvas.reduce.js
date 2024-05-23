@@ -23,6 +23,8 @@ function reducer(model = new canvas_model_1.CanvasModel(), act, state) {
             return Buzz.createCanvas(clone(model), act.bale, state);
         case Act.NEST_CANVAS:
             return Buzz.nestCanvas(clone(model), act.bale, state);
+        case Act.HEXMAP_CANVAS:
+            return Buzz.hexmapCanvas(clone(model), act.bale, state);
         default:
             return model;
     }

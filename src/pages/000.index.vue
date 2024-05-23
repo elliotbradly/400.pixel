@@ -18,18 +18,14 @@
 
           <q-card class="my-card bg-secondary text-white">
       <q-card-section>
-        <div class="text-h6">Our Changing Planet</div>
-        <div class="text-subtitle2">by John Doe</div>
-      </q-card-section>
-
-      <q-card-section>
-        {{ lorem }}
+        <div class="text-h6">Color Changing Pixels</div>
+        <div class="text-subtitle2">Covert one color scheme to another</div>
       </q-card-section>
 
       <q-separator dark />
 
       <q-card-actions>
-        <q-btn flat>Create Orb</q-btn>
+        <q-btn flat>Change</q-btn>
 
       </q-card-actions>
     </q-card>

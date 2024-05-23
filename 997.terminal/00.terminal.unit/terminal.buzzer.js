@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.layoutTerminal = exports.inputTerminal = exports.optionTerminal = exports.closeTerminal = exports.printTerminal = exports.editTerminal = exports.runTerminal = exports.updateTerminal = exports.openTerminal = exports.initTerminal = void 0;
+exports.clearTerminal = exports.layoutTerminal = exports.inputTerminal = exports.optionTerminal = exports.closeTerminal = exports.printTerminal = exports.editTerminal = exports.runTerminal = exports.updateTerminal = exports.openTerminal = exports.initTerminal = void 0;
 var terminal_buzz_1 = require("./buz/terminal.buzz");
 Object.defineProperty(exports, "initTerminal", { enumerable: true, get: function () { return terminal_buzz_1.initTerminal; } });
 var terminal_buzz_2 = require("./buz/terminal.buzz");
@@ -21,4 +21,6 @@ var terminal_buzz_9 = require("./buz/terminal.buzz");
 Object.defineProperty(exports, "inputTerminal", { enumerable: true, get: function () { return terminal_buzz_9.inputTerminal; } });
 var terminal_buzz_10 = require("./buz/terminal.buzz");
 Object.defineProperty(exports, "layoutTerminal", { enumerable: true, get: function () { return terminal_buzz_10.layoutTerminal; } });
+var terminal_buzz_11 = require("./buz/terminal.buzz");
+Object.defineProperty(exports, "clearTerminal", { enumerable: true, get: function () { return terminal_buzz_11.clearTerminal; } });
 //# sourceMappingURL=terminal.buzzer.js.map

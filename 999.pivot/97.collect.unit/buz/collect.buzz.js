@@ -55,6 +55,7 @@ const writeCollect = async (cpy, bal, ste) => {
     if ((bal.bit == null))
         bal.slv({ rskBit: { idx: "write-collect-err", src: 'no-bit' } });
     var cabBit = cpy.caboodleBitList[cpy.caboodleBits[type]];
+    bal.idx;
     if (cabBit.bits[bal.idx] == null) {
         bit = await ste.hunt(bal.bit, { idx: bal.idx, src: bal.src, dat: bal.dat });
         var objDat = bit[Object.keys(bit)[0]];
@@ -121,7 +122,7 @@ const removeCollect = async (cpy, bal, ste) => {
     var itm = cabBit.bitList.splice(dex, 1);
     cabBit.dex -= 1;
     if (bal.slv != null)
-        bal.slv({ clcBit: { idx: "remove-collect", dat: cabBit } });
+        bal.slv({ clcBit: { idx: "remove-collect", dat: itm[0] } });
     return cpy;
 };
 exports.removeCollect = removeCollect;

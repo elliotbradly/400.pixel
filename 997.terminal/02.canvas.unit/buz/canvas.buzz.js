@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.nestCanvas = exports.removeCanvas = exports.deleteCanvas = exports.writeCanvas = exports.readCanvas = exports.createCanvas = exports.updateCanvas = exports.initCanvas = void 0;
+exports.nestCanvas = exports.removeCanvas = exports.deleteCanvas = exports.writeCanvas = exports.readCanvas = exports.createCanvas = exports.updateCanvas = exports.hexmapCanvas = exports.initCanvas = void 0;
 const ActCol = require("../../97.collect.unit/collect.action");
 const ActCvs = require("../../02.canvas.unit/canvas.action");
 const ActTxt = require("../../14.text.unit/text.action");
@@ -10,6 +10,12 @@ const initCanvas = (cpy, bal, ste) => {
     return cpy;
 };
 exports.initCanvas = initCanvas;
+const hexmapCanvas = (cpy, bal, ste) => {
+    console.log("hexmap canvas");
+    bal.slv({ cvsBit: { idx: "hexmap-canvas", dat } });
+    return cpy;
+};
+exports.hexmapCanvas = hexmapCanvas;
 const updateCanvas = async (cpy, bal, ste) => {
     bit = await ste.hunt(ActCvs.READ_CANVAS, { idx: bal.idx });
     let dat = bit.cvsBit.dat;

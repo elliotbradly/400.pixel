@@ -18,7 +18,7 @@ const updateMenu = async (cpy, bal, ste) => {
     bit = await ste.hunt(ActTrm.WRITE_TERMINAL, { src: "-----------", bit: 'local' });
     bit = await ste.hunt(ActTrm.WRITE_TERMINAL, { src: "PIVOT PIVOT V0", bit: 'local' });
     bit = await ste.hunt(ActTrm.WRITE_TERMINAL, { src: "-----------", bit: "local" });
-    var lst = [ActMnu.UNIT_MENU, ActPvt.COUNT_PIVOT, ActPvt.CREATE_PIVOT, ActPvt.UPDATE_PIVOT,
+    var lst = [ActMnu.UNIT_MENU, ActPvt.UPDATE_PIVOT, ActPvt.COUNT_PIVOT, ActPvt.CREATE_PIVOT,
         ActPvt.BUNDLE_PIVOT, ActDsk.SWATCH_DISK,
         ActDsk.COLOR_DISK
     ];
@@ -52,6 +52,10 @@ const updateMenu = async (cpy, bal, ste) => {
             var val = bit.trmBit.val;
             var src = lst[val];
             bit = await ste.hunt(ActPvt.UPDATE_PIVOT, { src });
+            lst = bit.pvtBit.lst;
+            lst.forEach((a) => {
+                ste.hunt(ActTrm.WRITE_TERMINAL, { val: 3, src: a });
+            });
             break;
         case ActMnu.UNIT_MENU:
             bit = await ste.hunt(ActMnu.UNIT_MENU, {});

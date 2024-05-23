@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createPivot = exports.countPivot = exports.bundlePivot = exports.containsPivot = exports.listPivot = exports.patchPivot = exports.editPivot = exports.runPivot = exports.openPivot = exports.updatePivot = exports.initPivot = void 0;
+exports.createPivot = exports.countPivot = exports.bundlePivot = exports.containsPivot = exports.replacePivot = exports.listPivot = exports.shipPivot = exports.patchPivot = exports.editPivot = exports.runPivot = exports.openPivot = exports.updatePivot = exports.initPivot = void 0;
 var _00_pivot_buzz_1 = require("./buz/00.pivot.buzz");
 Object.defineProperty(exports, "initPivot", { enumerable: true, get: function () { return _00_pivot_buzz_1.initPivot; } });
 var _00_pivot_buzz_2 = require("./buz/00.pivot.buzz");
@@ -14,11 +14,15 @@ Object.defineProperty(exports, "editPivot", { enumerable: true, get: function ()
 var _00_pivot_buzz_6 = require("./buz/00.pivot.buzz");
 Object.defineProperty(exports, "patchPivot", { enumerable: true, get: function () { return _00_pivot_buzz_6.patchPivot; } });
 var _00_pivot_buzz_7 = require("./buz/00.pivot.buzz");
-Object.defineProperty(exports, "listPivot", { enumerable: true, get: function () { return _00_pivot_buzz_7.listPivot; } });
+Object.defineProperty(exports, "shipPivot", { enumerable: true, get: function () { return _00_pivot_buzz_7.shipPivot; } });
 var _00_pivot_buzz_8 = require("./buz/00.pivot.buzz");
-Object.defineProperty(exports, "containsPivot", { enumerable: true, get: function () { return _00_pivot_buzz_8.containsPivot; } });
+Object.defineProperty(exports, "listPivot", { enumerable: true, get: function () { return _00_pivot_buzz_8.listPivot; } });
 var _00_pivot_buzz_9 = require("./buz/00.pivot.buzz");
-Object.defineProperty(exports, "bundlePivot", { enumerable: true, get: function () { return _00_pivot_buzz_9.bundlePivot; } });
+Object.defineProperty(exports, "replacePivot", { enumerable: true, get: function () { return _00_pivot_buzz_9.replacePivot; } });
+var _00_pivot_buzz_10 = require("./buz/00.pivot.buzz");
+Object.defineProperty(exports, "containsPivot", { enumerable: true, get: function () { return _00_pivot_buzz_10.containsPivot; } });
+var _00_pivot_buzz_11 = require("./buz/00.pivot.buzz");
+Object.defineProperty(exports, "bundlePivot", { enumerable: true, get: function () { return _00_pivot_buzz_11.bundlePivot; } });
 var count_pivot_1 = require("./buz/count-pivot");
 Object.defineProperty(exports, "countPivot", { enumerable: true, get: function () { return count_pivot_1.countPivot; } });
 var create_pivot_1 = require("./buz/create-pivot");

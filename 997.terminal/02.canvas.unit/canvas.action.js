@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NestCanvas = exports.NEST_CANVAS = exports.CreateCanvas = exports.CREATE_CANVAS = exports.RemoveCanvas = exports.REMOVE_CANVAS = exports.DeleteCanvas = exports.DELETE_CANVAS = exports.WriteCanvas = exports.WRITE_CANVAS = exports.ReadCanvas = exports.READ_CANVAS = exports.UpdateCanvas = exports.UPDATE_CANVAS = exports.InitCanvas = exports.INIT_CANVAS = void 0;
+exports.NestCanvas = exports.NEST_CANVAS = exports.CreateCanvas = exports.CREATE_CANVAS = exports.RemoveCanvas = exports.REMOVE_CANVAS = exports.DeleteCanvas = exports.DELETE_CANVAS = exports.WriteCanvas = exports.WRITE_CANVAS = exports.ReadCanvas = exports.READ_CANVAS = exports.HexmapCanvas = exports.HEXMAP_CANVAS = exports.UpdateCanvas = exports.UPDATE_CANVAS = exports.InitCanvas = exports.INIT_CANVAS = void 0;
 // Canvas actions
 exports.INIT_CANVAS = "[Canvas action] Init Canvas";
 class InitCanvas {
@@ -18,6 +18,14 @@ class UpdateCanvas {
     }
 }
 exports.UpdateCanvas = UpdateCanvas;
+exports.HEXMAP_CANVAS = "[Canvas action] Hexmap Canvas";
+class HexmapCanvas {
+    constructor(bale) {
+        this.bale = bale;
+        this.type = exports.HEXMAP_CANVAS;
+    }
+}
+exports.HexmapCanvas = HexmapCanvas;
 exports.READ_CANVAS = "[Read action] Read Canvas";
 class ReadCanvas {
     constructor(bale) {

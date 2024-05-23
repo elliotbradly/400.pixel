@@ -122,7 +122,7 @@ const removeCollect = async (cpy, bal, ste) => {
     var itm = cabBit.bitList.splice(dex, 1);
     cabBit.dex -= 1;
     if (bal.slv != null)
-        bal.slv({ clcBit: { idx: "remove-collect", dat: cabBit } });
+        bal.slv({ clcBit: { idx: "remove-collect", dat: itm[0] } });
     return cpy;
 };
 exports.removeCollect = removeCollect;

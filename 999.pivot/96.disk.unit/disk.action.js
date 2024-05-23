@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ColorDisk = exports.COLOR_DISK = exports.SwatchDisk = exports.SWATCH_DISK = exports.ExistDisk = exports.EXIST_DISK = exports.DeleteDisk = exports.DELETE_DISK = exports.EnsureDisk = exports.ENSURE_DISK = exports.TrashDisk = exports.TRASH_DISK = exports.BatchDisk = exports.BATCH_DISK = exports.FrameDisk = exports.FRAME_DISK = exports.CopyDisk = exports.COPY_DISK = exports.Load_listDisk = exports.LOAD_LIST_DISK = exports.IndexDisk = exports.INDEX_DISK = exports.WriteDisk = exports.WRITE_DISK = exports.ReadDisk = exports.READ_DISK = exports.UpdateDisk = exports.UPDATE_DISK = exports.InitDisk = exports.INIT_DISK = void 0;
+exports.TypeDisk = exports.TYPE_DISK = exports.ColorDisk = exports.COLOR_DISK = exports.SwatchDisk = exports.SWATCH_DISK = exports.ExistDisk = exports.EXIST_DISK = exports.DeleteDisk = exports.DELETE_DISK = exports.EnsureDisk = exports.ENSURE_DISK = exports.TrashDisk = exports.TRASH_DISK = exports.BatchDisk = exports.BATCH_DISK = exports.FrameDisk = exports.FRAME_DISK = exports.CopyDisk = exports.COPY_DISK = exports.Load_listDisk = exports.LOAD_LIST_DISK = exports.IndexDisk = exports.INDEX_DISK = exports.WriteDisk = exports.WRITE_DISK = exports.ReadDisk = exports.READ_DISK = exports.UpdateDisk = exports.UPDATE_DISK = exports.InitDisk = exports.INIT_DISK = void 0;
 exports.INIT_DISK = '[Disk action] Init Disk';
 class InitDisk {
     constructor(bale) {
@@ -121,4 +121,12 @@ class ColorDisk {
     }
 }
 exports.ColorDisk = ColorDisk;
+exports.TYPE_DISK = "[Type action] Type Disk";
+class TypeDisk {
+    constructor(bale) {
+        this.bale = bale;
+        this.type = exports.TYPE_DISK;
+    }
+}
+exports.TypeDisk = TypeDisk;
 //# sourceMappingURL=disk.action.js.map

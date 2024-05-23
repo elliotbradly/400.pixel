@@ -27,6 +27,8 @@ function reducer(model = new terminal_model_1.TerminalModel(), act, state) {
             return Buzz.inputTerminal(clone(model), act.bale, state);
         case Act.LAYOUT_TERMINAL:
             return Buzz.layoutTerminal(clone(model), act.bale, state);
+        case Act.CLEAR_TERMINAL:
+            return Buzz.clearTerminal(clone(model), act.bale, state);
         default:
             return model;
     }

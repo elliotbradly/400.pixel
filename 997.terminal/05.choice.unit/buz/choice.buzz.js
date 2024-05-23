@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.towerChoice = exports.keyChoice = exports.openChoice = exports.updateChoice = exports.initChoice = void 0;
-const ActChc = require("../../05.choice.unit/choice.action");
 const initChoice = (cpy, bal, ste) => {
     debugger;
     return cpy;
@@ -71,10 +70,13 @@ const openChoice = (cpy, bal, ste) => {
         //form.setContent('Submitted.');
         let selected = form._selected;
         if (selected == null) {
-            var bit = await ste.hunt(ActChc.OPEN_CHOICE, bal);
-            if (bal.slv != null)
-                bal.slv({ chcBit: { idx: "open-choice", dat: bit } });
-            return;
+            //use the first one
+            output;
+            selected = output[0];
+            selected.content;
+            //var bit = await ste.hunt( ActChc.OPEN_CHOICE, bal)
+            //if (bal.slv != null) bal.slv({ chcBit: { idx: "open-choice", dat:bit } });
+            //return 
         }
         let src = selected.content;
         let val = selected.index - 1;

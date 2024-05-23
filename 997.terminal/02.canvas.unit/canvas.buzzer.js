@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.nestCanvas = exports.createCanvas = exports.removeCanvas = exports.deleteCanvas = exports.writeCanvas = exports.readCanvas = exports.updateCanvas = exports.initCanvas = void 0;
+exports.hexmapCanvas = exports.nestCanvas = exports.createCanvas = exports.removeCanvas = exports.deleteCanvas = exports.writeCanvas = exports.readCanvas = exports.updateCanvas = exports.initCanvas = void 0;
 var canvas_buzz_1 = require("./buz/canvas.buzz");
 Object.defineProperty(exports, "initCanvas", { enumerable: true, get: function () { return canvas_buzz_1.initCanvas; } });
 var canvas_buzz_2 = require("./buz/canvas.buzz");
@@ -17,4 +17,6 @@ var canvas_buzz_7 = require("./buz/canvas.buzz");
 Object.defineProperty(exports, "createCanvas", { enumerable: true, get: function () { return canvas_buzz_7.createCanvas; } });
 var canvas_buzz_8 = require("./buz/canvas.buzz");
 Object.defineProperty(exports, "nestCanvas", { enumerable: true, get: function () { return canvas_buzz_8.nestCanvas; } });
+var canvas_buzz_9 = require("./buz/canvas.buzz");
+Object.defineProperty(exports, "hexmapCanvas", { enumerable: true, get: function () { return canvas_buzz_9.hexmapCanvas; } });
 //# sourceMappingURL=canvas.buzzer.js.map

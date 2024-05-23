@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.layoutTerminal = exports.inputTerminal = exports.optionTerminal = exports.printTerminal = exports.editTerminal = exports.runTerminal = exports.closeTerminal = exports.openTerminal = exports.updateTerminal = exports.initTerminal = void 0;
+exports.layoutTerminal = exports.clearTerminal = exports.inputTerminal = exports.optionTerminal = exports.printTerminal = exports.editTerminal = exports.runTerminal = exports.closeTerminal = exports.openTerminal = exports.updateTerminal = exports.initTerminal = void 0;
 const ActPut = require("../../04.input.unit/input.action");
 const ActChc = require("../../05.choice.unit/choice.action");
 const ActCvs = require("../../02.canvas.unit/canvas.action");
@@ -27,6 +27,8 @@ const initTerminal = async (cpy, bal, ste) => {
 };
 exports.initTerminal = initTerminal;
 const updateTerminal = (cpy, bal, ste) => {
+    cpy.screen.render();
+    bal.slv({ trmBit: { idx: "update-terminal" } });
     return cpy;
 };
 exports.updateTerminal = updateTerminal;
@@ -83,6 +85,12 @@ const inputTerminal = async (cpy, bal, ste) => {
     return cpy;
 };
 exports.inputTerminal = inputTerminal;
+const clearTerminal = async (cpy, bal, ste) => {
+    cpy.blessed.program().clear();
+    bal.slv({ trmBit: { idx: "clear-terminal" } });
+    return cpy;
+};
+exports.clearTerminal = clearTerminal;
 const layoutTerminal = (cpy, bal, ste) => {
     let bit;
     switch (bal.src) {

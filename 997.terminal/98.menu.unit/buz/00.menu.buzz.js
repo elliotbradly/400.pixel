@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.visageMenu = exports.shadeMenu = exports.closeMenu = exports.testMenu = exports.updateMenu = exports.initMenu = void 0;
-const ActMnu = require("../menu.action");
 const ActTrm = require("../../00.terminal.unit/terminal.action");
 const ActGrd = require("../../01.grid.unit/grid.action");
 const ActCvs = require("../../02.canvas.unit/canvas.action");
@@ -12,17 +11,21 @@ var bit, lst, dex, src, idx;
 const initMenu = async (cpy, bal, ste) => {
     if (bal == null)
         bal = { idx: null };
-    bit = await ste.hunt(ActGrd.UPDATE_GRID, { x: 3, y: 0, xSpan: 7, ySpan: 12 });
+    bit = await ste.hunt(ActTrm.CLEAR_TERMINAL, {});
+    bit = await ste.hunt(ActGrd.UPDATE_GRID, { x: 3, y: 0, xSpan: 1, ySpan: 12 });
     bit = await ste.hunt(ActCvs.WRITE_CANVAS, { idx: 'cvs1', dat: { clr: Color.CYAN, net: bit.grdBit.dat }, });
-    bit = await ste.hunt(ActGrd.UPDATE_GRID, { x: 8, y: 0, xSpan: 2, ySpan: 12 });
+    bit = await ste.hunt(ActGrd.UPDATE_GRID, { x: 5, y: 0, xSpan: 4, ySpan: 12 });
     bit = await ste.hunt(ActCns.WRITE_CONSOLE, { idx: 'cns00', dat: { net: bit.grdBit.dat } });
+    bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: "-----------" });
+    bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: "Terminal PIVOT V0" });
+    bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: "-----------" });
     (0, exports.updateMenu)(cpy, bal, ste);
     return cpy;
 };
 exports.initMenu = initMenu;
 const updateMenu = async (cpy, bal, ste) => {
-    lst = [ActTrm.INPUT_TERMINAL, ActTrm.UPDATE_TERMINAL, ActTrm.EDIT_TERMINAL];
-    bit = await ste.hunt(ActGrd.UPDATE_GRID, { x: 0, y: 4, xSpan: 3, ySpan: 12 });
+    lst = [ActCvs.HEXMAP_CANVAS, ActTrm.INPUT_TERMINAL, ActTrm.UPDATE_TERMINAL, ActTrm.EDIT_TERMINAL];
+    bit = await ste.hunt(ActGrd.UPDATE_GRID, { x: 0, y: 4, xSpan: 4, ySpan: 1 });
     bit = await ste.hunt(ActChc.OPEN_CHOICE, { dat: { clr0: Color.BLACK, clr1: Color.YELLOW }, src: Align.VERTICAL, lst, net: bit.grdBit.dat });
     idx = bit.chcBit.src;
     //bit = await ste.hunt(ActTrm.PRINT_TERMINAL, { src: "-----------", bit: 'local' })
@@ -33,8 +36,13 @@ const updateMenu = async (cpy, bal, ste) => {
     //bit = bit.trmBit;
     //var idx = lst[bit.val];
     switch (idx) {
+        case ActCvs.HEXMAP_CANVAS:
+            bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: "Update..." });
+            bit = await ste.hunt(ActCvs.HEXMAP_CANVAS, {});
+            break;
         case ActTrm.UPDATE_TERMINAL:
-            bit = await ste.hunt(ActMnu.UPDATE_MENU, {});
+            console.log("goo");
+            bit = await ste.hunt(ActTrm.UPDATE_TERMINAL, {});
             break;
         case ActTrm.INPUT_TERMINAL:
             bit = await ste.hunt(ActGrd.UPDATE_GRID, { x: 0, y: 4, xSpan: 3, ySpan: 6 });
