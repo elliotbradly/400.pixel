@@ -12,10 +12,10 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          Orb's Ink
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>orbs.ink v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
