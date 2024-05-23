@@ -31,7 +31,7 @@ export const SHADE_MENU = "[Shade action] Shade Menu";
  readonly type = SHADE_MENU;
  constructor(public bale: MenuBit) {}
  }
- 
+
 export const VISAGE_MENU = "[Visage action] Visage Menu";
  export class VisageMenu implements Action {
  readonly type = VISAGE_MENU;
@@ -43,10 +43,17 @@ export const VISAGE_MENU = "[Visage action] Visage Menu";
  readonly type = CONTAINER_MENU;
  constructor(public bale: MenuBit) {}
  }
- 
 
- 
+ export const PRINT_MENU = "[Visage action] Print Menu";
+ export class PrintMenu implements Action {
+ readonly type = PRINT_MENU;
+ constructor(public bale: MenuBit) {}
+ }
+
+
+
 export type Actions = InitMenu | UpdateMenu | TestMenu | CloseMenu
 | ShadeMenu
 | VisageMenu
 | ContainerMenu
+| PrintMenu

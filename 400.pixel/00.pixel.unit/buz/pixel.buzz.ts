@@ -220,13 +220,13 @@ export const buildPixel = async (cpy: PixelModel, bal: PixelBit, ste: State) => 
 
       output
 
-      output.forEach( async (a)=>{
+      output.forEach(async (a) => {
 
-        var dir = root + a.flv +'/' + a.src + '.png';
+        var dir = root + a.flv + '/' + a.src + '.png';
 
         var nowClr = a.hex;
 
-        bit = await ste.bus(ActDsk.SWATCH_DISK, { idx:nowClr, src: dir })
+        bit = await ste.bus(ActDsk.SWATCH_DISK, { idx: nowClr, src: dir })
 
       })
 
@@ -251,10 +251,27 @@ export const buildPixel = async (cpy: PixelModel, bal: PixelBit, ste: State) => 
 var patch = (ste, type, bale) => ste.dispatch({ type, bale });
 
 
-export const writePixel = (cpy: PixelModel, bal:PixelBit, ste: State) => {
- debugger
- return cpy;
- };
+export const writePixel = (cpy: PixelModel, bal: PixelBit, ste: State) => {
+  debugger
+  return cpy;
+};
+
+
+export const devPixel = (cpy: PixelModel, bal: PixelBit, ste: State) => {
+
+  const { exec } = require('child_process');
+
+  exec('npx quasar dev -m electron', async (err, stdout, stderr) => {
+
+    //bit = await ste.hunt(ActMrk.DEV_MARKET, { val: 1 })
+    bal.slv({ pxlBit: { idx: "dev-pixel", dat: stdout } });
+
+  });
+
+  return cpy;
+};
+
+
 import { PixelModel } from "../pixel.model";
 import PixelBit from "../fce/pixel.bit";
 import State from "../../99.core/state";

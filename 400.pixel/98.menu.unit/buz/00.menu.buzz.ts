@@ -38,7 +38,7 @@ export const initMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
 
 export const updateMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
 
-  lst = [ActPxl.OPEN_PIXEL, ActPxl.UPDATE_PIXEL, ActPxl.BUILD_PIXEL, ActPal.WRITE_PALETTE ]
+  lst = [ActPxl.DEV_PIXEL, ActPxl.OPEN_PIXEL, ActPxl.UPDATE_PIXEL, ActPxl.BUILD_PIXEL, ActPal.WRITE_PALETTE]
 
   bit = await ste.bus(ActGrd.UPDATE_GRID, { x: 0, y: 4, xSpan: 5, ySpan: 12 })
   bit = await ste.bus(ActChc.OPEN_CHOICE, { dat: { clr0: Color.BLACK, clr1: Color.YELLOW }, src: Align.VERTICAL, lst, net: bit.grdBit.dat })
@@ -48,8 +48,14 @@ export const updateMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
   switch (src) {
     case ActPxl.BUILD_PIXEL:
 
-      bit = await ste.bus( ActPxl.BUILD_PIXEL, { src:'./data/color-list/000.color.name.json' })
+      bit = await ste.bus(ActPxl.BUILD_PIXEL, { src: './data/color-list/000.color.name.json' })
+      bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: 'updating pixel....' })
+      break;
 
+    case ActPxl.DEV_PIXEL:
+
+      bit = await ste.hunt(ActPxl.DEV_PIXEL, {})
+      bit = await ste.hunt(ActMnu.PRINT_MENU, bit)
       bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: 'updating pixel....' })
       break;
 
@@ -58,19 +64,19 @@ export const updateMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
       bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: 'updating pixel....' })
       break;
 
-      case ActPal.WRITE_PALETTE:
+    case ActPal.WRITE_PALETTE:
 
-        bit = await ste.hunt(ActPal.LIST_PALETTE, {})
-        lst = bit.palBit.lst;
+      bit = await ste.hunt(ActPal.LIST_PALETTE, {})
+      lst = bit.palBit.lst;
 
-        bit = await ste.bus(ActGrd.UPDATE_GRID, { x: 0, y: 4, xSpan: 5, ySpan: 12 })
-        bit = await ste.bus(ActChc.OPEN_CHOICE, { dat: { clr0: Color.BLACK, clr1: Color.YELLOW }, src: Align.VERTICAL, lst, net: bit.grdBit.dat })
+      bit = await ste.bus(ActGrd.UPDATE_GRID, { x: 0, y: 4, xSpan: 5, ySpan: 12 })
+      bit = await ste.bus(ActChc.OPEN_CHOICE, { dat: { clr0: Color.BLACK, clr1: Color.YELLOW }, src: Align.VERTICAL, lst, net: bit.grdBit.dat })
 
-        src = bit.chcBit.src;
+      src = bit.chcBit.src;
 
-        bit = await ste.hunt(ActPal.WRITE_PALETTE, {src})
-        bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: 'updating pixel....' })
-        break;
+      bit = await ste.hunt(ActPal.WRITE_PALETTE, { src })
+      bit = await ste.bus(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: 'updating pixel....' })
+      break;
 
     case ActPxl.OPEN_PIXEL:
       bit = await ste.hunt(ActPxl.OPEN_PIXEL, {})
@@ -103,6 +109,19 @@ export const closeMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
 export const createMenu = (cpy: MenuModel, bal: MenuBit, ste: State) => {
   debugger
   return cpy;
+};
+
+export const printMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
+  dat = bal;
+  if (dat == null) return bal.slv({ mnuBit: { idx: "print-menu", dat } });
+
+  var itm = JSON.stringify(dat);
+
+  lst = itm.split(",");
+  lst.forEach((a) => ste.bus(ActCns.UPDATE_CONSOLE, { idx: "cns00", src: a }));
+  ste.bus(ActCns.UPDATE_CONSOLE, { idx: "cns00", src: "------------" });
+
+  bal.slv({ mnuBit: { idx: "print-menu", dat: itm } });
 };
 
 var patch = (ste, type, bale) => ste.dispatch({ type, bale });

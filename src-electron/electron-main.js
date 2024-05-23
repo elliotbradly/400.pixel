@@ -14,10 +14,10 @@ const GAME = require('./game')
 //const PLAY = require('../000.play/index.js')
 
 const PIVOT = require('../999.pivot/index.js')
-const LIGHT = require('../003.light/index.js')
+//const LIGHT = require('../003.light/index.js')
 
-const ActLgt = require('../003.light/00.light.unit/light.action')
-const ActClr = require('../003.light/01.color.unit/color.action')
+//const ActLgt = require('../003.light/00.light.unit/light.action')
+//const ActClr = require('../003.light/01.color.unit/color.action')
 const ActDsk = require('../999.pivot/96.disk.unit/disk.action')
 
 
@@ -67,13 +67,13 @@ async function createWindow() {
 
   ipcMain.handle('pixel:openPixel', async (event, idx, src) => {
 
-    bit = await PIVOT.hunt(ActDsk.READ_DISK, { src: './data/color-list/000.color.name.json' })
-    var dat = bit.dskBit.dat;
-    dat = JSON.parse(dat)
+    //bit = await PIVOT.hunt(ActDsk.READ_DISK, { src: './data/color-list/000.color.name.json' })
+    //var dat = bit.dskBit.dat;
+    //dat = JSON.parse(dat)
 
-    bit = await LIGHT.hunt(ActClr.OPEN_COLOR, { dat })
+    //bit = await LIGHT.hunt(ActClr.OPEN_COLOR, { dat })
 
-    bit = await LIGHT.hunt(ActClr.READ_COLOR, { idx: '#FF0000' })
+    //bit = await LIGHT.hunt(ActClr.READ_COLOR, { idx: '#FF0000' })
 
     //var bit = await PLAY.hunt(ActPly.OPEN_PLAY, { val: 0 })
     bit = { intBit: { idx: 'pixel-opened', dat:bit } }
