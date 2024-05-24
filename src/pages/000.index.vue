@@ -15,44 +15,18 @@
         class="bg-primary text-white shadow-1 rounded-borders"
       >
         <q-carousel-slide name="style" class="column no-wrap flex-center">
-
-          <q-card class="my-card bg-secondary text-white">
-      <q-card-section>
-        <div class="text-h6">Color Changing Pixels</div>
-        <div class="text-subtitle2">Covert one color scheme to another</div>
-      </q-card-section>
-
-      <q-separator dark />
-
-      <q-card-actions>
-        <q-btn flat>Change</q-btn>
-
-      </q-card-actions>
-    </q-card>
-
+        <OrbTypeCard></OrbTypeCard>
         </q-carousel-slide>
         <q-carousel-slide name="tv" class="column no-wrap flex-center">
-          <q-icon name="live_tv" size="56px" />
-          <div class="q-mt-md text-center">
-            {{ lorem }}
-          </div>
+          <OrbTypeCard></OrbTypeCard>
         </q-carousel-slide>
         <q-carousel-slide name="layers" class="column no-wrap flex-center">
-          <q-icon name="layers" size="56px" />
-          <div class="q-mt-md text-center">
-            {{ lorem }}
-          </div>
+          <OrbTypeCard></OrbTypeCard>
         </q-carousel-slide>
         <q-carousel-slide name="map" class="column no-wrap flex-center">
-          <q-icon name="terrain" size="56px" />
-          <div class="q-mt-md text-center">
-            {{ lorem }}
-          </div>
+          <OrbTypeCard></OrbTypeCard>
         </q-carousel-slide>
       </q-carousel>
-
-
-
 
     </div>
   </div>
@@ -61,6 +35,8 @@
 <script setup>
 import { ref, onMounted, onUnmounted, onUpdated, inject, getCurrentInstance } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+
+import OrbTypeCard from '../components/card.create-orb-type.vue'
 
 //import { mountControl } from "../controls/basic"
 
