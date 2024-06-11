@@ -32,7 +32,9 @@ export const updatePalette = (cpy: PaletteModel, bal: PaletteBit, ste: State) =>
     if (dex < 0) {
 
       output
-      debugger
+
+      bal.slv({ palBit: { idx: "write-palette", dat: {} } });
+
 
       return
     }

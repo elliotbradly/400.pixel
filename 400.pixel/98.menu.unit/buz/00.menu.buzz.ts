@@ -9,7 +9,7 @@ import * as ActPal from "../../01.palette.unit/palette.action";
 import * as ActDsk from "../../act/disk.action"
 
 import * as ActTrm from "../../act/terminal.action";
-import * as ActChc from "../../act/choice.action"; 111
+import * as ActChc from "../../act/choice.action";
 
 import * as ActGrd from "../../act/grid.action";
 import * as ActCvs from "../../act/canvas.action";
