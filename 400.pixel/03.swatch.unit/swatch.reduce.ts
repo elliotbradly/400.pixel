@@ -28,6 +28,9 @@ case Act.DELETE_SWATCH:
 case Act.CREATE_SWATCH:
  return Buzz.createSwatch(clone(model), act.bale, state);
  
+case Act.CONVERT_SWATCH:
+ return Buzz.convertSwatch(clone(model), act.bale, state);
+
  default:
  return model;
  }

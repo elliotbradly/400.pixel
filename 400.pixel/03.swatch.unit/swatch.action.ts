@@ -45,9 +45,17 @@ export const CREATE_SWATCH = "[Create action] Create Swatch";
  constructor(public bale: SwatchBit) {}
  }
 
+ export const CONVERT_SWATCH = "[Convert action] Convert Swatch";
+ export class ConvertSwatch implements Action {
+ readonly type = CONVERT_SWATCH;
+ constructor(public bale: SwatchBit) {}
+ }
+
+
 export type Actions = | InitSwatch | UpdateSwatch
 | ReadSwatch
 | WriteSwatch
 | RemoveSwatch
 | DeleteSwatch
 | CreateSwatch
+| ConvertSwatch
