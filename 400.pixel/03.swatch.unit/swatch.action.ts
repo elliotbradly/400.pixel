@@ -20,32 +20,32 @@ export const READ_SWATCH = "[Read action] Read Swatch";
  readonly type = READ_SWATCH;
  constructor(public bale: SwatchBit) {}
  }
- 
+
 export const WRITE_SWATCH = "[Write action] Write Swatch";
  export class WriteSwatch implements Action {
  readonly type = WRITE_SWATCH;
  constructor(public bale: SwatchBit) {}
  }
- 
+
 export const REMOVE_SWATCH = "[Remove action] Remove Swatch";
  export class RemoveSwatch implements Action {
  readonly type = REMOVE_SWATCH;
  constructor(public bale: SwatchBit) {}
  }
- 
+
 export const DELETE_SWATCH = "[Delete action] Delete Swatch";
  export class DeleteSwatch implements Action {
  readonly type = DELETE_SWATCH;
  constructor(public bale: SwatchBit) {}
  }
- 
+
 export const CREATE_SWATCH = "[Create action] Create Swatch";
  export class CreateSwatch implements Action {
  readonly type = CREATE_SWATCH;
  constructor(public bale: SwatchBit) {}
  }
- 
-export type Actions = | InitSwatch | UpdateSwatch 
+
+export type Actions = | InitSwatch | UpdateSwatch
 | ReadSwatch
 | WriteSwatch
 | RemoveSwatch

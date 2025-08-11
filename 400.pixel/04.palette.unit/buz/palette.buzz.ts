@@ -90,7 +90,7 @@ export const updatePalette = async (cpy: PaletteModel, bal: PaletteBit, ste: Sta
 
     var name = itm.split('.')[0]
 
-    console.log( 'named : ' + name )
+    console.log('named : ' + name)
 
 
 
@@ -296,17 +296,18 @@ export const buildPalette = async (cpy: PaletteModel, bal: PaletteBit, ste: Stat
   })
 
 
+  bal.dat = S(bal.dat).slugify().s
 
   var srcItm = './palette/' + bal.dat + '/index.json';
   var datItm = datLst
-  datItm.push({name: 'chroma key green', value: '#00FF00', rgb: {r: 0, g: 255, b: 0}, distance: 0}
+  datItm.push({ name: 'chroma key green', value: '#00FF00', rgb: { r: 0, g: 255, b: 0 }, distance: 0 }
   )
 
   var FS = require('fs-extra')
 
-  FS.ensureFileSync( srcItm )
+  FS.ensureFileSync(srcItm)
 
-  FS.writeJsonSync( srcItm, datItm)
+  FS.writeJsonSync(srcItm, datItm)
 
   //bit = await ste.bus(ActDsk.WRITE_DISK, { src: , dat: JSON.stringify() })
 

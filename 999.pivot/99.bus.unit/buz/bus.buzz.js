@@ -4,6 +4,7 @@ exports.updateBus = exports.messageBus = exports.connectBus = exports.openBus = 
 const ActMnu = require("../../98.menu.unit/menu.action");
 const ActBus = require("../../99.bus.unit/bus.action");
 const ActCol = require("../../97.collect.unit/collect.action");
+
 var lst, idx, bit, src, dat, dex;
 const initBus = (cpy, bal, ste) => {
     cpy.actList = [];
@@ -30,8 +31,12 @@ const initBus = (cpy, bal, ste) => {
             cpy.host = bal.src;
         cpy.client = cpy.MQTT.connect(cpy.host);
         cpy.client.on('message', (tpc, msg) => { (0, exports.messageBus)(cpy, { idx: tpc, src: msg }, ste); });
-        cpy.client.on('connect', () => {
-            console.log(bal.idx + " connected " + cpy.host);
+        cpy.client.on('connect', async () => {
+          //  console.log(bal.idx + " connected " + cpy.host);
+
+
+          //bit = await ste.hunt( '[Console action] Update Console', { idx: 'cns00', src: bal.idx + " connected " + cpy.host })
+
             (0, exports.openBus)(cpy, { idx: 'init-bus', lst: cpy.actList }, ste);
             if (bal.slv != null)
                 bal.slv({ intBit: { idx: "init-bus" } });
@@ -50,7 +55,7 @@ const initBus = (cpy, bal, ste) => {
             var client = bit.clcBit.dat;
             client.on('message', (tpc, msg) => { (0, exports.messageBus)(cpy, { idx: tpc, src: msg, bit: a.idx }, ste); });
             client.on('connect', () => {
-                console.log(a.idx + " connected " + a.src);
+                //console.log(a.idx + " connected " + a.src);
                 (0, exports.openBus)(cpy, { idx: 'init-bus', lst: cpy.actList, bit: a.idx }, ste);
                 complete(lst);
             });

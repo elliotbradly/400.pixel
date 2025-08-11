@@ -47,19 +47,39 @@ const unitMenu = async (cpy, bal, ste) => {
             (0, exports.unitMenu)(cpy, bal, ste);
             break;
         case ActUnt.UPDATE_UNIT:
+
             bit = await ste.hunt(ActPvt.LIST_PIVOT, {});
             list = bit.pvtBit.lst;
             bit = await ste.hunt(ActTrm.UPDATE_TERMINAL, { lst: list });
             var val = bit.trmBit.val;
             var src = list[val];
+
             bit = await ste.hunt(ActUnt.LIST_UNIT, { src });
-            list = bit.untBit.lst;
-            bit = await ste.hunt(ActTrm.UPDATE_TERMINAL, { lst: list });
-            var val = bit.trmBit.val;
-            var idx = list[val];
+
+            if (bit.untBit.val == 0) {
+
+                bit = await ste.hunt(ActUnt.FILTER_UNIT, { src });
+                list = bit.untBit.lst;
+                bit = await ste.hunt(ActTrm.UPDATE_TERMINAL, { lst: list });
+                var val = bit.trmBit.val;
+                var idx = list[val];
+
+                bit = await ste.hunt(ActUnt.SUBLIST_UNIT, { src, idx });
+                var sublist = bit.untBit.lst;
+                bit = await ste.hunt(ActTrm.UPDATE_TERMINAL, { lst: sublist });
+                var val = bit.trmBit.val;
+                var sub = sublist[val];
+            }
+            else {
+                list = bit.untBit.lst;
+                bit = await ste.hunt(ActTrm.UPDATE_TERMINAL, { lst: list });
+                var val = bit.trmBit.val;
+                var idx = list[val];
+            }
+
             bit = await ste.hunt(ActTrm.INPUT_TERMINAL, { lst: ["", "", "Input Verb"] });
             var dat = bit.trmBit.src;
-            bit = await ste.hunt(ActUnt.UPDATE_UNIT, { src, idx, dat });
+            bit = await ste.hunt(ActUnt.UPDATE_UNIT, { src, idx, dat, sub });
             (0, exports.unitMenu)(cpy, bal, ste);
             //var list = ['core', 'bus', 'hunt']
             //bit = await ste.bus(ActTrm.UPDATE_TERMINAL, { lst: list });

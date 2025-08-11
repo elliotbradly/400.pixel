@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BundlePivot = exports.BUNDLE_PIVOT = exports.ContainsPivot = exports.CONTAINS_PIVOT = exports.CreatePivot = exports.CREATE_PIVOT = exports.ListPivot = exports.LIST_PIVOT = exports.CountPivot = exports.COUNT_PIVOT = exports.PatchPivot = exports.PATCH_PIVOT = exports.EditPivot = exports.EDIT_PIVOT = exports.RunPivot = exports.RUN_PIVOT = exports.OpenPivot = exports.OPEN_PIVOT = exports.UpdatePivot = exports.UPDATE_PIVOT = exports.InitPivot = exports.INIT_PIVOT = void 0;
+exports.ShipPivot = exports.SHIP_PIVOT = exports.ReplacePivot = exports.REPLACE_PIVOT = exports.BundlePivot = exports.BUNDLE_PIVOT = exports.ContainsPivot = exports.CONTAINS_PIVOT = exports.CreatePivot = exports.CREATE_PIVOT = exports.ListPivot = exports.LIST_PIVOT = exports.CountPivot = exports.COUNT_PIVOT = exports.PatchPivot = exports.PATCH_PIVOT = exports.EditPivot = exports.EDIT_PIVOT = exports.RunPivot = exports.RUN_PIVOT = exports.OpenPivot = exports.OPEN_PIVOT = exports.UpdatePivot = exports.UPDATE_PIVOT = exports.InitPivot = exports.INIT_PIVOT = void 0;
 exports.INIT_PIVOT = "[Pivot action] Init Pivot";
 class InitPivot {
     constructor(bale) {
@@ -89,4 +89,20 @@ class BundlePivot {
     }
 }
 exports.BundlePivot = BundlePivot;
+exports.REPLACE_PIVOT = "[Patch action] Replace Pivot";
+class ReplacePivot {
+    constructor(bale) {
+        this.bale = bale;
+        this.type = exports.REPLACE_PIVOT;
+    }
+}
+exports.ReplacePivot = ReplacePivot;
+exports.SHIP_PIVOT = "[Patch action] Ship Pivot";
+class ShipPivot {
+    constructor(bale) {
+        this.bale = bale;
+        this.type = exports.SHIP_PIVOT;
+    }
+}
+exports.ShipPivot = ShipPivot;
 //# sourceMappingURL=pivot.action.js.map

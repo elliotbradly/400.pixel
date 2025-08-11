@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.colorDisk = exports.swatchDisk = exports.existDisk = exports.deleteDisk = exports.ensureDisk = exports.trashDisk = exports.batchDisk = exports.frameDisk = exports.copyDisk = exports.load_listDisk = exports.indexDisk = exports.readDisk = exports.writeDisk = exports.updateDisk = exports.initDisk = void 0;
+exports.typeDisk = exports.colorDisk = exports.swatchDisk = exports.existDisk = exports.deleteDisk = exports.ensureDisk = exports.trashDisk = exports.batchDisk = exports.frameDisk = exports.copyDisk = exports.load_listDisk = exports.indexDisk = exports.readDisk = exports.writeDisk = exports.updateDisk = exports.initDisk = void 0;
 const ActDsk = require("../../96.disk.unit/disk.action");
-var bit, lst, idx, val, dat;
+var bit, lst, idx, val, dat, src;
 const initDisk = (cpy, bal, ste) => {
     cpy.local = bal.val;
     lst = [ActDsk.UPDATE_DISK, ActDsk.WRITE_DISK, ActDsk.READ_DISK];
@@ -37,9 +37,9 @@ const writeDisk = async (cpy, bal, ste) => {
     }
     FS.ensureFileSync(bal.src);
     //if (bal.idx == 'debug') {
-    console.log("............");
-    console.log("writing..." + bal.src);
-    console.log("............");
+    //console.log("............")
+    //console.log("writing..." + bal.src)
+    //console.log("............")
     //}
     bal;
     //these streets are like an algorithm
@@ -51,7 +51,7 @@ const writeDisk = async (cpy, bal, ste) => {
     setTimeout(() => {
         if (bal.slv != null)
             bal.slv({ dskBit: { idx: "write-disk", src: bal.src } });
-    }, 33);
+    }, 3);
     return cpy;
 };
 exports.writeDisk = writeDisk;
@@ -67,9 +67,9 @@ const readDisk = async (cpy, bal, ste) => {
     dat;
     if (dat.split != null) {
         lst = dat.split('\n');
-        console.log("............");
-        console.log("reading..." + bal.src);
-        console.log("............");
+        //console.log("............")
+        //console.log("reading..." + bal.src)
+        //console.log("............")
     }
     if (bal.slv != null)
         bal.slv({ dskBit: { idx: "read-disk", src: bal.src, dat, lst } });
@@ -105,6 +105,7 @@ const load_listDisk = async (cpy, bal, ste) => {
 exports.load_listDisk = load_listDisk;
 //src is where it comes from ; idx is where it is going
 const copyDisk = async (cpy, bal, ste) => {
+    lst = [];
     if (bal.src == null) {
         if (bal.slv != null)
             return bal.slv({ dskBit: { idx: "write-directory-disk-error", src: "no source" } });
@@ -127,16 +128,16 @@ const copyDisk = async (cpy, bal, ste) => {
         bit = await FS.remove(bal.idx);
     }
     if (bal.dat == 'debug') {
-        console.log("............");
-        console.log("copying..." + bal.src);
-        console.log("............");
+        lst.push("............");
+        lst.push("copying..." + bal.src);
+        lst.push("............");
     }
     //these streets are like an algorithm
     //and this should have been the other way
     bit = await FS.copy(bal.src, bal.idx);
     setTimeout(() => {
         if (bal.slv != null)
-            bal.slv({ dskBit: { idx: "copy-disk", src: bal.src, dat: bal.idx } });
+            bal.slv({ dskBit: { idx: "copy-disk", src: bal.src, dat: bal.idx, lst } });
     }, 33);
     return cpy;
 };
@@ -195,14 +196,15 @@ const ensureDisk = async (cpy, bal, ste) => {
 };
 exports.ensureDisk = ensureDisk;
 const deleteDisk = (cpy, bal, ste) => {
+    lst = [];
     if (bal.idx != null)
         bal.src = bal.idx;
     bit = FS.remove(bal.src, err => {
         if (err)
             return console.error(err);
-        console.log('deleting ! ' + bal.src);
+        lst.push('deleting ! ' + bal.src);
         if (bal.slv != null)
-            bal.slv({ dskBit: { idx: "delete-disk", src: bal.src } });
+            bal.slv({ dskBit: { idx: "delete-disk", src: bal.src, lst } });
     });
     return cpy;
 };
@@ -237,7 +239,7 @@ const swatchDisk = (cpy, bal, ste) => {
         .pack()
         .pipe(FS.createWriteStream(bal.src))
         .on("finish", function () {
-        //console.log("Written! " + bal.src);
+        console.log("Written! " + bal.src);
         if (bal.slv != null)
             bal.slv({ dskBit: { idx: "swatch-disk", src: bal.src } });
     });
@@ -263,7 +265,7 @@ const colorDisk = (cpy, bal, ste) => {
                 g = this.data[idx + 1];
                 b = this.data[idx + 2];
                 hex = convert.rgb.hex([r, g, b]);
-                //maybe turn this more into a dominate color
+                //maybe turn this more into a dominate color 
                 // and reduce opacity
                 //this.data[idx + 3] = this.data[idx + 3] >> 1;
             }
@@ -276,6 +278,17 @@ const colorDisk = (cpy, bal, ste) => {
     return cpy;
 };
 exports.colorDisk = colorDisk;
+const typeDisk = (cpy, bal, ste) => {
+    if (bal.src != null)
+        bal.idx = bal.src;
+    var flag = FS.lstatSync(bal.idx).isDirectory();
+    src = 'file';
+    if (flag == true)
+        src = 'directory';
+    bal.slv({ dskBit: { idx: "type-disk", src } });
+    return cpy;
+};
+exports.typeDisk = typeDisk;
 const FS = require("fs-extra");
 /*
 

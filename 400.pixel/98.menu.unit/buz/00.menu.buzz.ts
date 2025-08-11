@@ -1,3 +1,16 @@
+import { MenuModel } from "../menu.model";
+import MenuBit from "../fce/menu.bit";
+import State from "../../99.core/state";
+//import { HexmapModel } from "../../03.hexmap.unit/hexmap.model";
+
+import * as Grid from '../../val/grid';
+import * as Align from '../../val/align'
+import * as Color from '../../val/console-color';
+
+import * as SHAPE from '../../val/shape'
+import * as FOCUS from "../../val/focus";
+import { fstat } from "fs";
+
 import * as ActMnu from "../menu.action";
 
 import * as ActPxl from "../../00.pixel.unit/pixel.action";
@@ -46,7 +59,7 @@ export const updateMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
   //ActPxl.UPDATE_PIXEL,
   //ActPal.WRITE_PALETTE
 
-  lst = [ ActDif.UPDATE_DIFFUSION,  ActPxl.MP4_PIXEL, ActPxl.FRAME_PIXEL,  ActPxl.BATCH_PIXEL,   ActPxl.SORT_PIXEL, ActPal.BUILD_PALETTE ], ActPxl.PALETTE_PIXEL
+  lst = [ActDif.UPDATE_DIFFUSION, ActPxl.MP4_PIXEL, ActPxl.FRAME_PIXEL, ActPxl.BATCH_PIXEL, ActPxl.SORT_PIXEL, ActPal.BUILD_PALETTE], ActPxl.PALETTE_PIXEL
 
   bit = await ste.hunt(ActGrd.UPDATE_GRID, { x: 0, y: 4, xSpan: 5, ySpan: 12 })
   bit = await ste.hunt(ActChc.OPEN_CHOICE, { dat: { clr0: Color.BLACK, clr1: Color.YELLOW }, src: Align.VERTICAL, lst, net: bit.grdBit.dat })
@@ -59,7 +72,7 @@ export const updateMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
     case ActDif.UPDATE_DIFFUSION:
 
 
-      bit = await ste.hunt( ActDif.UPDATE_DIFFUSION, {  })
+      bit = await ste.hunt(ActDif.UPDATE_DIFFUSION, {})
       bit = await ste.hunt(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: 'update diffusion....' })
       break;
 
@@ -145,21 +158,23 @@ export const updateMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
     case ActPxl.MP4_PIXEL:
 
 
-      bit = await ste.hunt(ActPxl.MP4_PIXEL, {  })
+      bit = await ste.hunt(ActPxl.MP4_PIXEL, {})
       bit = await ste.hunt(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: 'create mp4....' })
       break;
 
 
-
     case ActPal.BUILD_PALETTE:
 
-      bit = await ste.bus(ActDsk.INDEX_DISK, { src: './img' })
+      var FS = require('fs-extra')
+      FS.ensureDirSync( './palette-source')
+
+      bit = await ste.bus(ActDsk.INDEX_DISK, { src: './palette-source' })
       lst = bit.dskBit.lst;
 
       bit = await ste.hunt(ActGrd.UPDATE_GRID, { x: 0, y: 4, xSpan: 5, ySpan: 12 })
       bit = await ste.hunt(ActChc.OPEN_CHOICE, { dat: { clr0: Color.BLACK, clr1: Color.YELLOW }, src: Align.VERTICAL, lst, net: bit.grdBit.dat })
 
-      var loc = './img/' + bit.chcBit.src;
+      var loc = './palette-source/' + bit.chcBit.src;
       bit = await ste.hunt(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: 'name palette....' })
 
       bit = await ste.hunt(ActGrd.UPDATE_GRID, { x: 0, y: 4, xSpan: 4, ySpan: 6 })
@@ -169,7 +184,7 @@ export const updateMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
       var name = idx;
       src = './data/color-list/000.color.name.json'
 
-      bit = await ste.hunt(ActPal.BUILD_PALETTE, { idx:loc, src, dat:name })
+      bit = await ste.hunt(ActPal.BUILD_PALETTE, { idx: loc, src, dat: name })
 
       bit = await ste.hunt(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: 'create palette....' })
       break;
@@ -189,7 +204,7 @@ export const updateMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
 
       src = bit.chcBit.src;
 
-      bit = await ste.hunt(ActPal.UPDATE_PALETTE, { idx: './palette/' + src, src:colorDat })
+      bit = await ste.hunt(ActPal.UPDATE_PALETTE, { idx: './palette/' + src, src: colorDat })
 
 
       bit = await ste.hunt(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: 'update palette....' })
@@ -213,7 +228,7 @@ export const updateMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
       bit = await ste.bus(ActDsk.INDEX_DISK, { src: './frames' })
       lst = bit.dskBit.lst;
 
-      lst.forEach( (a, b)=>{
+      lst.forEach((a, b) => {
         lst[b] = './frames/' + a
       })
 
@@ -234,10 +249,10 @@ export const updateMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
       break;
 
 
-      case ActPxl.SORT_PIXEL:
-        bit = await ste.hunt(ActPxl.SORT_PIXEL, {  })
-        bit = await ste.hunt(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: 'sort pixel....' })
-        break;
+    case ActPxl.SORT_PIXEL:
+      bit = await ste.hunt(ActPxl.SORT_PIXEL, {})
+      bit = await ste.hunt(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: 'sort pixel....' })
+      break;
 
 
     //creates a master collection of colors swatches
@@ -302,16 +317,5 @@ export const createMenu = (cpy: MenuModel, bal: MenuBit, ste: State) => {
 
 var patch = (ste, type, bale) => ste.dispatch({ type, bale });
 
-import { MenuModel } from "../menu.model";
-import MenuBit from "../fce/menu.bit";
-import State from "../../99.core/state";
-//import { HexmapModel } from "../../03.hexmap.unit/hexmap.model";
 
-
-import * as Grid from '../../val/grid';
-import * as Align from '../../val/align'
-import * as Color from '../../val/console-color';
-
-import * as SHAPE from '../../val/shape'
-import * as FOCUS from "../../val/focus";
 

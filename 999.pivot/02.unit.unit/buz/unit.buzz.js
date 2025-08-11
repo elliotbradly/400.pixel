@@ -9,15 +9,28 @@ const initUnit = (cpy, bal, ste) => {
 };
 exports.initUnit = initUnit;
 const updateUnit = async (cpy, bal, ste) => {
+
+    var dir = bal.src;
+
+    if ( bal.sub != null ){
+
+        dir = bal.src;
+        bal.src = bal.idx;
+        bal.idx = bal.sub;
+
+    }
+
     var bit;
     var root = bal.idx.split('.')[1];
     var rootUpper = root.charAt(0).toUpperCase() + root.slice(1);
     var nom = bal.dat;
     var nomUpper = nom.charAt(0).toUpperCase() + nom.slice(1);
-    var buzzFile = '../' + bal.src + '/' + bal.src + '/' + bal.idx + '/buz/' + root + '.buzz.ts';
-    var buzzerFile = '../' + bal.src + '/' + bal.src + '/' + bal.idx + '/' + root + '.buzzer.ts';
-    var actionFile = '../' + bal.src + '/' + bal.src + '/' + bal.idx + '/' + root + '.action.ts';
-    var reduceFile = '../' + bal.src + '/' + bal.src + '/' + bal.idx + '/' + root + '.reduce.ts';
+
+    var buzzFile = '../' + dir + '/' + bal.src + '/' + bal.idx + '/buz/' + root + '.buzz.ts';
+    var buzzerFile = '../' + dir + '/' + bal.src + '/' + bal.idx + '/' + root + '.buzzer.ts';
+    var actionFile = '../' + dir + '/' + bal.src + '/' + bal.idx + '/' + root + '.action.ts';
+    var reduceFile = '../' + dir + '/' + bal.src + '/' + bal.idx + '/' + root + '.reduce.ts';
+
     var existBuzz = FS.existsSync(buzzFile);
     var existBuzzer = FS.existsSync(buzzerFile);
     var existAction = FS.existsSync(actionFile);
@@ -35,8 +48,10 @@ const updateUnit = async (cpy, bal, ste) => {
     const updateBuzz = (lst) => {
         var hold = [];
         var out = [];
-        lst.forEach((a, b) => { if (a.includes('import'))
-            hold.push(b); });
+        lst.forEach((a, b) => {
+            if (a.includes('import'))
+                hold.push(b);
+        });
         var dex = 0;
         hold = hold.reverse();
         var flag = false;
@@ -151,8 +166,10 @@ const updateUnit = async (cpy, bal, ste) => {
     lowerActionList.forEach((a, b) => {
         lowerActionList[b] = a.replace(';', '');
     });
-    lowerActionList = lowerActionList.filter((e) => { if (e.length >= 2)
-        return e; });
+    lowerActionList = lowerActionList.filter((e) => {
+        if (e.length >= 2)
+            return e;
+    });
     lowerActionList.push('| ' + nomUpper + rootUpper);
     lowerActionList.unshift(' ');
     resultActionUpper = resultActionUpper.slice(0, upperActionDex);
@@ -180,8 +197,10 @@ const createUnit = (cpy, bal, ste) => {
     const child = fork("./data/hand/001.create-unit.js", [bal.src]);
     child.on("close", (cde) => {
         console.log("creating unit " + bal.src);
-        setTimeout(() => { if (bal.slv != null)
-            bal.slv({ untBit: { idx: "create-unit" } }); }, 3333);
+        setTimeout(() => {
+            if (bal.slv != null)
+                bal.slv({ untBit: { idx: "create-unit" } });
+        }, 3333);
     });
     return cpy;
 };
@@ -204,12 +223,76 @@ const codeUnit = (cpy, bal, ste) => {
 };
 exports.codeUnit = codeUnit;
 const listUnit = (cpy, bal, ste) => {
-    var list = FS.readdirSync('../' + bal.src + '/' + bal.src);
-    var lst = list.filter((e) => { return e.includes('.unit') == true; });
-    bal.slv({ untBit: { idx: "list-unit", lst } });
+
+    var path = '../' + bal.src + '/' + bal.src;
+
+    var option = FS.pathExistsSync(path)
+
+    if (option == true) {
+        var list = FS.readdirSync('../' + bal.src + '/' + bal.src);
+        var lst = list.filter((e) => { return e.includes('.unit') == true; });
+        bal.slv({ untBit: { idx: "list-unit", lst, val: 1 } });
+        return cpy;
+    }
+
+    bal.slv({ untBit: { idx: "list-unit", lst, val: 0 } });
     return cpy;
+
 };
 exports.listUnit = listUnit;
+
+const sublistUnit = (cpy, bal, ste) => {
+
+    var path = '../' + bal.src + '/' + bal.idx;
+
+    var option = FS.pathExistsSync(path)
+
+    if (option == true) {
+        var list = FS.readdirSync('../' + bal.src + '/' + bal.idx);
+        var lst = list.filter((e) => { return e.includes('.unit') == true; });
+        bal.slv({ untBit: { idx: "sublist-unit", lst, val: 1 } });
+        return cpy;
+    }
+
+    bal.slv({ untBit: { idx: "sublist-unit", lst, val: 0 } });
+    return cpy;
+
+};
+exports.sublistUnit = sublistUnit;
+
+const stackUnit = (cpy, bal, ste) => {
+
+    var list = FS.readdirSync('../' + bal.src + '/');
+    // The regex /^\d{3}\.[a-zA-Z]+$/ matches strings that:
+    // ^        - start at the beginning
+    // \d{3}    - have exactly three digits
+    // \.       - followed by a literal dot
+    // [a-zA-Z]+ - followed by one or more letters
+    // $        - and end immediately after
+    const lst = list.filter(fileName => /^\d{3}\.[a-zA-Z]+$/.test(fileName));
+    bal.slv({ untBit: { idx: "list-unit", lst, val: 0 } });
+    return cpy;
+
+};
+exports.stackUnit = stackUnit;
+
+const filterUnit = (cpy, bal, ste) => {
+
+    var list = FS.readdirSync('../' + bal.src + '/');
+    // The regex /^\d{3}\.[a-zA-Z]+$/ matches strings that:
+    // ^        - start at the beginning
+    // \d{3}    - have exactly three digits
+    // \.       - followed by a literal dot
+    // [a-zA-Z]+ - followed by one or more letters
+    // $        - and end immediately after
+    const lst = list.filter(fileName => /^\d{3}\.[a-zA-Z]+$/.test(fileName));
+    bal.slv({ untBit: { idx: "filter-unit", lst, val: 0 } });
+    return cpy;
+
+};
+exports.filterUnit = filterUnit;
+
+
 const replaceUnit = async (cpy, bal, ste) => {
     debugger;
     var bit;

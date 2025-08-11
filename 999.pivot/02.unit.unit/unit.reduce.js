@@ -17,8 +17,14 @@ function reducer(model = new unit_model_1.UnitModel(), act, state) {
             return Buzz.codeUnit(clone(model), act.bale, state);
         case Act.LIST_UNIT:
             return Buzz.listUnit(clone(model), act.bale, state);
+        case Act.SUBLIST_UNIT:
+            return Buzz.sublistUnit(clone(model), act.bale, state);
         case Act.REPLACE_UNIT:
             return Buzz.replaceUnit(clone(model), act.bale, state);
+        case Act.STACK_UNIT:
+            return Buzz.stackUnit(clone(model), act.bale, state);
+        case Act.FILTER_UNIT:
+            return Buzz.filterUnit(clone(model), act.bale, state);
         default:
             return model;
     }

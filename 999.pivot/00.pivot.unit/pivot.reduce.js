@@ -17,6 +17,10 @@ function reducer(model = new pivot_model_1.PivotModel(), act, state) {
             return Buzz.runPivot(clone(model), act.bale, state);
         case Act.EDIT_PIVOT:
             return Buzz.editPivot(clone(model), act.bale, state);
+        case Act.REPLACE_PIVOT:
+            return Buzz.replacePivot(clone(model), act.bale, state);
+        case Act.SHIP_PIVOT:
+            return Buzz.shipPivot(clone(model), act.bale, state);
         case Act.PATCH_PIVOT:
             return Buzz.patchPivot(clone(model), act.bale, state);
         case Act.COUNT_PIVOT:

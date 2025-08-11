@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.patchPivot = exports.bundlePivot = exports.containsPivot = exports.listPivot = exports.editPivot = exports.runPivot = exports.openPivot = exports.updatePivot = exports.initPivot = void 0;
+exports.shipPivot = exports.patchPivot = exports.replacePivot = exports.bundlePivot = exports.containsPivot = exports.listPivot = exports.editPivot = exports.runPivot = exports.openPivot = exports.updatePivot = exports.initPivot = void 0;
 const ActMnu = require("../../98.menu.unit/menu.action");
 const ActBus = require("../../99.bus.unit/bus.action");
 const ActPvt = require("../pivot.action");
@@ -18,6 +18,7 @@ const initPivot = async (cpy, bal, ste) => {
 exports.initPivot = initPivot;
 const updatePivot = (cpy, bal, ste) => {
     //check and see if artefact exists
+    lst = [];
     src = bal.src;
     if (src == null)
         src = '999.pivot';
@@ -27,48 +28,20 @@ const updatePivot = (cpy, bal, ste) => {
         if (err) {
             console.error(`exec error: ${err}`);
         }
-        bit = await ste.bus(ActDsk.EXIST_DISK, { src: '../../artefact' });
+        bit = await ste.hunt(ActDsk.EXIST_DISK, { src: '../../artefact' });
         if (bit.dskBit.src == 'false ') {
-            console.log("artefact does not exist");
+            lst.push("artefact does not exist");
             setTimeout(() => {
                 if (bal.slv != null)
                     bal.slv({ pvtBit: { idx: "update-pivot" } });
             }, 3);
             return cpy;
         }
-        console.log("updating pivot");
-        bit = await ste.bus(ActDsk.COPY_DISK, { src: '../' + src + '/dist/' + src, idx: '../../' + src });
-        var fileList = [];
-        var indexFile = '';
-        const walkFunc = async (err, pathname, dirent) => {
-            if (err) {
-                throw err;
-            }
-            if (dirent.isDirectory()) {
-                //return false;
-            }
-            var ext = path.extname(pathname);
-            var base = path.basename(pathname);
-            if (base == 'hunt.js') {
-                indexFile = pathname;
-            }
-            if (ext == '.ts' || ext == '.map' || ext == '.tsbuildinfo') {
-                fileList.push(pathname);
-            }
-        };
-        var wait = await (0, walk_1.walk)('../../' + src, walkFunc);
-        fileList;
-        bit = await ste.hunt(ActDsk.READ_DISK, { src: '../../' + src + '/hunt.js' });
-        dat = bit.dskBit.dat;
-        bit = await ste.hunt(ActDsk.WRITE_DISK, { src: '../../' + src + '/index.js', dat });
-        bit = await ste.hunt(ActDsk.DELETE_DISK, { src: '../../' + src + '/hunt.js' });
-        fileList.forEach((a) => ste.hunt(ActDsk.DELETE_DISK, { src: a }));
-        setTimeout(() => {
-            if (bal.slv != null)
-                bal.slv({ pvtBit: { idx: "update-pivot", src } });
-        }, 3333);
+        bit = await ste.hunt(ActPvt.SHIP_PIVOT, { src });
+        lst = lst.concat(bit.pvtBit.lst);
+        bal.slv({ pvtBit: { idx: "update-pivot", src, lst } });
+        return cpy;
     });
-    return cpy;
 };
 exports.updatePivot = updatePivot;
 const openPivot = async (cpy, bal, ste) => {
@@ -169,12 +142,12 @@ const bundlePivot = async (cpy, bal, ste) => {
         if (err) {
             console.error(`exec error: ${err}`);
         }
-        console.log("bundling " + bal.src);
+        // console.log("bundling " + bal.src)
         //bit = await ste.bus(ActDsk.WRITE_DISK, { src: './002.bundle-pivot.bat', dat: template })
         //bit = await ste.bus(ActDsk.BATCH_DISK, { src: '002.bundle-pivot.bat' })
         if (bal.val == null)
             bal.val = 3;
-        setTimeout(() => bal.slv({ pvtBit: { idx: "bundle-pivot" } }), bal.val);
+        setTimeout(() => bal.slv({ pvtBit: { idx: "bundle-pivot" }, src: bal.src }), bal.val);
     });
     //bit = await FS.ensureDirSync( '../' + bal.src + '/work/')
     //bit = await ste.bus(ActVrt.LIST_PIVOT_VURT, {})
@@ -201,11 +174,74 @@ const bundlePivot = async (cpy, bal, ste) => {
     return cpy;
 };
 exports.bundlePivot = bundlePivot;
+const replacePivot = async (cpy, bal, ste) => {
+    if (bal.lst == null)
+        bal.lst = [];
+    var dex = bal.lst.length;
+    var message = [];
+    var replace = async () => {
+        if (dex <= 0) {
+            bal.slv({ pvtBit: { idx: "replace-pivot" }, src: bal.src, lst: message });
+            return cpy;
+        }
+        idx = bal.lst[dex];
+        bit = await ste.bus(ActDsk.COPY_DISK, { src: bal.src, idx });
+        message.push(bit);
+        dex -= 1;
+        await replace();
+    };
+    await replace();
+};
+exports.replacePivot = replacePivot;
 const patchPivot = (cpy, bal, ste) => {
     debugger;
     return cpy;
 };
 exports.patchPivot = patchPivot;
+const shipPivot = async (cpy, bal, ste) => {
+    var msg = [];
+    if (bal.src == null)
+        bal.src = '999.pivot';
+    src = bal.src;
+    msg.push("shipping pivot:    " + src);
+    var final = './work/' + src;
+    bit = await ste.hunt(ActDsk.COPY_DISK, { src: '../' + src + '/dist/' + src, idx: final });
+    lst = msg.concat(bit.dskBit.lst);
+    var fileList = [];
+    var indexFile = '';
+    const path = require("path");
+    const walkFunc = async (err, pathname, dirent) => {
+        if (err) {
+            throw err;
+        }
+        if (dirent.isDirectory()) {
+            //return false;
+        }
+        var ext = path.extname(pathname);
+        var base = path.basename(pathname);
+        if (base == 'hunt.js') {
+            indexFile = pathname;
+        }
+        if (ext == '.ts' || ext == '.map' || ext == '.tsbuildinfo') {
+            fileList.push(pathname);
+        }
+    };
+    var wait = await (0, walk_1.walk)(final, walkFunc);
+    fileList;
+    bit = await ste.hunt(ActDsk.READ_DISK, { src: final + '/hunt.js' });
+    dat = bit.dskBit.dat;
+    bit = await ste.hunt(ActDsk.WRITE_DISK, { src: final + '/index.js', dat });
+    bit = await ste.hunt(ActDsk.DELETE_DISK, { src: final + '/hunt.js' });
+    lst = lst.concat(bit.dskBit.lst);
+    fileList.forEach((a) => ste.hunt(ActDsk.DELETE_DISK, { src: a }));
+    //src = '../../' + src;
+    //idx = '../998.work/work/' + src;
+    //bit = await ste.hunt(ActDsk.COPY_DISK, { src, idx })
+    //bit = await ste.hunt(ActDsk.DELETE_DISK, { src: '../../' + src })
+    bal.slv({ pvtBit: { idx: "ship-pivot", lst } });
+    return cpy;
+};
+exports.shipPivot = shipPivot;
 var patch = (ste, type, bale) => ste.dispatch({ type, bale });
 const FS = require("fs-extra");
 const S = require("string");

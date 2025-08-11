@@ -3,8 +3,10 @@ tools for generating imagery
 ok so what can this do
 
 ~ batch pixel command
+- looks inside the frames directory
 - recolors frames based upon json object in palette directory
 - converts chroma green to transparency of zero
+- places the update file in the output folder
 
 ~ build palette command
 -can look through an image an build a json object of colors in the palette directory
