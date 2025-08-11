@@ -1,0 +1,8 @@
+ Volume in drive D is DATA
+ Volume Serial Number is F2C2-A224
+
+ Directory of D:\kitchen\diffusion\venv\Scripts
+
+11/19/2023  09:47 PM           536,120 python.exe
+               1 File(s)        536,120 bytes
+               0 Dir(s)  128,209,743,872 bytes free
