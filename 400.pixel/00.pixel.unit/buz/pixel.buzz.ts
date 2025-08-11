@@ -483,6 +483,83 @@ export const palettePixel = async (
             this.data[idx + 3] = 0;
           }
 
+          if (clr.rgb.r == 0 && clr.rgb.g == 254 && clr.rgb.b == 0) {
+            this.data[idx + 3] = 0;
+          }
+
+          if (clr.rgb.r == 0 && clr.rgb.g == 253 && clr.rgb.b == 0) {
+            this.data[idx + 3] = 0;
+          }
+
+          if (clr.rgb.r == 0 && clr.rgb.g == 252 && clr.rgb.b == 0) {
+            this.data[idx + 3] = 0;
+          }
+
+          if (clr.rgb.r == 0 && clr.rgb.g == 251 && clr.rgb.b == 0) {
+            this.data[idx + 3] = 0;
+          }
+
+          if (clr.rgb.r == 0 && clr.rgb.g == 250 && clr.rgb.b == 0) {
+            this.data[idx + 3] = 0;
+          }
+
+          if (clr.rgb.r == 0 && clr.rgb.g == 249 && clr.rgb.b == 0) {
+            this.data[idx + 3] = 0;
+          }
+
+          if (clr.rgb.r == 1 && clr.rgb.g == 255 && clr.rgb.b == 0) {
+            this.data[idx + 3] = 0;
+          }
+
+          if (clr.rgb.r == 2 && clr.rgb.g == 255 && clr.rgb.b == 0) {
+            this.data[idx + 3] = 0;
+          }
+
+          if (clr.rgb.r == 3 && clr.rgb.g == 255 && clr.rgb.b == 0) {
+            this.data[idx + 3] = 0;
+          }
+
+          if (clr.rgb.r == 0 && clr.rgb.g == 255 && clr.rgb.b == 1) {
+            this.data[idx + 3] = 0;
+          }
+
+          if (clr.rgb.r == 0 && clr.rgb.g == 255 && clr.rgb.b == 2) {
+            this.data[idx + 3] = 0;
+          }
+
+          if (clr.rgb.r == 0 && clr.rgb.g == 255 && clr.rgb.b == 3) {
+            this.data[idx + 3] = 0;
+          }
+
+          if (clr.rgb.r == 1 && clr.rgb.g == 255 && clr.rgb.b == 1) {
+            this.data[idx + 3] = 0;
+          }
+
+          if (clr.rgb.r == 2 && clr.rgb.g == 255 && clr.rgb.b == 2) {
+            this.data[idx + 3] = 0;
+          }
+
+          if (clr.rgb.r == 3 && clr.rgb.g == 255 && clr.rgb.b == 3) {
+            this.data[idx + 3] = 0;
+          }
+
+          if (clr.rgb.r == 1 && clr.rgb.g == 255 && clr.rgb.b == 2) {
+            this.data[idx + 3] = 0;
+          }
+
+          if (clr.rgb.r == 1 && clr.rgb.g == 255 && clr.rgb.b == 3) {
+            this.data[idx + 3] = 0;
+          }
+
+          if (clr.rgb.r == 2 && clr.rgb.g == 255 && clr.rgb.b == 1) {
+            this.data[idx + 3] = 0;
+          }
+
+          if (clr.rgb.r == 3 && clr.rgb.g == 255 && clr.rgb.b == 1) {
+            this.data[idx + 3] = 0;
+          }
+
+
           //let us do a closest here
           //outputList.push(dat)
           //this.data[idx + 3] = this.data[idx + 3] >> 1;

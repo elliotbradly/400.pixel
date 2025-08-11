@@ -300,8 +300,33 @@ export const buildPalette = async (cpy: PaletteModel, bal: PaletteBit, ste: Stat
 
   var srcItm = './palette/' + bal.dat + '/index.json';
   var datItm = datLst
-  datItm.push({ name: 'chroma key green', value: '#00FF00', rgb: { r: 0, g: 255, b: 0 }, distance: 0 }
-  )
+  datItm.push({ name: 'chroma key green',    value: '#00FF00', rgb: { r: 0, g: 255, b: 0 }, distance: 0 })
+
+  datItm.push({ name: 'chroma key green 254',    value: '#00fe00', rgb: { r: 0, g: 254, b: 0 }, distance: 0 })
+  datItm.push({ name: 'chroma key green 253',    value: '#00fd00', rgb: { r: 0, g: 253, b: 0 }, distance: 0 })
+  datItm.push({ name: 'chroma key green 252',    value: '#00fc00', rgb: { r: 0, g: 252, b: 0 }, distance: 0 })
+  datItm.push({ name: 'chroma key green 251',    value: '#00fb00', rgb: { r: 0, g: 251, b: 0 }, distance: 0 })
+  datItm.push({ name: 'chroma key green 250',    value: '#00fa00', rgb: { r: 0, g: 250, b: 0 }, distance: 0 })
+  datItm.push({ name: 'chroma key green 249',    value: '#00f900', rgb: { r: 0, g: 249, b: 0 }, distance: 0 })
+
+
+  datItm.push({ name: 'chroma key green r1', value: '#01ff00', rgb: { r: 1, g: 255, b: 0 }, distance: 0 })
+  datItm.push({ name: 'chroma key green r2', value: '#02ff00', rgb: { r: 2, g: 255, b: 0 }, distance: 0 })
+  datItm.push({ name: 'chroma key green r3', value: '#03ff00', rgb: { r: 3, g: 255, b: 0 }, distance: 0 })
+
+  datItm.push({ name: 'chroma key green b1', value: '#00ff01', rgb: { r: 0, g: 255, b: 1 }, distance: 0 })
+  datItm.push({ name: 'chroma key green b2', value: '#00ff02', rgb: { r: 0, g: 255, b: 2 }, distance: 0 })
+  datItm.push({ name: 'chroma key green b3', value: '#00ff03', rgb: { r: 0, g: 255, b: 3 }, distance: 0 })
+
+  datItm.push({ name: 'chroma key green 1', value: '#01ff01', rgb: { r: 1, g: 255, b: 1 }, distance: 0 })
+  datItm.push({ name: 'chroma key green 2', value: '#02ff02', rgb: { r: 2, g: 255, b: 2 }, distance: 0 })
+  datItm.push({ name: 'chroma key green 3', value: '#03ff03', rgb: { r: 3, g: 255, b: 3 }, distance: 0 })
+
+  datItm.push({ name: 'chroma key green 12', value: '#01ff01', rgb: { r: 1, g: 255, b: 2 }, distance: 0 })
+  datItm.push({ name: 'chroma key green 13', value: '#02ff02', rgb: { r: 1, g: 255, b: 3 }, distance: 0 })
+  datItm.push({ name: 'chroma key green 21', value: '#03ff03', rgb: { r: 2, g: 255, b: 1 }, distance: 0 })
+  datItm.push({ name: 'chroma key green 31', value: '#03ff03', rgb: { r: 2, g: 255, b: 1 }, distance: 0 })
+
 
   var FS = require('fs-extra')
 
