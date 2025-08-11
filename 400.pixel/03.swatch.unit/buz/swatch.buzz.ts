@@ -25,6 +25,22 @@ export const initSwatch = (cpy: SwatchModel, bal: SwatchBit, ste: State) => {
     return cpy;
 };
 
+export const convertSwatch = (cpy: SwatchModel, bal: SwatchBit, ste: State) => {
+  var fs = require("fs");
+  var list = fs.readFileSync("./data/color-list/002.color.name.json");
+  var colors = JSON.parse(list);
+
+  var fin = [];
+
+  colors.forEach((a) => {
+    fin.push({ name: a.name, hex: a.value });
+  });
+
+  if (bal.slv != null) bal.slv({ swcBit: { idx: "convert-swatch", dat: fin } });
+
+  return cpy;
+};
+
 export const updateSwatch = (cpy: SwatchModel, bal: SwatchBit, ste: State) => {
     return cpy;
 };
