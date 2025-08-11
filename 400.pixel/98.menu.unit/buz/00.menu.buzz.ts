@@ -15,6 +15,7 @@ import * as ActMnu from "../menu.action";
 
 import * as ActPxl from "../../00.pixel.unit/pixel.action";
 import * as ActPal from "../../04.palette.unit/palette.action";
+import * as ActSwc from "../../03.swatch.unit/swatch.action";
 
 import * as ActDif from "../../10.diffusion.unit/diffusion.action";
 
@@ -59,7 +60,7 @@ export const updateMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
   //ActPxl.UPDATE_PIXEL,
   //ActPal.WRITE_PALETTE
 
-  lst = [ActDif.UPDATE_DIFFUSION, ActPxl.MP4_PIXEL, ActPxl.FRAME_PIXEL, ActPxl.BATCH_PIXEL, ActPxl.SORT_PIXEL, ActPal.BUILD_PALETTE], ActPxl.PALETTE_PIXEL
+  lst = [ActDif.UPDATE_DIFFUSION, ActPxl.MP4_PIXEL, ActPxl.FRAME_PIXEL, ActPxl.BATCH_PIXEL, ActPxl.SORT_PIXEL, ActPal.BUILD_PALETTE, ActSwc.CONVERT_SWATCH], ActPxl.PALETTE_PIXEL
 
   bit = await ste.hunt(ActGrd.UPDATE_GRID, { x: 0, y: 4, xSpan: 5, ySpan: 12 })
   bit = await ste.hunt(ActChc.OPEN_CHOICE, { dat: { clr0: Color.BLACK, clr1: Color.YELLOW }, src: Align.VERTICAL, lst, net: bit.grdBit.dat })
@@ -70,10 +71,14 @@ export const updateMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
 
 
     case ActDif.UPDATE_DIFFUSION:
-
-
       bit = await ste.hunt(ActDif.UPDATE_DIFFUSION, {})
       bit = await ste.hunt(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: 'update diffusion....' })
+      break;
+
+
+      case ActSwc.CONVERT_SWATCH:
+      bit = await ste.hunt( ActSwc.CONVERT_SWATCH, {})
+      bit = await ste.hunt(ActCns.UPDATE_CONSOLE, { idx: 'cns00', src: 'convert swatch....' })
       break;
 
 
@@ -182,7 +187,7 @@ export const updateMenu = async (cpy: MenuModel, bal: MenuBit, ste: State) => {
       idx = bit.putBit.src;
 
       var name = idx;
-      src = './data/color-list/000.color.name.json'
+      src = './data/color-list/002.color.name.json'
 
       bit = await ste.hunt(ActPal.BUILD_PALETTE, { idx: loc, src, dat: name })
 

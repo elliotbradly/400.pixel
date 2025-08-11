@@ -5,3 +5,4 @@ export { writeSwatch  } from "./buz/swatch.buzz";
 export { removeSwatch  } from "./buz/swatch.buzz";
 export { deleteSwatch  } from "./buz/swatch.buzz";
 export { createSwatch  } from "./buz/swatch.buzz";
+export { convertSwatch  } from "./buz/swatch.buzz";

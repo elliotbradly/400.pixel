@@ -36,6 +36,9 @@ export const convertSwatch = (cpy: SwatchModel, bal: SwatchBit, ste: State) => {
     fin.push({ name: a.name, hex: a.value });
   });
 
+  fs.writeFileSync("./data/color-list/002.color.name.json", JSON.stringify( fin ));
+
+
   if (bal.slv != null) bal.slv({ swcBit: { idx: "convert-swatch", dat: fin } });
 
   return cpy;
